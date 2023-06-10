@@ -13,6 +13,10 @@ config_version=4
 config/name="Gwj 58"
 config/icon="res://icon.png"
 
+[autoload]
+
+GlobalVariables="*res://Core/Globals/GlobalVariables.gd"
+
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
