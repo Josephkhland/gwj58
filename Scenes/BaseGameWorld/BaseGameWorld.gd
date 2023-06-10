@@ -59,10 +59,14 @@ func move_pc_to_destination(destination : Vector2, delay : float = move_time):
 	var path_iter = 1
 	while(path_iter < path_points.size()):
 		var path_point = path_points[path_iter]
-		if path_point.x >= PlayerPawn.position.x : 
-			PlayerPawn._flip_right()
-		else:
-			PlayerPawn._flip_left()
+		if path_point.x > PlayerPawn.position.x : 
+			PlayerPawn._walk_right()
+		elif path_point.x < PlayerPawn.position.x:
+			PlayerPawn._walk_left()
+		if path_point.y > PlayerPawn.position.y:
+			PlayerPawn._walk_down()
+		elif path_point.y < PlayerPawn.position.y:
+			PlayerPawn._walk_up()
 		move_tween = get_tree().create_tween()
 		move_tween.tween_property(PlayerPawn, "position", path_point, delay)
 		yield(move_tween, "finished")
@@ -76,4 +80,4 @@ func move_pc_to_destination(destination : Vector2, delay : float = move_time):
 	#Destination Reached
 	#update_move_indicator = true
 	destination_reached = true
-	#$PlayerCharacter._enter_idle_animation()
+	PlayerPawn._idle_animation()

@@ -10,11 +10,21 @@ extends Node2D
 func _ready():
 	pass # Replace with function body.
 
-func _flip_left():
-	$Sprite.flip_h = false;
+func _walk_left():
+	#$Sprite.flip_h = false;
+	$Sprite.animation ="WalkLeft"
 
-func _flip_right():
-	$Sprite.flip_h = true;
+func _walk_right():
+	$Sprite.animation = "WalkRight"
+
+func _walk_down():
+	$Sprite.animation = "WalkDown"
+
+func _walk_up():
+	$Sprite.animation = "WalkUp"
+
+func _idle_animation():
+	$Sprite.animation ="Idle"
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
