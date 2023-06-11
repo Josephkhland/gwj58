@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "AstarTileMap",
 "language": "GDScript",
 "path": "res://Scenes/TileMap/AstarTileMap.gd"
+}, {
+"base": "Control",
+"class": "CookingPopupBase",
+"language": "GDScript",
+"path": "res://Scenes/BaseGameUI/CookingPopup/CookingPopupBase.gd"
 } ]
 _global_script_class_icons={
-"AstarTileMap": ""
+"AstarTileMap": "",
+"CookingPopupBase": ""
 }
 
 [application]
