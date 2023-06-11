@@ -44,5 +44,5 @@ grid_snap = false
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 6 )
 animation = "cozy"
-frame = 4
+frame = 1
 playing = true
