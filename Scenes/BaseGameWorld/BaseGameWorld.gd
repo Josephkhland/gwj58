@@ -45,12 +45,14 @@ func move_pc_to_destination(destination : Vector2, delay : float = move_time):
 		if move_aborted == false:
 			move_aborted = true
 		return #Prevent it from activating again before action is completed.
+	$PointIndicator.reposition(PlayerPawn.position + destination)
 	var start_tile = _find_nearest_tile(PlayerPawn.position)
 	var end_tile = _find_nearest_tile(PlayerPawn.position + destination)
 	if move_tween is SceneTreeTween:
 		move_tween.stop()
 	var path_points = PathFindingTileMap.get_astar_path_avoiding_obstacles(start_tile, end_tile)
 	if path_points.size() < 2:
+		$PointIndicator.warn_and_hide()
 		return
 	#update_move_indicator = false
 	destination_reached = false
@@ -75,9 +77,11 @@ func move_pc_to_destination(destination : Vector2, delay : float = move_time):
 		#$PathHint._remove_first_point()
 		path_iter += 1
 		if move_aborted:
+			$PointIndicator.warn_and_hide()
 			move_aborted = false
 			break
 	#Destination Reached
 	#update_move_indicator = true
 	destination_reached = true
 	PlayerPawn._idle_animation()
+	$PointIndicator.hide()
