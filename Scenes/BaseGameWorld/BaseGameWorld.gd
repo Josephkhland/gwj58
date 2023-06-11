@@ -11,6 +11,8 @@ var destination_reached = true
 var move_aborted = false
 var move_tween
 
+onready var item_template = preload("res://Scenes/TributeItem/TributeItem.tscn")
+
 onready var PathFindingTileMap = $TileMaps/AstarTileMap
 onready var PlayerPawn = $YSort/PlayerCharacter 
 
@@ -31,6 +33,12 @@ func _input(event):
 			
 	elif event is InputEventMouseMotion:
 		pass #Do Stuff with Mouse Motion Event
+	if event is InputEventKey:
+		print("HELP")
+		if event.is_action_pressed("ui_accept"):
+			print("ENTER")
+			spawn_object_from_player(2)
+			
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
@@ -111,3 +119,12 @@ func move_pc_to_destination(destination : Vector2, delay : float = move_time):
 		move_aborted = false
 		emit_signal("dest_changed")
 
+func spawn_object_from_player(item_type):
+	var item = item_template.instance()
+	add_child(item)
+	item.hide()
+	item.item_owner = PlayerPawn
+	#var offset = PlayerPawn.sprite.offset
+	item.drop_down(_find_nearest_tile(PlayerPawn.position)+ Vector2(16,16), Vector2.UP*16)
+	print("SPAWNED")
+	pass

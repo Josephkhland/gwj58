@@ -46,11 +46,6 @@ func set_color(color:Color):
 func warn_and_hide():
 	validMotion = false
 	set_color(Color.red)
-	var timer = Timer.new()
-	timer.wait_time = 0.6
-	add_child(timer)
-	timer.start()
-	yield(timer, "timeout")
+	yield(get_tree().create_timer(0.6), "timeout")
 	if !validMotion:
 		hide()
-	timer.queue_free()

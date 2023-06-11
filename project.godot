@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "AstarTileMap",
 "language": "GDScript",
 "path": "res://Scenes/TileMap/AstarTileMap.gd"
+}, {
+"base": "Reference",
+"class": "FlavorChart",
+"language": "GDScript",
+"path": "res://Core/Classes/FlavorChartClass.gd"
 } ]
 _global_script_class_icons={
-"AstarTileMap": ""
+"AstarTileMap": "",
+"FlavorChart": ""
 }
 
 [application]
