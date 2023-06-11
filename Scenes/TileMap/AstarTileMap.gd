@@ -70,6 +70,14 @@ func get_astar_path_avoiding_obstacles(start_position: Vector2, end_position: Ve
 	set_obstacles_points_disabled(false)
 	return set_path_length(astar_path, max_distance)
 
+func get_astar_path_avoiding_obstacles_ignore_last(start_position:Vector2, end_position: Vector2, max_distance := -1) -> Array:
+	if not astar.has_point(get_point_id(start_position)) or not astar.has_point(get_point_id(end_position)):
+		return []
+	set_obstacles_points_disabled(true)
+	var astar_path := astar.get_point_path(get_point_id(start_position), get_point_id(end_position))
+	set_obstacles_points_disabled(false)
+	return set_path_length(astar_path, max_distance)
+
 func get_astar_path(start_position: Vector2, end_position: Vector2, max_distance := -1) -> Array:
 	if not astar.has_point(get_point_id(start_position)) or not astar.has_point(get_point_id(end_position)):
 		return []
@@ -79,6 +87,13 @@ func get_astar_path(start_position: Vector2, end_position: Vector2, max_distance
 func set_obstacles_points_disabled(value: bool) -> void:
 	for obstacle in obstacles:
 		#print(obstacle.global_position)
+		astar.set_point_disabled(get_point_id(get_nearest_tile_position(obstacle.global_position)), value)
+
+func set_obstacles_points_disabled_w_exclude(value:bool, coord_exclude:Vector2) -> void:
+	for obstacle in obstacles:
+		#print(obstacle.global_position)
+		if get_nearest_tile_position(obstacle.global_position) == get_nearest_tile_position(coord_exclude):
+			continue
 		astar.set_point_disabled(get_point_id(get_nearest_tile_position(obstacle.global_position)), value)
 
 func path_directions(path) -> Array:
