@@ -41,7 +41,7 @@ func _reach_tile():
 	emit_signal("tile_reached")
 
 func move_pc_to_destination(destination : Vector2, delay : float = move_time):
-	print("obstacle positions")
+	#print("obstacle positions")
 	for node in get_tree().get_nodes_in_group("Obstacles"):
 		#print(_find_nearest_tile(node.position))
 		#print(_find_nearest_tile(PlayerPawn.position+destination))
@@ -49,9 +49,9 @@ func move_pc_to_destination(destination : Vector2, delay : float = move_time):
 		if _find_nearest_tile(node.position) == _find_nearest_tile(PlayerPawn.position + destination):
 			var dest = _find_nearest_tile(PlayerPawn.position + destination)
 			var player_pos = _find_nearest_tile(PlayerPawn.position)
-			print("yessss")
+			#print("yessss")
 			var reverse_path = PathFindingTileMap.get_astar_path_avoiding_obstacles_ignore_last(player_pos,dest)
-			print(reverse_path)
+			#print(reverse_path)
 			#var new_destination = destination + Vector2.RIGHT*32
 			move_pc_to_destination(reverse_path[-2] - PlayerPawn.position)
 			return
