@@ -5,7 +5,7 @@ extends Node2D
 # var a = 2
 # var b = "text"
 signal tile_reached
-
+signal dest_changed
 export(float) var move_time : float = 0.5
 var destination_reached = true
 var move_aborted = false
@@ -59,7 +59,8 @@ func move_pc_to_destination(destination : Vector2, delay : float = move_time):
 	if destination_reached == false :
 		if move_aborted == false:
 			move_aborted = true
-		return #Prevent it from activating again before action is completed.
+		yield(self,"dest_changed")
+		#return #Prevent it from activating again before action is completed.
 	$PointIndicator.reposition(PlayerPawn.position + destination)
 	var start_tile = _find_nearest_tile(PlayerPawn.position)
 	var end_tile = _find_nearest_tile(PlayerPawn.position + destination)
@@ -93,10 +94,18 @@ func move_pc_to_destination(destination : Vector2, delay : float = move_time):
 		path_iter += 1
 		if move_aborted:
 			$PointIndicator.warn_and_hide()
-			move_aborted = false
+			#move_aborted = false
+			#emit_signal("dest_changed")
 			break
+	
 	#Destination Reached
 	#update_move_indicator = true
 	destination_reached = true
+
 	PlayerPawn._idle_animation()
 	$PointIndicator.hide()
+	
+	if move_aborted:
+		move_aborted = false
+		emit_signal("dest_changed")
+
