@@ -73,7 +73,7 @@ func get_astar_path_avoiding_obstacles(start_position: Vector2, end_position: Ve
 func get_astar_path_avoiding_obstacles_ignore_last(start_position:Vector2, end_position: Vector2, max_distance := -1) -> Array:
 	if not astar.has_point(get_point_id(start_position)) or not astar.has_point(get_point_id(end_position)):
 		return []
-	set_obstacles_points_disabled(true)
+	set_obstacles_points_disabled_w_exclude(true,end_position)
 	var astar_path := astar.get_point_path(get_point_id(start_position), get_point_id(end_position))
 	set_obstacles_points_disabled(false)
 	return set_path_length(astar_path, max_distance)
