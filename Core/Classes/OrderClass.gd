@@ -2,18 +2,18 @@
 class_name OrderClass
 
 var ingredient: String = ""
-var flavor: String = ""
+var flavor: int
 var god: String = ""
 
 var ingredient_list = ["Fish", "Seeds", "Rice", "Beef", "Chicken", "Seaweed"]
 
 var order_mapping: Dictionary = {
-	"Poseidon": "Salty",
-	"Ra": "Bitter",
-	"Dragon": "Sweet",
-	"Thor": "Sour",
-	"Ganesha": "Spicy",
-	"Chizuru": "Umami"	
+	"Poseidon": GlobalVariables.Flavours.Salty,
+	"Ra": GlobalVariables.Flavours.Bitter,
+	"Dragon": GlobalVariables.Flavours.Sweet,
+	"Thor": GlobalVariables.Flavours.Sour,
+	"Ganesha": GlobalVariables.Flavours.Spicy,
+	"Chizuru": GlobalVariables.Flavours.Umami	
 }
 
 # Called when the node enters the scene tree for the first time.

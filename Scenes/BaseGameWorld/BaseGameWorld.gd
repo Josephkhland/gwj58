@@ -134,10 +134,12 @@ func move_pc_to_destination(destination : Vector2, delay : float = move_time):
 		interact_with_object(end_tile)
 
 func interact_with_object(end_tile):
-	var node_triggered= coords_dictionary[end_tile]
+	var node_triggered = coords_dictionary[end_tile]
 	if node_triggered.is_in_group("Plot"):
 		print("THIS IS PLANT")
 		node_triggered.interact()
+	elif node_triggered.is_in_group("Shrine"):
+		pass
 	else:
 		print("THIS IS INTERRACTIBLES")
 
