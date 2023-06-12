@@ -14,14 +14,23 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/TileMap/AstarTileMap.gd"
 }, {
+
 "base": "Reference",
 "class": "FlavorChart",
 "language": "GDScript",
 "path": "res://Core/Classes/FlavorChartClass.gd"
+} ,
+
+"base": "Control",
+"class": "CookingPopupBase",
+"language": "GDScript",
+"path": "res://Scenes/BaseGameUI/CookingPopup/CookingPopupBase.gd"
 } ]
+
 _global_script_class_icons={
 "AstarTileMap": "",
-"FlavorChart": ""
+"FlavorChart": "",
+"CookingPopupBase": ""
 }
 
 [application]
