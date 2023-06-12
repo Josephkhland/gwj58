@@ -54,9 +54,6 @@ func drop_down(target_position: Vector2, offset:Vector2 = Vector2.ZERO):
 	path.add_point(target_position)
 	
 	var curved_path = path.tessellate()
-	#var visible_path = Line2D.new()
-	#visible_path.points = curved_path
-	#get_tree().get_root().add_child(visible_path)
 	if isHeld:
 		isHeld = false
 		item_owner = null

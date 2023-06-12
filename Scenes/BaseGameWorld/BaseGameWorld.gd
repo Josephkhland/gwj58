@@ -121,7 +121,7 @@ func move_pc_to_destination(destination : Vector2, delay : float = move_time):
 
 func spawn_object_from_player(item_type):
 	var item = item_template.instance()
-	add_child(item)
+	$YSort.add_child(item)
 	item.hide()
 	item.item_owner = PlayerPawn
 	#var offset = PlayerPawn.sprite.offset

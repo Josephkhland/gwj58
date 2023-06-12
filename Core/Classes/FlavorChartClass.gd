@@ -8,7 +8,6 @@ var Umami: int = 0
 var Sour : int = 0
 var Bitter: int = 0
 
-
 # Called when the node enters the scene tree for the first time.
 func _init():
 	pass # Replace with function body.
