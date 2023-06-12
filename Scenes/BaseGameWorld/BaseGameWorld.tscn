@@ -146,4 +146,3 @@ texture = ExtResource( 1 )
 
 [node name="PointIndicator" parent="." instance=ExtResource( 9 )]
 position = Vector2( 1648, 1296 )
-grid_snap = false

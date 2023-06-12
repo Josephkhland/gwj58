@@ -278,6 +278,8 @@ script = ExtResource( 2 )
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 18 )
 animation = "Idle"
+frame = 3
+
 playing = true
 offset = Vector2( 32, -8 )
 

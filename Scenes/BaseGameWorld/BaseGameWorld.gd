@@ -11,6 +11,8 @@ var destination_reached = true
 var move_aborted = false
 var move_tween
 
+onready var item_template = preload("res://Scenes/TributeItem/TributeItem.tscn")
+
 onready var PathFindingTileMap = $TileMaps/AstarTileMap
 onready var PlayerPawn = $YSort/PlayerCharacter 
 
@@ -31,6 +33,12 @@ func _input(event):
 			
 	elif event is InputEventMouseMotion:
 		pass #Do Stuff with Mouse Motion Event
+	if event is InputEventKey:
+		print("HELP")
+		if event.is_action_pressed("ui_accept"):
+			print("ENTER")
+			spawn_object_from_player(2)
+			
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
@@ -40,8 +48,7 @@ func _find_nearest_tile(nearby_position : Vector2):
 func _reach_tile():
 	emit_signal("tile_reached")
 
-func move_pc_to_destination(destination : Vector2, delay : float = move_time):
-	#print("obstacle positions")
+func has_obstacle(destination: Vector2) -> bool:
 	for node in get_tree().get_nodes_in_group("Obstacles"):
 		#print(_find_nearest_tile(node.position))
 		#print(_find_nearest_tile(PlayerPawn.position+destination))
@@ -54,8 +61,11 @@ func move_pc_to_destination(destination : Vector2, delay : float = move_time):
 			#print(reverse_path)
 			#var new_destination = destination + Vector2.RIGHT*32
 			move_pc_to_destination(reverse_path[-2] - PlayerPawn.position)
-			return
-		
+			return true
+	return false
+
+func move_pc_to_destination(destination : Vector2, delay : float = move_time):
+	if has_obstacle(destination): return
 	if destination_reached == false :
 		if move_aborted == false:
 			move_aborted = true
@@ -109,3 +119,12 @@ func move_pc_to_destination(destination : Vector2, delay : float = move_time):
 		move_aborted = false
 		emit_signal("dest_changed")
 
+func spawn_object_from_player(item_type):
+	var item = item_template.instance()
+	$YSort.add_child(item)
+	item.hide()
+	item.item_owner = PlayerPawn
+	#var offset = PlayerPawn.sprite.offset
+	item.drop_down(_find_nearest_tile(PlayerPawn.position)+ Vector2(16,16), Vector2.UP*16)
+	print("SPAWNED")
+	pass
