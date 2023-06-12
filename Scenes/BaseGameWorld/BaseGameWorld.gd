@@ -16,8 +16,16 @@ onready var item_template = preload("res://Scenes/TributeItem/TributeItem.tscn")
 onready var PathFindingTileMap = $TileMaps/AstarTileMap
 onready var PlayerPawn = $YSort/PlayerCharacter 
 
+
+var coords_dictionary : Dictionary = {}
+func link_map_interactibles_to_coords_dictionary():
+	for node in get_tree().get_nodes_in_group(GlobalVariables.groups_dict[GlobalVariables.Groups.MapInterractible]):
+		var coords = _find_nearest_tile(node.global_position)
+		coords_dictionary[coords] = node
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	link_map_interactibles_to_coords_dictionary()
 	pass # Replace with function body.
 
 func _get_viewport_offset() -> Vector2:
@@ -49,7 +57,7 @@ func _reach_tile():
 	emit_signal("tile_reached")
 
 func has_obstacle(destination: Vector2) -> bool:
-	for node in get_tree().get_nodes_in_group("Obstacles"):
+	for node in get_tree().get_nodes_in_group(GlobalVariables.groups_dict[GlobalVariables.Groups.Obstacles]):
 		#print(_find_nearest_tile(node.position))
 		#print(_find_nearest_tile(PlayerPawn.position+destination))
 		#print("8-------------------------D")
@@ -85,7 +93,11 @@ func move_pc_to_destination(destination : Vector2, delay : float = move_time):
 	#$PlayerCharacter._enter_walk_animation()
 	#movement_click_sound_player.play()
 	var path_iter = 1
-	while(path_iter < path_points.size()):
+	var path_cut = 0
+	#If destination has an interractible- Don't walk on it? Stop right next to it.
+	if coords_dictionary.has(end_tile):
+		path_cut =1
+	while(path_iter < path_points.size() - path_cut):
 		var path_point = path_points[path_iter]
 		if path_point.x > PlayerPawn.position.x : 
 			PlayerPawn._walk_right()
@@ -118,6 +130,16 @@ func move_pc_to_destination(destination : Vector2, delay : float = move_time):
 	if move_aborted:
 		move_aborted = false
 		emit_signal("dest_changed")
+	if coords_dictionary.has(end_tile):
+		interact_with_object(end_tile)
+
+func interact_with_object(end_tile):
+	var node_triggered= coords_dictionary[end_tile]
+	if node_triggered.is_in_group("Plot"):
+		print("THIS IS PLANT")
+		node_triggered.interact()
+	else:
+		print("THIS IS INTERRACTIBLES")
 
 func spawn_object_from_player(item_type):
 	var item = item_template.instance()
