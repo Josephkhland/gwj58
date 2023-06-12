@@ -18,7 +18,8 @@ func _init():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	snap_to_grid()
+	global_position = GlobalVariables.snap_to_grid(global_position)
+	#snap_to_grid()
 	#add_to_group("Obstacles")
 	
 
