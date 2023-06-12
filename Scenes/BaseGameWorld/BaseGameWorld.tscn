@@ -9,11 +9,8 @@
 [ext_resource path="res://Scenes/PlayerCharacter/PlayerCharacter.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/BaseGameWorld/BaseGameWorld.gd" type="Script" id=8]
 [ext_resource path="res://Scenes/PointIndicator/PointIndicator.tscn" type="PackedScene" id=9]
-<<<<<<< HEAD
 [ext_resource path="res://Scenes/ShrineObject/ShrineObject.tscn" type="PackedScene" id=10]
-=======
 [ext_resource path="res://Scenes/Plot/Plot.tscn" type="PackedScene" id=10]
->>>>>>> origin/plant-object
 
 [sub_resource type="TileSet" id=4]
 0/name = "gwj58-grass.png 0"
@@ -145,17 +142,14 @@ position = Vector2( 1808, 1232 )
 [node name="Puddle6" parent="YSort" instance=ExtResource( 5 )]
 position = Vector2( 1808, 1264 )
 
-<<<<<<< HEAD
 [node name="ShrineObject" parent="YSort" instance=ExtResource( 10 )]
 position = Vector2( 1487, 1199 )
 scale = Vector2( 0.5, 0.5 )
-=======
 [node name="Plot" parent="YSort" instance=ExtResource( 10 )]
 position = Vector2( 1649, 1104 )
 
 [node name="Plot2" parent="YSort" instance=ExtResource( 10 )]
 position = Vector2( 1680, 1039 )
->>>>>>> origin/plant-object
 
 [node name="Sprite" type="Sprite" parent="."]
 visible = false
