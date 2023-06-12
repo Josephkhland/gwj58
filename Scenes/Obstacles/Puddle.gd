@@ -1,4 +1,3 @@
-tool
 extends Position2D
 
 
@@ -6,15 +5,9 @@ extends Position2D
 # var a = 2
 # var b = "text"
 var tile_size :int  =32
-export (bool) var grid_snap = true setget set_snap_to_grid
-
-func set_snap_to_grid(value):
-	grid_snap = value
-	if (value):
-		snap_to_grid()
 
 func _init():
-	add_to_group("Obstacles")
+	add_to_group(GlobalVariables.groups_dict[GlobalVariables.Groups.Obstacles])
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -30,9 +23,4 @@ func snap_to_grid():
 	var new_position_w_offset = new_position_no_offset + Vector2(tile_size/2, tile_size/2)
 	global_position = new_position_w_offset
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	if Engine.editor_hint:
-		if grid_snap:
-			snap_to_grid()
-			grid_snap = false
+

@@ -51,14 +51,15 @@ func _on_StepTimer_timeout():
 		step_timer.wait_time = step_time
 		step_timer.start()
 
-func harvest():
+func harvest() -> bool:
 	if (!harvestable):
 		#Give message - Not Harvestable?
 		print("NOT HARVESTABLE AT THIS GROWTH LEVEL")
-		return
+		return false
 	if (harvest_list.size() < 1):
 		print("NO TributeItem keys in HARVEST LIST")
-		return
+		destroy_plant()
+		return true
 	var selection_ranges :Dictionary = {}
 	var range_start = 0
 	for kvp in harvest_list:
@@ -72,5 +73,5 @@ func harvest():
 			break
 	print("ITEM RETRIEVED: " + item_key_selected)
 	#More Code should be added here about actually giving the item to the player. 
-	
+	return true
 	

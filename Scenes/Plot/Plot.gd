@@ -10,9 +10,6 @@ func _ready():
 	add_to_group("Plot")
 	pass # Replace with function body.
 
-
-
-
 func interact():
 	if is_planted:
 		harvest()
@@ -20,12 +17,18 @@ func interact():
 		plant()
 
 func harvest():
-	plant_object.harvest()
+	var destroyed_plant = plant_object.harvest()
+	if (destroyed_plant):
+		is_planted = false
 	#If Player is Adjacent
 
 func plant():
+	if is_planted == true:
+		print("ALREADY HAS PLANT")
+		return
 	plant_object = plantObject_scene.instance()
 	add_child(plant_object)
+	is_planted = true
 	#If Player is Adjacent 
 	pass
 

@@ -22,10 +22,16 @@ var isCrunchy : bool = false
 var item_owner = null
 var isHeld: bool = false
 
+var ingredients_history: Array = []
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	flavor_chart = FlavorChart.new()
 	pass # Replace with function body.
+
+func set_ingredient_history(history_array : Array):
+	ingredients_history = history_array
+	ingredients_history.append(item_key)
 
 func pick_up(new_owner):
 	if !isHeld:
