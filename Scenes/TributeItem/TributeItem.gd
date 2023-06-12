@@ -22,10 +22,16 @@ var isCrunchy : bool = false
 var item_owner = null
 var isHeld: bool = false
 
+var ingredients_history: Array = []
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	flavor_chart = FlavorChart.new()
 	pass # Replace with function body.
+
+func set_ingredient_history(history_array : Array):
+	ingredients_history = history_array
+	ingredients_history.append(item_key)
 
 func pick_up(new_owner):
 	if !isHeld:
@@ -33,18 +39,11 @@ func pick_up(new_owner):
 	item_owner = new_owner
 	hide()
 
-func snap_to_grid(position_to_snap:Vector2):
-	var x_diff = int(position_to_snap.x) %GlobalVariables.tile_size
-	var y_diff = int(position_to_snap.y) %GlobalVariables.tile_size
-	var new_position_no_offset = position_to_snap - Vector2(x_diff, y_diff)
-	var new_position_w_offset = new_position_no_offset + Vector2(GlobalVariables.tile_size/2, GlobalVariables.tile_size/2)
-	return new_position_w_offset
-
 func drop_down(target_position: Vector2, offset:Vector2 = Vector2.ZERO):
 	
 	#Toss it from the center of the owner that holds it, to the target_position
 	var path = Curve2D.new()
-	var start_point : Vector2 = snap_to_grid(item_owner.global_position) + offset
+	var start_point : Vector2 = GlobalVariables.snap_to_grid(item_owner.global_position) + offset
 	
 	var mid_x = (start_point.x + target_position.x)/2
 	var mid_y = start_point.y -16

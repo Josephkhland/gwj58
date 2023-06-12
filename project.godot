@@ -16,6 +16,7 @@ _global_script_classes=[ {
 }, {
 "base": "Control",
 "class": "CookingPopupBase",
+
 "language": "GDScript",
 "path": "res://Scenes/BaseGameUI/CookingPopup/CookingPopupBase.gd"
 }, {
@@ -23,11 +24,24 @@ _global_script_classes=[ {
 "class": "FlavorChart",
 "language": "GDScript",
 "path": "res://Core/Classes/FlavorChartClass.gd"
-} ]
+}, {
+"base": "Reference",
+"class": "HarvestChange",
+"language": "GDScript",
+"path": "res://Core/Classes/HarvestChangeClass.gd"
+}, {
+"base": "Position2D",
+"class": "Plant",
+"language": "GDScript",
+"path": "res://Scenes/PlantObject/PlantObject.gd"
+
 _global_script_class_icons={
 "AstarTileMap": "",
 "CookingPopupBase": "",
-"FlavorChart": ""
+"FlavorChart": "",
+"HarvestChange": "",
+"Plant": ""
+
 }
 
 [application]
