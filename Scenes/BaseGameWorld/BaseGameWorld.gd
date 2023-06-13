@@ -145,7 +145,7 @@ func spawn_object_from_player(item_type):
 	var item = item_template.instance()
 	$YSort.add_child(item)
 	item.hide()
-	item.item_owner = PlayerPawn
+	item.tribute_item.item_owner = PlayerPawn
 	#var offset = PlayerPawn.sprite.offset
 	item.drop_down(_find_nearest_tile(PlayerPawn.position)+ Vector2(16,16), Vector2.UP*16)
 	print("SPAWNED")

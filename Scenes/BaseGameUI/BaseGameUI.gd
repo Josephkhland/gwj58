@@ -9,7 +9,7 @@ func _ready():
 		add_child(cooking_popup_instance)
 
 func _on_Button_pressed():
-	var type = CookingPopupBase.CookingPopupType.Timer
+	var type = Types.CookingTask.Timer
 	cooking_popup_instance.set_content(type)
 	cooking_popup_instance.content.connect("status", self, "_on_cooking_popup_signal")
 	cooking_popup_instance.content.open()
