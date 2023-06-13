@@ -9,8 +9,14 @@ func _init(mc):
 
 func add_item(item: TributeItemClass):
 	var size = inventory.size()
-	assert( size <= max_capasity, "ERROR: Invetory full");
+	if size > max_capasity:
+		print("Invetory full")
+		return
+	# assert( size <= max_capasity, "ERROR: Invetory full");
 	inventory.append(item)
+
+func size():
+	return inventory.size()
 
 func get_all():
 	return inventory

@@ -6,17 +6,17 @@ const MAX_ITEMS = 3
 const SUFFICIENT_ITEMS = 2
 
 func _init():
+	type = Types.CookingTask.Timer
 	inventory = InventoryClass.new(MAX_ITEMS)
 
 func required_items_sufficient():
-	return inventory.size() > SUFFICIENT_ITEMS
+	return inventory.size() >= SUFFICIENT_ITEMS
 
 func cook():
-	# TODO: call popup and wait success, using your type
-	
+	# TODO: debug this shit
 	var items = inventory.get_all()
 	var item = items.pop_front() 
-	while not items.is_empty():
+	while not items.empty():
 		var next_item = items.pop_front()
 		item.flavor_chart.Sweet		= sweet_combined	(item, next_item)
 		item.flavor_chart.Spicy		= spicy_combined	(item, next_item)
@@ -24,10 +24,8 @@ func cook():
 		item.flavor_chart.Umami		= umami_combined	(item, next_item)
 		item.flavor_chart.Sour		= sour_combined		(item, next_item)
 		item.flavor_chart.Bitter	= bitter_combined	(item, next_item)
-	pass
 	
 	inventory.add_item(item)
-
 
 func sweet_combined(item1: TributeItemClass, item2: TributeItemClass):
 	return 	item1.flavor_chart.Sweet	+ \
