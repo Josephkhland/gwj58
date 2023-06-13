@@ -2,10 +2,6 @@ extends Control
 
 class_name CookingPopupBase
 
-enum CookingPopupType {
-	Timer,
-}
-
 # Abstract property, CookingPopupType
 var type
 
