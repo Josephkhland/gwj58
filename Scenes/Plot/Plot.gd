@@ -28,6 +28,7 @@ func plant():
 		return
 	plant_object = plantObject_scene.instance()
 	add_child(plant_object)
+	plant_object.hosting_plot = self
 	is_planted = true
 	#If Player is Adjacent 
 	pass
