@@ -1,9 +1,5 @@
 extends Node2D
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 signal tile_reached
 signal dest_changed
 export(float) var move_time : float = 0.5
@@ -138,8 +134,9 @@ func interact_with_object(end_tile):
 		item.hide()
 		item.item_owner = PlayerPawn
 		#
-		node_triggered.cooking_bench.place_item(item)
-		node_triggered.cooking_bench.call_popup()
+		node_triggered.interact()
+		#node_triggered.cooking_bench.place_item(item)
+		#node_triggered.cooking_bench.call_popup()
 	else:
 		print("THIS IS INTERRACTIBLES")
 
