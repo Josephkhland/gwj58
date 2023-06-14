@@ -49,10 +49,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/PlantObject/PlantObject.gd"
 }, {
-"base": "Reference",
+"base": "Node2D",
 "class": "TributeItemClass",
 "language": "GDScript",
-"path": "res://Core/Classes/TributeItemClass.gd"
+"path": "res://Scenes/TributeItem/TributeItem.gd"
 }, {
 "base": "Reference",
 "class": "Types",

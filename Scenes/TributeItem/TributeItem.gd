@@ -1,26 +1,52 @@
 extends Node2D
 
-var tribute_item: TributeItemClass
+class_name TributeItemClass
+
+var item_key : String = ""
+
+var is_seed : bool = false #If true it means that this item can be planted.
+var is_ingredient: bool = false #If true it means that this item can be cooked.
+var is_dish: bool = true #If true it means that this item can be delivered.
+
+var flavor_chart :FlavorChart
+var temperature: int = 0
+var age: int = 0
+var expiration_progress : float = 0
+
+var plantObject_reference
+
+var isWatery :bool = false
+var isChewy : bool = false
+var isFirm : bool = false
+var isCreamy: bool = false
+var isCrunchy : bool = false
+
+var item_owner = null
+var isHeld: bool = false
+
+var ingredients_history: Array = []
+
+func _init():
+	flavor_chart = FlavorChart.new()
 
 func _ready():
-	tribute_item = TributeItemClass.new()
 	pass
 
 func set_ingredient_history(history_array : Array):
-	tribute_item.ingredients_history = history_array
-	tribute_item.ingredients_history.append(tribute_item.item_key)
+	ingredients_history = history_array
+	ingredients_history.append(item_key)
 
 func pick_up(new_owner):
-	if !tribute_item.isHeld:
-		tribute_item.isHeld = true
-	tribute_item.item_owner = new_owner
+	if !isHeld:
+		isHeld = true
+	item_owner = new_owner
 	hide()
 
 func drop_down(target_position: Vector2, offset:Vector2 = Vector2.ZERO):
 	
 	#Toss it from the center of the owner that holds it, to the target_position
 	var path = Curve2D.new()
-	var start_point : Vector2 = GlobalVariables.snap_to_grid(tribute_item.item_owner.global_position) + offset
+	var start_point : Vector2 = GlobalVariables.snap_to_grid(item_owner.global_position) + offset
 	
 	var mid_x = (start_point.x + target_position.x)/2
 	var mid_y = start_point.y -16
@@ -30,9 +56,9 @@ func drop_down(target_position: Vector2, offset:Vector2 = Vector2.ZERO):
 	path.add_point(target_position)
 	
 	var curved_path = path.tessellate()
-	if tribute_item.isHeld:
-		tribute_item.isHeld = false
-		tribute_item.item_owner = null
+	if isHeld:
+		isHeld = false
+		item_owner = null
 	position = start_point
 	modulate.a = 0;
 	show()
