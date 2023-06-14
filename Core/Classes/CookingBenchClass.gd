@@ -7,7 +7,6 @@ signal use_bench(type)
 
 # Abstract method
 func _init():
-
 	self.connect("use_bench", GlobalVariables.base_game_ui, "open_cooking_popup", [self])
 	pass
 
