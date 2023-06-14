@@ -5,9 +5,10 @@ var ingredient: String = ""
 var flavor: int
 var god: String = ""
 
-var ingredient_list = ["Fish", "Seeds", "Rice", "Beef", "Chicken", "Seaweed"]
+const ingredient_list = ["Fish", "Seeds", "Rice", "Beef", "Chicken", "Seaweed"]
+const god_list = ["Poseidon", "Ra", "Dragon", "Thor", "Ganesha", "Chizuru"]
 
-var order_mapping: Dictionary = {
+const order_mapping: Dictionary = {
 	"Poseidon": GlobalVariables.Flavours.Salty,
 	"Ra": GlobalVariables.Flavours.Bitter,
 	"Dragon": GlobalVariables.Flavours.Sweet,
@@ -24,10 +25,14 @@ func _init():
 	var tmp = ingredient_list.duplicate()
 	tmp.shuffle()
 	ingredient = tmp[0]
-	
-func set_god(god_name: String):
-	god = god_name
+	tmp = god_list.duplicate()
+	god = tmp[0]
 	flavor = order_mapping[god]
+	
+#func set_god(god_name: String):
+#	god = god_name
+#	flavor = order_mapping[god]
+	
 
 	
 	pass

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://icon.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Original/Tilesets/gwj58-grass.png" type="Texture" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://Scenes/BaseGameWorld/BaseGameWorld.gd" type="Script" id=8]
 [ext_resource path="res://Scenes/PointIndicator/PointIndicator.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scenes/Plot/Plot.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scenes/ShrineObject/ShrineObject.tscn" type="PackedScene" id=11]
 
 [sub_resource type="TileSet" id=4]
 0/name = "gwj58-grass.png 0"
@@ -179,7 +180,7 @@ __meta__ = {
 }
 
 [node name="ShrineObject" parent="YSort" instance=ExtResource( 10 )]
-position = Vector2( 1487, 1199 )
+position = Vector2( 1169, 1072 )
 scale = Vector2( 0.5, 0.5 )
 
 [node name="Plot" parent="YSort" instance=ExtResource( 10 )]
@@ -190,6 +191,10 @@ position = Vector2( 2225, 1456 )
 
 [node name="Sprite" parent="YSort" instance=ExtResource( 5 )]
 position = Vector2( 2103, 953 )
+
+[node name="ShrineObject2" parent="YSort" instance=ExtResource( 11 )]
+position = Vector2( 2001, 878 )
+scale = Vector2( 0.40625, 0.390625 )
 
 [node name="Sprite" type="Sprite" parent="."]
 visible = false

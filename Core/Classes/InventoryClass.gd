@@ -24,3 +24,6 @@ func get_all():
 func remove_item(item: TributeItemClass):
 	inventory.erase(item)
 	
+func clear():
+	inventory = []
+	

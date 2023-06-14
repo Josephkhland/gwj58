@@ -131,7 +131,8 @@ func interact_with_object(end_tile):
 		print("THIS IS PLANT")
 		node_triggered.interact()
 	elif node_triggered.is_in_group("Shrine"):
-		pass
+		var item = item_template.instance()
+		node_triggered.place_item(item)
 	elif node_triggered.is_in_group("CookingBench"):
 		print("THIS IS CookingBench")
 		# TODO: take the actual item from player and don't generate one
