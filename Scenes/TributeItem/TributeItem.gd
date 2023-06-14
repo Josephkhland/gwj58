@@ -1,5 +1,7 @@
 extends Node2D
 
+class_name TributeItemClass
+
 var item_key : String = ""
 
 var is_seed : bool = false #If true it means that this item can be planted.
@@ -24,10 +26,11 @@ var isHeld: bool = false
 
 var ingredients_history: Array = []
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
+func _init():
 	flavor_chart = FlavorChart.new()
-	pass # Replace with function body.
+
+func _ready():
+	pass
 
 func set_ingredient_history(history_array : Array):
 	ingredients_history = history_array

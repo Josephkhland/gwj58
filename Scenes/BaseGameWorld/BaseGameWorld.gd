@@ -36,8 +36,6 @@ func _input(event):
 		if event.is_action_pressed("travel") and not GlobalVariables.is_movement_locked:
 			var relative_position = event.position - _get_viewport_offset()
 			move_pc_to_destination(relative_position)
-			#print("---RELATIVE POSITION---")
-			#print(relative_position)
 			
 	elif event is InputEventMouseMotion:
 		pass #Do Stuff with Mouse Motion Event
@@ -58,16 +56,10 @@ func _reach_tile():
 
 func has_obstacle(destination: Vector2) -> bool:
 	for node in get_tree().get_nodes_in_group(GlobalVariables.groups_dict[GlobalVariables.Groups.Obstacles]):
-		#print(_find_nearest_tile(node.position))
-		#print(_find_nearest_tile(PlayerPawn.position+destination))
-		#print("8-------------------------D")
 		if _find_nearest_tile(node.position) == _find_nearest_tile(PlayerPawn.position + destination):
 			var dest = _find_nearest_tile(PlayerPawn.position + destination)
 			var player_pos = _find_nearest_tile(PlayerPawn.position)
-			#print("yessss")
 			var reverse_path = PathFindingTileMap.get_astar_path_avoiding_obstacles_ignore_last(player_pos,dest)
-			#print(reverse_path)
-			#var new_destination = destination + Vector2.RIGHT*32
 			move_pc_to_destination(reverse_path[-2] - PlayerPawn.position)
 			return true
 	return false
@@ -140,6 +132,16 @@ func interact_with_object(end_tile):
 		node_triggered.interact()
 	elif node_triggered.is_in_group("Shrine"):
 		pass
+	elif node_triggered.is_in_group("CookingBench"):
+		print("THIS IS CookingBench")
+		# TODO: take the actual item from player and don't generate one
+		var item = item_template.instance()
+		$YSort.add_child(item)
+		item.hide()
+		item.item_owner = PlayerPawn
+		#
+		node_triggered.cooking_bench.place_item(item)
+		node_triggered.cooking_bench.call_popup()
 	else:
 		print("THIS IS INTERRACTIBLES")
 

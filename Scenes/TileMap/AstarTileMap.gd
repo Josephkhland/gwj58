@@ -86,12 +86,10 @@ func get_astar_path(start_position: Vector2, end_position: Vector2, max_distance
 
 func set_obstacles_points_disabled(value: bool) -> void:
 	for obstacle in obstacles:
-		#print(obstacle.global_position)
 		astar.set_point_disabled(get_point_id(get_nearest_tile_position(obstacle.global_position)), value)
 
 func set_obstacles_points_disabled_w_exclude(value:bool, coord_exclude:Vector2) -> void:
 	for obstacle in obstacles:
-		#print(obstacle.global_position)
 		if get_nearest_tile_position(obstacle.global_position) == get_nearest_tile_position(coord_exclude):
 			continue
 		astar.set_point_disabled(get_point_id(get_nearest_tile_position(obstacle.global_position)), value)

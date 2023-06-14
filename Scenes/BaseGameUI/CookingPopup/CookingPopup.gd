@@ -7,7 +7,7 @@ onready var cooking_popup_timer = \
 
 func set_content(type):
 	match type:
-		CookingPopupBase.CookingPopupType.Timer: 
+		Types.CookingTask.Timer: 
 			content = cooking_popup_timer.instance()
 		_:
 			assert(false, "WTF")

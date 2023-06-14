@@ -14,6 +14,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/TileMap/AstarTileMap.gd"
 }, {
+"base": "Reference",
+"class": "CookingBenchClass",
+"language": "GDScript",
+"path": "res://Core/Classes/CookingBenchClass.gd"
+}, {
+"base": "CookingBenchClass",
+"class": "CookingBenchCombineClass",
+"language": "GDScript",
+"path": "res://Scenes/CookingBench/CookingBenchCombine/CookingBenchCombineClass.gd"
+}, {
 "base": "Control",
 "class": "CookingPopupBase",
 "language": "GDScript",
@@ -30,6 +40,11 @@ _global_script_classes=[ {
 "path": "res://Core/Classes/HarvestChangeClass.gd"
 }, {
 "base": "Reference",
+"class": "InventoryClass",
+"language": "GDScript",
+"path": "res://Core/Classes/InventoryClass.gd"
+}, {
+"base": "Reference",
 "class": "OrderClass",
 "language": "GDScript",
 "path": "res://Core/Classes/OrderClass.gd"
@@ -38,14 +53,29 @@ _global_script_classes=[ {
 "class": "Plant",
 "language": "GDScript",
 "path": "res://Scenes/PlantObject/PlantObject.gd"
+}, {
+"base": "Node2D",
+"class": "TributeItemClass",
+"language": "GDScript",
+"path": "res://Scenes/TributeItem/TributeItem.gd"
+}, {
+"base": "Reference",
+"class": "Types",
+"language": "GDScript",
+"path": "res://Core/Types.gd"
 } ]
 _global_script_class_icons={
 "AstarTileMap": "",
+"CookingBenchClass": "",
+"CookingBenchCombineClass": "",
 "CookingPopupBase": "",
 "FlavorChart": "",
 "HarvestChange": "",
+"InventoryClass": "",
 "OrderClass": "",
-"Plant": ""
+"Plant": "",
+"TributeItemClass": "",
+"Types": ""
 }
 
 [application]

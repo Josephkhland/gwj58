@@ -6,7 +6,7 @@ onready var timer: Timer = $Timer
 onready var slider: HSlider = $HSlider
 
 func _init():
-	type = CookingPopupBase.CookingPopupType.Timer
+	type = Types.CookingTask.Timer
 	
 func _process(delta):
 	slider.value = timer.time_left

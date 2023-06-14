@@ -71,8 +71,6 @@ func grow():
 func _on_StepTimer_timeout():
 	growth_progress += growth_per_step
 	$ProgressBar.value = growth_progress*100
-	#print("PROGRESS")
-	#print(growth_progress)
 	if growth_progress >= 1:
 		growth_progress = 0
 		grow()

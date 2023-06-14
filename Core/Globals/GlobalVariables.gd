@@ -7,6 +7,7 @@ extends Node
 var is_movement_locked = false
 var tile_size = 32
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
+var base_game_ui
 
 var groups_dict : Dictionary = {
 	Groups.Obstacles : "obstacles",
