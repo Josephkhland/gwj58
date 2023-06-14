@@ -44,12 +44,12 @@ func get_points_coords():
 
 func _process(delta):
 	position += delta*travel_speed*direction
-	chance_to_turn_around += 0.00000000001
-	var number_picked = GlobalVariables.rng.randi_range(0,100)
+	chance_to_turn_around += 0.001
+	var number_picked = GlobalVariables.rng.randi_range(1,100)
 	if number_picked < chance_to_turn_around:
 		set_random_direction()
 		chance_to_turn_around = 0
-	
+
 func set_horizontal():
 	$Vertical.hide()
 	$Horizontal.show()

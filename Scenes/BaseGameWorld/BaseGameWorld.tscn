@@ -198,3 +198,9 @@ position = Vector2( 1648, 1296 )
 
 [node name="Cloud" parent="." instance=ExtResource( 11 )]
 position = Vector2( 1953, 1712 )
+
+[node name="Cloud2" parent="." instance=ExtResource( 11 )]
+position = Vector2( 1815, 1486 )
+
+[node name="Cloud3" parent="." instance=ExtResource( 11 )]
+position = Vector2( 2297, 1542 )
