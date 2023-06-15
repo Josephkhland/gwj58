@@ -1,6 +1,8 @@
 extends Node2D
 
 onready var plantObject_scene = preload("res://Scenes/PlantObject/PlantObject.tscn")
+
+var is_paddle = false
 var is_planted = false
 var plant_object : Plant = null
  
@@ -33,6 +35,16 @@ func plant():
 	#If Player is Adjacent 
 	pass
 
+
+func turn_to_puddle():
+	is_paddle = true
+	$Sprite.play("puddle")
+	add_to_group(GlobalVariables.groups_dict[GlobalVariables.Groups.Obstacles])
+
+func turn_to_plot():
+	is_paddle = false
+	$Sprite.play("default")
+	remove_from_group(GlobalVariables.groups_dict[GlobalVariables.Groups.Obstacles])
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

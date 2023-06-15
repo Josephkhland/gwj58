@@ -28,15 +28,8 @@ func create_pathfinding_points() -> void:
 		var detail_coord = ObstaclesLayerTilemap.world_to_map(cell_position)
 		var detail_tile_found = ObstaclesLayerTilemap.get_cellv(detail_coord)
 		var point_weight = 1.0
-		var isObstacle = false
-		if (detail_tile_found != INVALID_CELL):
-			isObstacle = true
-			#A Detail Tile Map might contain other things that aren't Obstacles. In that case use a match-case statement.
-		if isObstacle: continue
 		var WorldTileMap_tile = get_cellv(world_to_map(cell_position))
 		if WorldTileMap_tile == INVALID_CELL: continue
-		# There might be Obstacles in the world tile map in that case use a match-case statement to get these. 
-		if isObstacle: continue
 		astar.add_point(get_point_id(cell_position), cell_position, point_weight)
 
 	for cell_position in used_cell_positions:

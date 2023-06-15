@@ -1,8 +1,13 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scenes/CookingBench/CookingBenchCombine/CookingBenchCombine.gd" type="Script" id=1]
-[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Sourced/Texture/FOOD.png" type="Texture" id=2]
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 598, 417, 24, 24 )
 
 [node name="Sprite" type="Sprite"]
-texture = ExtResource( 2 )
+texture = SubResource( 1 )
 script = ExtResource( 1 )

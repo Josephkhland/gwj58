@@ -39,7 +39,6 @@ animations = [ {
 [node name="Puddle" type="Position2D"]
 position = Vector2( 16, 16 )
 script = ExtResource( 2 )
-grid_snap = false
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 6 )

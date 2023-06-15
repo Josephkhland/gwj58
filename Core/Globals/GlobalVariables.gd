@@ -14,6 +14,14 @@ var groups_dict : Dictionary = {
 	Groups.MapInterractible : "map_interractible"
 }
 
+enum DetailCellTypes{
+	STONE =0,
+	PUDDLE = 1,
+	COOKING = 2,
+	PLOT = 3,
+	SEED_GEN = 4
+}
+
 enum Groups{
 	Obstacles,
 	MapInterractible
