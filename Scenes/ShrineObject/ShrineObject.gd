@@ -12,14 +12,7 @@ const points_lost_for_incorrect_ingredient = 0
 const points_gained_for_correct_flavor = 0
 const points_lost_for_incorrect_flavor =0
 
-const flavor_global_mapping: Dictionary = {
-	"Sweet": GlobalVariables.Flavours.Sweet,
-	"Bitter": GlobalVariables.Flavours.Bitter,
-	"Umami": GlobalVariables.Flavours.Umami,
-	"Salty": GlobalVariables.Flavours.Salty,
-	"Spicy": GlobalVariables.Flavours.Spicy,
-	"Sour": GlobalVariables.Flavours.Sour
-}
+export var god_name = "Chizuru"
 
 var inventory: InventoryClass
 
