@@ -32,3 +32,6 @@ func get_at(index):
 func remove_item(index):
 	inventory.remove(index)
 	
+func clear():
+	inventory = []
+	

@@ -122,10 +122,13 @@ func move_pc_to_destination(destination : Vector2, delay : float = move_time):
 		interact_with_object(end_tile)
 
 func interact_with_object(end_tile):
-	var node_triggered= coords_dictionary[end_tile]
+	var node_triggered = coords_dictionary[end_tile]
 	if node_triggered.is_in_group("Plot"):
 		print("THIS IS PLANT")
 		node_triggered.interact()
+	elif node_triggered.is_in_group("Shrine"):
+		var item = item_template.instance()
+		node_triggered.place_item(item)
 	elif node_triggered.is_in_group("CookingBench"):
 		print("THIS IS CookingBench")
 		# TODO: take the actual item from player and don't generate one
