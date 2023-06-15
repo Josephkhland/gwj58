@@ -39,7 +39,7 @@ func set_water_amount(value):
 			elif water_amount > flood_level_threshold:
 				tile_state = TileState.Flooded
 				if plot_object != null:
-					plot_object.turn_to_paddle()
+					plot_object.turn_to_puddle()
 					emit_signal("add_pathfinding_obstacle",plot_object)
 				else:
 					emit_signal("create_paddle", coordinates)
@@ -49,7 +49,7 @@ func set_water_amount(value):
 			elif water_amount > flood_level_threshold:
 				tile_state = TileState.Flooded
 				if plot_object != null:
-					plot_object.turn_to_paddle()
+					plot_object.turn_to_puddle()
 					emit_signal("add_pathfinding_obstacle",plot_object)
 				else:
 					emit_signal("create_paddle", coordinates)

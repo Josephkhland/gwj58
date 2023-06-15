@@ -7,7 +7,7 @@ extends Node2D
 
 var travel_speed = 32 
 var direction = Vector2.RIGHT
-var isHorizontal = false
+var isHorizontal = true
 
 var target_points : Array
 
@@ -30,6 +30,7 @@ func gather_horizontal_points():
 func _ready():
 	gather_vertical_points()
 	gather_horizontal_points()
+	add_to_group(GlobalVariables.groups_dict[GlobalVariables.Groups.Clouds])
 	pass # Replace with function body.
 
 func get_points_coords():

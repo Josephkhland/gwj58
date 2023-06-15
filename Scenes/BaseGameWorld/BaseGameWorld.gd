@@ -31,7 +31,7 @@ func add_puddle_to_coords(coords):
 	var puddle = plot_object.instance()
 	ObjectsLayer.add_child(puddle)
 	puddle.position = GlobalVariables.snap_to_grid(coords)
-	puddle.turn_to_puddie()
+	puddle.turn_to_puddle()
 	tile_contents[coords].plot_object = puddle
 	PathFindingTileMap.add_obstacle(puddle)
 
@@ -218,3 +218,14 @@ func spawn_object_from_player(item_type):
 	item.drop_down(_find_nearest_tile(PlayerPawn.position)+ Vector2(16,16), Vector2.UP*16)
 	print("SPAWNED")
 	pass
+
+func flood_tiles_with_water():
+	for cloud in get_tree().get_nodes_in_group(GlobalVariables.groups_dict[GlobalVariables.Groups.Clouds]):
+		for point in cloud.get_points_coords():
+			var tile = _find_nearest_tile(point)
+			if tile_contents.has(tile):
+				tile_contents[tile].add_to_water_level(1)
+
+
+func _on_FloodingUpdate_timeout():
+	flood_tiles_with_water()

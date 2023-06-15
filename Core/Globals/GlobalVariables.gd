@@ -11,7 +11,8 @@ var player_invetory : InventoryClass
 
 var groups_dict : Dictionary = {
 	Groups.Obstacles : "obstacles",
-	Groups.MapInterractible : "map_interractible"
+	Groups.MapInterractible : "map_interractible",
+	Groups.Clouds: "clouds"
 }
 
 enum DetailCellTypes{
@@ -24,7 +25,8 @@ enum DetailCellTypes{
 
 enum Groups{
 	Obstacles,
-	MapInterractible
+	MapInterractible,
+	Clouds
 }
 
 enum Flavours{
