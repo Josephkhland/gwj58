@@ -25,8 +25,6 @@ func create_pathfinding_points() -> void:
 	astar.clear()
 	var used_cell_positions = get_used_cell_global_positions()
 	for cell_position in used_cell_positions:
-		var detail_coord = ObstaclesLayerTilemap.world_to_map(cell_position)
-		var detail_tile_found = ObstaclesLayerTilemap.get_cellv(detail_coord)
 		var point_weight = 1.0
 		var WorldTileMap_tile = get_cellv(world_to_map(cell_position))
 		if WorldTileMap_tile == INVALID_CELL: continue
@@ -39,7 +37,9 @@ func create_pathfinding_points() -> void:
 func add_obstacle(obstacle: Object) -> void:
 	obstacles.append(obstacle)
 	if not obstacle.is_connected("tree_exiting", self, "remove_obstacle"):
-		obstacle.connect("tree_exiting", self, "remove_obstacle", [obstacle])
+		var error_code = obstacle.connect("tree_exiting", self, "remove_obstacle", [obstacle])
+		if error_code != 0:
+			print("AstarTileMap:Failed to connect obstacle (",obstacle,") tree_exiting signal with remove_obstacle")
 
 func remove_obstacle(obstacle: Object) -> void:
 	obstacles.erase(obstacle)

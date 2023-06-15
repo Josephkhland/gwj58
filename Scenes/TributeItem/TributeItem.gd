@@ -43,20 +43,23 @@ var isHeld: bool = false
 var ingredients_history: Array = []
 
 func update_node(value):
+	force_rename_node = value
 	rename_node(item_key)
 
 func rename_node(new_name):
-	print("Trying to rename node to: ", new_name)
+	#print("Trying to rename node to: ", new_name)
 	emit_signal("try_rename",get_name(),new_name)
 
 func do_rename(node_name):
 	if get_name() == node_name:
-		print("Succesfully renamed node to:", item_key)
+		#print("Succesfully renamed node to:", item_key)
 		self.set_name(item_key)
 
 func change_icon(texture):
+	item_icon = texture
 	if Engine.editor_hint:
-		$Icon.texture = texture
+		if texture != null:
+			$Icon.texture = texture
 
 func _init():
 	flavor_chart = FlavorChart.new()

@@ -95,6 +95,10 @@ config/icon="res://icon.png"
 GlobalVariables="*res://Core/Globals/GlobalVariables.gd"
 ItemsDictionary="*res://Core/Globals/ItemsDictionary.tscn"
 
+[debug]
+
+gdscript/warnings/integer_division=false
+
 [display]
 
 window/stretch/mode="2d"

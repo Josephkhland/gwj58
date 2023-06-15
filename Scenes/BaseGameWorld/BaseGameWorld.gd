@@ -55,7 +55,6 @@ func add_details_to_tile_contents():
 				ObjectsLayer.add_child(puddle)
 				puddle.position = GlobalVariables.snap_to_grid(world_coords)
 				puddle.turn_to_puddle()
-				print(puddle.position)
 				tile_contents[world_coords].plot_object = puddle
 				PathFindingTileMap.add_obstacle(puddle)
 			GlobalVariables.DetailCellTypes.PLOT:
