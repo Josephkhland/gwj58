@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Core/Globals/ItemsDictionary.gd" type="Script" id=1]
+
+[node name="ItemsDictionary" type="Node"]
+script = ExtResource( 1 )
