@@ -11,7 +11,7 @@ export var force_rename_node : bool = false setget update_node
 #For Presets Configuration
 signal try_rename(old_name,new_name)
 
-export (Texture) var item_icon
+export (Texture) var item_icon setget change_icon
 export var sweet :int = 0
 export var spicy :int=0
 export var salty :int= 0
@@ -55,7 +55,8 @@ func do_rename(node_name):
 		self.set_name(item_key)
 
 func change_icon(texture):
-	$Icon.texture = texture
+	if Engine.editor_hint:
+		$Icon.texture = texture
 
 func _init():
 	flavor_chart = FlavorChart.new()

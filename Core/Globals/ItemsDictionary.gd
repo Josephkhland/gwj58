@@ -27,9 +27,10 @@ func add_to_dictionary(node):
 	return node.item_global_index
 
 func child_renamed(old_name, new_name):
+	new_name = new_name.to_lower()
 	if !Dict.has(new_name):
 		Dict[new_name] = new_name
-		Dict.erase(old_name)
+		Dict.erase(old_name.to_lower())
 		emit_signal("child_rename_status", old_name)
 
 func _on_ItemsDictionary_child_entered_tree(node):
@@ -38,10 +39,7 @@ func _on_ItemsDictionary_child_entered_tree(node):
 		self.connect("child_rename_status",node,"do_rename")
 		add_to_dictionary(node)
 		Dict[node.item_key] = node
-		print(Dict)
-	else:
-		print("Node must be of type: TributeItemClass. Node Removed.")
-		node.queue_free()
+
 
 
 func _on_ItemsDictionary_child_exiting_tree(node):
@@ -50,4 +48,3 @@ func _on_ItemsDictionary_child_exiting_tree(node):
 			LUT.erase(node.item_global_index)
 		if Dict.has(node.item_key):
 			Dict.erase(node.item_global_index)
-		print(Dict)
