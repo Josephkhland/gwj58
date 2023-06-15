@@ -14,7 +14,7 @@ onready var item_template = preload("res://Scenes/TributeItem/TributeItem.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if !Engine.editor_Hint:
+	if !Engine.editor_hint:
 		Dict.clear()
 		for node in self.get_children():
 			Dict[node.item_key] = node

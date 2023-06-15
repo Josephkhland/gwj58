@@ -93,6 +93,7 @@ config/icon="res://icon.png"
 [autoload]
 
 GlobalVariables="*res://Core/Globals/GlobalVariables.gd"
+ItemsDictionary="*res://Core/Globals/ItemsDictionary.tscn"
 
 [display]
 

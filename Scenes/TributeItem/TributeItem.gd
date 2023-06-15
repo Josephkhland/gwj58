@@ -11,7 +11,7 @@ export var force_rename_node : bool = false setget update_node
 #For Presets Configuration
 signal try_rename(old_name,new_name)
 
-export (Texture) var item_icon setget change_icon
+export (Texture) var item_icon
 export var sweet :int = 0
 export var spicy :int=0
 export var salty :int= 0

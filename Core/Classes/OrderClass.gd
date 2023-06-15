@@ -5,7 +5,6 @@ var ingredient: String = ""
 var flavor: int
 var god: String = ""
 
-const ingredient_list = ["Fish", "Seeds", "Rice", "Beef", "Chicken", "Seaweed"]
 const god_list = ["Poseidon", "Ra", "Dragon", "Thor", "Ganesha", "Chizuru"]
 
 const order_mapping: Dictionary = {
@@ -22,7 +21,7 @@ func _ready():
 	pass # Replace with function body.
 	
 func _init():
-	var tmp = ingredient_list.duplicate()
+	var tmp = ItemsDictionary.Dict.keys().duplicate()
 	tmp.shuffle()
 	ingredient = tmp[0]
 	tmp = god_list.duplicate()
