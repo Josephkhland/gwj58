@@ -14,9 +14,5 @@ Dict = {
 [node name="Test" parent="." instance=ExtResource( 2 )]
 item_key = "Test"
 
-[node name="TributeItem" parent="." instance=ExtResource( 2 )]
-
-[node name="TributeItem2" parent="." instance=ExtResource( 2 )]
-
 [connection signal="child_entered_tree" from="." to="." method="_on_ItemsDictionary_child_entered_tree"]
 [connection signal="child_exiting_tree" from="." to="." method="_on_ItemsDictionary_child_exiting_tree"]
