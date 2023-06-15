@@ -20,6 +20,9 @@ func refresh_scene(value):
 		var isErased = Dict.erase("")
 		if !isErased :
 			print("ItemsDictionary: Failed to erase key(String.Empty()) from Dictionary")
+	if value:
+		for key in Dict.keys():
+			print("-- Key:",key,"| Value: ", Dict[key])
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -29,7 +32,8 @@ func _ready():
 func child_renamed(old_name, new_name):
 	new_name = new_name.to_lower()
 	if !Dict.has(new_name):
-		Dict[new_name] = new_name
+		if (Dict.has(old_name.to_lower())):
+			Dict[new_name] = Dict[old_name.to_lower()]
 		var isErased = Dict.erase(old_name.to_lower())
 		if !isErased:
 			print("ItemsDictionary: Failed to erase key(",old_name.to_lower(),") from Dictionary")
@@ -45,7 +49,7 @@ func _on_ItemsDictionary_child_entered_tree(node):
 			var error_code = self.connect("child_rename_status",node,"do_rename")
 			if error_code !=0 : 
 				print("ItemsDictionary:Self 'child_rename_status' Signal Connect Error (",node,"):",error_code)
-		Dict[node.item_key.to_lower()] = node
+		Dict[node.item_key.to_lower()] = node as TributeItemClass
 
 
 

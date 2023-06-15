@@ -58,7 +58,7 @@ func do_rename(node_name):
 func change_icon(texture):
 	item_icon = texture
 	if Engine.editor_hint:
-		if texture != null:
+		if texture != null && has_node("Icon"):
 			$Icon.texture = texture
 
 func _init():
