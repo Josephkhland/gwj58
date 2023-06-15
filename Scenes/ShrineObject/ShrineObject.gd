@@ -55,7 +55,7 @@ func _process(delta):
 	if order == null:
 		yield(get_tree().create_timer(wait_between_orders), "timeout")
 		order = OrderClass.new()
-	elif inventory.size() > 0:
+	elif order != null and inventory.size() > 0:
 		var score = get_score(order, inventory.inventory[0])
 		print(score)
 		order = null
