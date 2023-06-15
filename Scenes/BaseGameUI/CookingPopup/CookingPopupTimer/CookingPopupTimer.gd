@@ -1,6 +1,6 @@
 extends CookingPopupBase
 
-const WAIT_TIME = 3
+const WAIT_TIME = 1
 
 onready var timer: Timer = $Timer
 onready var slider: HSlider = $HSlider

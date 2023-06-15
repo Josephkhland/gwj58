@@ -1,13 +1,13 @@
 extends Node
 
+# TODO: remove
+onready var item_template = preload("res://Scenes/TributeItem/TributeItem.tscn")
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 var is_movement_locked = false
 var tile_size = 32
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 var base_game_ui
+var player_invetory : InventoryClass
 
 var groups_dict : Dictionary = {
 	Groups.Obstacles : "obstacles",
@@ -41,7 +41,15 @@ func snap_to_grid(position_to_snap:Vector2):
 	var new_position_no_offset = position_to_snap - Vector2(x_diff, y_diff)
 	var new_position_w_offset = new_position_no_offset + Vector2(tile_size/2, tile_size/2)
 	return new_position_w_offset
+	
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# TODO: remove adding of item on init
+	var item = item_template.instance()
+	player_invetory.add_item(item) 
 	pass # Replace with function body.
+	
+func _init():
+	player_invetory = InventoryClass.new(1)
+	
