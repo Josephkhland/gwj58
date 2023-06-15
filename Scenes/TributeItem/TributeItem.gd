@@ -1,12 +1,28 @@
+tool
 extends Node2D
 
 class_name TributeItemClass
 
-var item_key : String = ""
+var item_global_index = -1
 
-var is_seed : bool = false #If true it means that this item can be planted.
-var is_ingredient: bool = false #If true it means that this item can be cooked.
-var is_dish: bool = true #If true it means that this item can be delivered.
+export var item_key : String = ""
+export var force_rename_node : bool = false setget update_node
+
+#For Presets Configuration
+signal try_rename(old_name,new_name)
+
+export (Texture) var item_icon setget change_icon
+export var sweet :int = 0
+export var spicy :int=0
+export var salty :int= 0
+export var umami :int= 0
+export var sour :int= 0
+export var bitter :int= 0
+
+export var is_seed : bool = false #If true it means that this item can be planted.
+export var is_ingredient: bool = false #If true it means that this item can be cooked.
+export var is_dish: bool = true #If true it means that this item can be delivered.
+
 
 var flavor_chart :FlavorChart
 var temperature: int = 0
@@ -26,10 +42,33 @@ var isHeld: bool = false
 
 var ingredients_history: Array = []
 
+func update_node(value):
+	rename_node(item_key)
+
+func rename_node(new_name):
+	print("Trying to rename node to: ", new_name)
+	emit_signal("try_rename",get_name(),new_name)
+
+func do_rename(node_name):
+	if get_name() == node_name:
+		print("Succesfully renamed node to:", item_key)
+		self.set_name(item_key)
+
+func change_icon(texture):
+	$Icon.texture = texture
+
 func _init():
 	flavor_chart = FlavorChart.new()
 
 func _ready():
+	if item_icon != null:
+		$Icon.texture = item_icon
+	flavor_chart.Sweet = sweet
+	flavor_chart.Spicy = spicy
+	flavor_chart.Salty = salty
+	flavor_chart.Umami = umami
+	flavor_chart.Sour = sour
+	flavor_chart.Bitter = bitter
 	pass
 
 func set_ingredient_history(history_array : Array):

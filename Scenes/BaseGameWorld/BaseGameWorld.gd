@@ -7,11 +7,75 @@ var destination_reached = true
 var move_aborted = false
 var move_tween
 
+onready var tile_content_template
 onready var item_template = preload("res://Scenes/TributeItem/TributeItem.tscn")
+onready var stone_object = preload("res://Scenes/Obstacles/StoneObstacle.tscn")
+onready var plot_object = preload("res://Scenes/Plot/Plot.tscn")
+onready var cooking_bench_combine = preload("res://Scenes/CookingBench/CookingBenchCombine/CookingBenchCombine.tscn")
 
 onready var PathFindingTileMap = $TileMaps/AstarTileMap
 onready var PlayerPawn = $YSort/PlayerCharacter 
+onready var ObjectsLayer = $YSort
 
+var tile_contents : Dictionary = {}
+func generate_tile_contents():
+	for coords in PathFindingTileMap.get_used_cell_global_positions():
+		var tile_content = TileContent.new()
+		tile_content.connect("add_pathfinding_obstacle",PathFindingTileMap,"add_obstacle")
+		tile_content.connect("remove_pathfinding_obstacle",PathFindingTileMap, "remove_obstacle")
+		tile_content.connect("create_paddle",self,"add_puddle_to_coords")
+		tile_content.coordinates = coords
+		tile_contents[coords] = tile_content
+
+func add_puddle_to_coords(coords):
+	var puddle = plot_object.instance()
+	ObjectsLayer.add_child(puddle)
+	puddle.position = GlobalVariables.snap_to_grid(coords)
+	puddle.turn_to_puddle()
+	tile_contents[coords].plot_object = puddle
+	PathFindingTileMap.add_obstacle(puddle)
+
+func add_details_to_tile_contents():
+	var cells = $TileMaps/DetailsTileMap.get_used_cells()
+	for cell in cells:
+		var world_coords = $TileMaps/DetailsTileMap.map_to_world(cell)
+		if !tile_contents.has(world_coords):
+			continue
+		var cell_type = $TileMaps/DetailsTileMap.get_cellv(cell)
+		match cell_type:
+			GlobalVariables.DetailCellTypes.STONE:
+				var stone = stone_object.instance()
+				ObjectsLayer.add_child(stone)
+				stone.position = GlobalVariables.snap_to_grid(world_coords)
+				stone.add_to_group(GlobalVariables.groups_dict[GlobalVariables.Groups.Obstacles])
+				tile_contents[world_coords].stone_obstacle = stone
+				PathFindingTileMap.add_obstacle(stone)
+			GlobalVariables.DetailCellTypes.PUDDLE:
+				var puddle = plot_object.instance()
+				ObjectsLayer.add_child(puddle)
+				puddle.position = GlobalVariables.snap_to_grid(world_coords)
+				puddle.turn_to_puddle()
+				print(puddle.position)
+				tile_contents[world_coords].plot_object = puddle
+				PathFindingTileMap.add_obstacle(puddle)
+			GlobalVariables.DetailCellTypes.PLOT:
+				var plot = plot_object.instance()
+				ObjectsLayer.add_child(plot)
+				plot.position = GlobalVariables.snap_to_grid(world_coords)
+				tile_contents[world_coords].plot_object = plot
+			GlobalVariables.DetailCellTypes.COOKING:
+				var cooking_bench = cooking_bench_combine.instance()
+				ObjectsLayer.add_child(cooking_bench)
+				cooking_bench.position = GlobalVariables.snap_to_grid(world_coords)
+				tile_contents[world_coords].cooking_bench_object = cooking_bench
+				cooking_bench.add_to_group(GlobalVariables.groups_dict[GlobalVariables.Groups.Obstacles])
+				PathFindingTileMap.add_obstacle(cooking_bench)
+			GlobalVariables.DetailCellTypes.SEED_GEN:
+				pass
+			#ShrineObjects are added to tile_contents through a signal in their _ready,
+			#since each of them is unique and it seems better to just place them manually on the map
+	#Remove this later
+	link_map_interactibles_to_coords_dictionary()
 
 var coords_dictionary : Dictionary = {}
 func link_map_interactibles_to_coords_dictionary():
@@ -21,7 +85,9 @@ func link_map_interactibles_to_coords_dictionary():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	link_map_interactibles_to_coords_dictionary()
+	$TileMaps/DetailsTileMap.hide()
+	generate_tile_contents()
+	add_details_to_tile_contents()
 	pass # Replace with function body.
 
 func _get_viewport_offset() -> Vector2:
@@ -152,3 +218,14 @@ func spawn_object_from_player(item_type):
 	item.drop_down(_find_nearest_tile(PlayerPawn.position)+ Vector2(16,16), Vector2.UP*16)
 	print("SPAWNED")
 	pass
+
+func flood_tiles_with_water():
+	for cloud in get_tree().get_nodes_in_group(GlobalVariables.groups_dict[GlobalVariables.Groups.Clouds]):
+		for point in cloud.get_points_coords():
+			var tile = _find_nearest_tile(point)
+			if tile_contents.has(tile):
+				tile_contents[tile].add_to_water_level(1)
+
+
+func _on_FloodingUpdate_timeout():
+	flood_tiles_with_water()
