@@ -94,6 +94,7 @@ config/icon="res://icon.png"
 
 GlobalVariables="*res://Core/Globals/GlobalVariables.gd"
 ItemsDictionary="*res://Core/Globals/ItemsDictionary.tscn"
+ActionsDictionary="*res://Core/Actions/ActionsDictionary.tscn"
 
 [debug]
 

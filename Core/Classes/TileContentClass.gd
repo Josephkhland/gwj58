@@ -25,6 +25,7 @@ var shrine_object = null #If it has a shrine_object, this value should be set
 var cooking_bench_object = null #If it has a cooking_bench_object, this value should be set.
 var seed_generator_object = null #If it has a seed_generator_object this value should be set. 
 
+var object_placed = null #For placing the item
 # Potentially Plot,Shrine,CookingBench,Seed Generator should belong in the same class. As only one of them could exist on a tile at a time.
 
 # If Water_amount is higher than a specific 
@@ -81,6 +82,9 @@ func has_plot():
 func has_shrine():
 	return shrine_object !=null
 
+func has_item():
+	return object_placed != null
+
 func has_cooking_bench():
 	return cooking_bench_object != null
 
@@ -98,7 +102,32 @@ func remove_stone():
 	stone_obstacle.queue_free()
 	stone_obstacle = null
 	#Obstacle is removed automatically in Pathfinding upon tree_exiting.
+
+func can_place_item():
+	return not has_plot() and not has_cooking_bench()
 	
+
+func get_available_actions():
+	var available_actions: Array = []
+	if has_stone(): #and has_powerup_break_stone
+		available_actions.append(GlobalVariables.ActionKeys.BREAK_STONE)
+	if has_item() and GlobalVariables.player_invetory.has_space():
+		available_actions.append(GlobalVariables.ActionKeys.PICKUP_ITEM)
+	if !has_item() and !GlobalVariables.player_invetory.has_space():
+		available_actions.append(GlobalVariables.ActionKeys.DROP_ITEM)
+	if has_item() and !GlobalVariables.player_invetory.has_space():
+		available_actions.append(GlobalVariables.ActionKeys.SWITCH_ITEM)
+	if has_plot():
+		if plot_object.is_planted and GlobalVariables.player_invetory.has_space():
+			available_actions.append(GlobalVariables.ActionKeys.HARVEST)
+		elif !plot_object.is_planted and !GlobalVariables.player_invetory.has_space():
+			if GlobalVariables.player_invetory.get_at(0).isSeed:
+				available_actions.append(GlobalVariables.ActionKeys.PLANT)
+	if has_cooking_bench():
+		available_actions.append(GlobalVariables.ActionKeys.COOK)
+	#Then probably only the power-ups are left to add.
+	return available_actions
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass

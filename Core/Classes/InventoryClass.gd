@@ -35,3 +35,5 @@ func remove_item(index):
 func clear():
 	inventory = []
 	
+func has_space():
+	return !inventory.size() > max_capasity

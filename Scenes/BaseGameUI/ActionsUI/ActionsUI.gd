@@ -26,7 +26,8 @@ func show_actions(available_actions:Array):
 		if error_code != 0:
 			print("ActionsUI: Failed to connect new action box signal action_box_clicked with action_selected() - Error: ", error_code)
 		#Must add Action Image 
-		#new_action_box.set_icon_texture(new_texture)
+		var new_texture = ActionsDictionary.LUT[action].action_icon
+		new_action_box.set_icon(new_texture)
 	if current_actions_shown.size() >0:
 		show()
 		GlobalVariables.is_movement_locked = true
@@ -43,6 +44,8 @@ func _on_action_box_clicked(action_ref):
 
 func _on_cancel():
 	if GlobalVariables.is_actionsUI_open:
+		$VBoxContainer/OffsetFromPlayer/CancelButton.pressed = true
+		yield(get_tree().create_timer(0.1), "timeout")
 		GlobalVariables.is_movement_locked = false
 		clear_actions()
 		hide()
