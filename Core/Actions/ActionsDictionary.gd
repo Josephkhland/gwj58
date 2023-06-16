@@ -6,6 +6,7 @@ signal child_rename_status(status)
 # var a = 2
 # var b = "text"
 export var Dict :Dictionary = {}
+export var LUT : Dictionary = {}
 export var refresh : bool = false setget refresh_scene
 
 var scripts_path = "res://Core/Actions/ActionReference.gd"
@@ -26,6 +27,7 @@ func refresh_scene(value):
 				if error_code !=0 : 
 					print("ActionsDictionary:Self 'child_rename_status' Signal Connect Error (",node,"):",error_code)
 			Dict[node.get_name().to_lower()] = node
+			LUT[node.action_key] = node
 			node.rename_node(node.action_string)
 	if Dict.has(""):
 		var isErased = Dict.erase("")
@@ -63,6 +65,7 @@ func _on_ActionsDictionary_child_entered_tree(node):
 			if error_code !=0 : 
 				print("ActionsDictionary:Self 'child_rename_status' Signal Connect Error (",node,"):",error_code)
 		Dict[node.get_name().to_lower()] = node
+		LUT[node.action_key] = node
 		if (node.action_string != "" and node.action_string != "NONE"):
 			node.rename_node(node.action_string)
 
@@ -74,3 +77,7 @@ func _on_ActionsDictionary_child_exiting_tree(node):
 			var isErased = Dict.erase(node.action_string.to_lower())
 			if !isErased :
 				print("ActionsDictionary: Failed to erase key(",node.action_string.to_lower(),") from Dictionary")
+		if LUT.has(node.action_key):
+			var isErased = Dict.erase(node.action_key)
+			if !isErased :
+				print("ActionsDictionary: Failed to erase key(",node.action_key,") from Dictionary")

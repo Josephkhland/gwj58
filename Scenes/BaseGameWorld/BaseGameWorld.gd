@@ -100,26 +100,23 @@ func _input(event):
 		if event.is_action_pressed("travel") and not GlobalVariables.is_movement_locked:
 			var relative_position = event.position - _get_viewport_offset()
 			move_pc_to_destination(relative_position)
-		elif event.is_action_pressed("open_actions_menu"):
+		elif event.is_action_released("travel") and GlobalVariables.is_actionsUI_open:
+			emit_signal("cancel_ActionsUI")
+		elif event.is_action_pressed("open_actions_menu") and not GlobalVariables.is_movement_locked:
 			var relative_position = event.position - _get_viewport_offset()
 			var target_point = PlayerPawn.position + relative_position
-			var rect_top_left_corner = _find_nearest_tile(PlayerPawn.global_position) - Vector2(2,2)*GlobalVariables.tile_size
-			var rect_size = GlobalVariables.tile_size*Vector2(5,5)
+			var rect_top_left_corner = _find_nearest_tile(PlayerPawn.global_position) - Vector2(1,1)*GlobalVariables.tile_size
+			var rect_size = GlobalVariables.tile_size*Vector2(3,3)
 			var rectangle = Rect2(rect_top_left_corner, rect_size)
 			#relative position is the Vector2 from the PlayerPawn (Center of Screen) to the click
 			if rectangle.has_point(target_point):
 				target_point = GlobalVariables.snap_to_grid(_find_nearest_tile(target_point))
-				operate_action_at_tile(target_point)
-				if not GlobalVariables.is_movement_locked:
-					move_pc_to_destination(target_point - PlayerPawn.position)
+				
+					
 			elif !GlobalVariables.is_movement_locked:
-				target_point = PlayerPawn.position + GlobalVariables.tile_size*relative_position.normalized()*2.4
+				target_point = PlayerPawn.position + GlobalVariables.tile_size*relative_position.normalized()
 				target_point = GlobalVariables.snap_to_grid(_find_nearest_tile(target_point))
-				if not GlobalVariables.is_movement_locked:
-					move_pc_to_destination(target_point - PlayerPawn.position)
-		
-			
-			
+			operate_action_at_tile(target_point)
 	elif event is InputEventMouseMotion:
 		pass #Do Stuff with Mouse Motion Event
 	if event is InputEventKey:
@@ -136,7 +133,14 @@ func _find_nearest_tile(nearby_position : Vector2):
 
 func operate_action_at_tile(tile_selected_coords):
 	$ControlIndicators/ActionIndicator.position = tile_selected_coords
-	interact_with_object(tile_selected_coords- Vector2(16,16))
+	var usable_coords = tile_selected_coords- Vector2(16,16)
+	#interact_with_object(tile_selected_coords- Vector2(16,16))
+	var av_actions = tile_contents[usable_coords].get_available_actions()
+	if (av_actions.size() > 0):
+		#Debug for testing Secondary Action and ActionsUI
+		emit_signal("request_ActionsUI",av_actions)
+	else:
+		move_pc_to_destination(tile_selected_coords - PlayerPawn.position)
 	
 
 func _reach_tile():
@@ -223,9 +227,6 @@ func interact_with_object(end_tile):
 	elif node_triggered.is_in_group("Shrine"):
 		var item = item_template.instance()
 		node_triggered.place_item(item)
-		
-		#Debug for testing Secondary Action and ActionsUI
-		emit_signal("request_ActionsUI",[0,1,2,3,4,5])
 	elif node_triggered.is_in_group("CookingBench"):
 		print("THIS IS CookingBench")
 		# TODO: take the actual item from player and don't generate one

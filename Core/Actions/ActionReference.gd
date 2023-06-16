@@ -7,8 +7,8 @@ export (Texture) var action_icon setget change_icon
 
 
 enum ActionKeys{
-	NONE = -1,
-	MOVE =0,
+	NONE = 0,
+	MOVE =1,
 	COOK,
 	BREAK_STONE,
 	REMOVE_WATER,
