@@ -59,12 +59,15 @@ func add_details_to_tile_contents():
 				ObjectsLayer.add_child(puddle)
 				puddle.position = GlobalVariables.snap_to_grid(world_coords)
 				puddle.turn_to_puddle()
+				puddle.tile_content_parent = tile_contents[world_coords]
 				tile_contents[world_coords].plot_object = puddle
+				
 				PathFindingTileMap.add_obstacle(puddle)
 			GlobalVariables.DetailCellTypes.PLOT:
 				var plot = plot_object.instance()
 				ObjectsLayer.add_child(plot)
 				plot.position = GlobalVariables.snap_to_grid(world_coords)
+				plot.tile_content_parent = tile_contents[world_coords]
 				tile_contents[world_coords].plot_object = plot
 			GlobalVariables.DetailCellTypes.COOKING:
 				var cooking_bench = cooking_bench_combine.instance()
@@ -115,8 +118,6 @@ func _input(event):
 			#relative position is the Vector2 from the PlayerPawn (Center of Screen) to the click
 			if rectangle.has_point(target_point):
 				target_point = GlobalVariables.snap_to_grid(_find_nearest_tile(target_point))
-				
-					
 			elif !GlobalVariables.is_movement_locked:
 				target_point = PlayerPawn.position + GlobalVariables.tile_size*relative_position.normalized()
 				target_point = GlobalVariables.snap_to_grid(_find_nearest_tile(target_point))
@@ -181,6 +182,7 @@ func move_pc_to_destination(destination : Vector2, delay : float = move_time):
 	#$PlayerCharacter._enter_walk_animation()
 	#movement_click_sound_player.play()
 	var path_iter = 1
+	var offset_for_Ysort_correction = Vector2.DOWN
 	#If destination has an interractible- Don't walk on it? Stop right next to it.
 	while(path_iter < path_points.size()):
 		var path_point = path_points[path_iter]
@@ -189,12 +191,12 @@ func move_pc_to_destination(destination : Vector2, delay : float = move_time):
 			PlayerPawn._walk_right()
 		elif path_point.x < PlayerPawn.position.x:
 			PlayerPawn._walk_left()
-		if path_point.y > PlayerPawn.position.y:
+		if path_point.y+offset_for_Ysort_correction.y > PlayerPawn.position.y:
 			PlayerPawn._walk_down()
-		elif path_point.y < PlayerPawn.position.y:
+		elif path_point.y+offset_for_Ysort_correction.y < PlayerPawn.position.y:
 			PlayerPawn._walk_up()
 		move_tween = get_tree().create_tween()
-		var offset_for_Ysort_correction = Vector2.DOWN
+		
 		move_tween.tween_property(PlayerPawn, "position", path_point +offset_for_Ysort_correction, delay)
 		yield(move_tween, "finished")
 		move_tween = null
@@ -234,7 +236,7 @@ func flood_tiles_with_water():
 		for point in cloud.get_points_coords():
 			var tile = _find_nearest_tile(point)
 			if tile_contents.has(tile):
-				tile_contents[tile].add_to_water_level(1)
+				tile_contents[tile].add_to_water_level(10)
 
 
 func _on_FloodingUpdate_timeout():
@@ -293,9 +295,10 @@ func _on_action_cook(trigger_location):
 	pass
 
 func _on_action_harvest(trigger_location):
-	pass
+	tile_contents[trigger_location].harvest_plant()
 
 func _on_action_plant(trigger_location):
+	tile_contents[trigger_location].plant_seed()
 	pass
 
 func _on_action_remove_water(trigger_location):
