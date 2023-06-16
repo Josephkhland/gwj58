@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Core/Globals/ItemsDictionary.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/TributeItem/TributeItem.tscn" type="PackedScene" id=2]
@@ -11,6 +11,12 @@
 [ext_resource path="res://TResources/TributeItemIcons/LemonIcon.tres" type="Texture" id=9]
 [ext_resource path="res://TResources/TributeItemIcons/PepperIcon.tres" type="Texture" id=10]
 [ext_resource path="res://TResources/TributeItemIcons/FishIcon.tres" type="Texture" id=11]
+[ext_resource path="res://Assets/Sourced/Texture/FOOD.png" type="Texture" id=12]
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 4
+atlas = ExtResource( 12 )
+region = Rect2( 339, 369, 20, 20 )
 
 [node name="ItemsDictionary" type="Node"]
 script = ExtResource( 1 )
@@ -22,6 +28,17 @@ sweet = 2
 salty = 5
 umami = 3
 bitter = 2
+is_seed = true
+is_ingredient = true
+is_dish = false
+
+[node name="Fishseed" parent="." instance=ExtResource( 2 )]
+item_key = "Fishseed"
+force_rename_node = true
+item_icon = SubResource( 1 )
+sweet = 1
+umami = 1
+bitter = 1
 is_seed = true
 is_ingredient = true
 is_dish = false

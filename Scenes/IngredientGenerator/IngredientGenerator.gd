@@ -14,6 +14,7 @@ func debug_print(value):
 			ingredient_key = value
 			print("ITEM: OK")
 		else:
+			ingredient_key = value
 			print("ITEM: BAD - item_key doesn't exist in ItemsDictionary.")
 	else:
 		ingredient_key = value

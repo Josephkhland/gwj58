@@ -5,9 +5,9 @@ signal add_pathfinding_obstacle(obstacle)
 signal remove_pathfinding_obstacle(obstacle)
 signal create_paddle(coords)
 
-const mud_level_threshold = 30 #When the Water_amount is increased above mud_level
-const flood_level_threshold = 100 
-const max_level = 200
+const mud_level_threshold = 1700 #When the Water_amount is increased above mud_level
+const flood_level_threshold = 2000 
+const max_level = 3000
 
 enum TileState{
 	Normal,
@@ -28,7 +28,7 @@ var seed_generator_object = null #If it has a seed_generator_object this value s
 # Potentially Plot,Shrine,CookingBench,Seed Generator should belong in the same class. As only one of them could exist on a tile at a time.
 
 # If Water_amount is higher than a specific 
-var water_amount : int =0 setget set_water_amount
+var water_amount : int =1000 setget set_water_amount
 
 func set_water_amount(value):
 	water_amount = int(clamp(value, 0, max_level))
@@ -38,6 +38,8 @@ func set_water_amount(value):
 				tile_state = TileState.Muddy
 			elif water_amount > flood_level_threshold:
 				tile_state = TileState.Flooded
+				inventory.clear()
+				withdraw_item_from_ground()
 				if plot_object != null:
 					plot_object.turn_to_puddle()
 					emit_signal("add_pathfinding_obstacle",plot_object)
@@ -48,6 +50,8 @@ func set_water_amount(value):
 				tile_state = TileState.Normal
 			elif water_amount > flood_level_threshold:
 				tile_state = TileState.Flooded
+				inventory.clear()
+				withdraw_item_from_ground()
 				if plot_object != null:
 					plot_object.turn_to_puddle()
 					emit_signal("add_pathfinding_obstacle",plot_object)
@@ -114,6 +118,9 @@ func can_place_item():
 func holds_item():
 	return !GlobalVariables.player_invetory.has_space()
 	
+func can_drop_item():
+	return !has_item() and !GlobalVariables.player_invetory.has_space() and !has_stone()\
+	and !has_pond() and !has_plot()
 
 func get_available_actions():
 	var available_actions: Array = []
@@ -123,12 +130,12 @@ func get_available_actions():
 		available_actions.append(GlobalVariables.ActionKeys.PICKUP_ITEM)
 	if bench_has_item():
 		available_actions.append(GlobalVariables.ActionKeys.PICKUP_ITEM)
-	if !has_item() and holds_item() and !has_stone() and !has_cooking_bench():
+	if can_drop_item():
 		available_actions.append(GlobalVariables.ActionKeys.DROP_ITEM)
 	if has_item() and holds_item() and !has_seed_generator():
 		available_actions.append(GlobalVariables.ActionKeys.SWITCH_ITEM)
 	if has_plot():
-		if plot_object.is_planted and !holds_item():
+		if !holds_item() and plot_object.can_harvest():
 			available_actions.append(GlobalVariables.ActionKeys.HARVEST)
 		elif !plot_object.is_planted and holds_item():
 			if GlobalVariables.player_invetory.get_at(0).is_seed:
@@ -233,6 +240,26 @@ func withdraw_item_from_ground():
 	if placed_object != null:
 		placed_object.queue_free()
 		placed_object= null
+
+func replace_with_seed(seed_acquired):
+	plot_object.queue_free()
+	plot_object = null
+	print(seed_acquired)
+	print(ItemsDictionary.Dict)
+	if ItemsDictionary.Dict.has(seed_acquired):
+		var item = ItemsDictionary.Dict[seed_acquired.to_lower()].duplicate()
+		toss_item_to_ground(item)
+	else:
+		print("Plot: Seed Item not found (",seed_acquired,")")
+
+func plant_seed():
+	plot_object.plant(GlobalVariables.player_invetory.get_at(0))
+	GlobalVariables.player_invetory.remove_item(0)
+	GlobalVariables.base_game_ui._on_item_drop()
+
+func harvest_plant():
+	plot_object.harvest()
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
