@@ -252,7 +252,7 @@ visible = false
 position = Vector2( 1648, 1296 )
 
 [node name="ActionIndicator" parent="ControlIndicators" instance=ExtResource( 10 )]
-frame = 0
+frame = 2
 
 [node name="YSort" type="YSort" parent="."]
 
@@ -331,6 +331,7 @@ position = Vector2( 2001, 878 )
 
 [node name="IngredientGen" parent="YSort" instance=ExtResource( 22 )]
 position = Vector2( 1712, 1134 )
+ingredient_key = "fishseed"
 
 [node name="Sprite" type="Sprite" parent="."]
 visible = false

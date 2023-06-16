@@ -191,6 +191,26 @@ func withdraw_item_from_ground():
 	if placed_object != null:
 		placed_object.queue_free()
 		placed_object= null
+
+func replace_with_seed(seed_acquired):
+	plot_object.queue_free()
+	plot_object = null
+	print(seed_acquired)
+	print(ItemsDictionary.Dict)
+	if ItemsDictionary.Dict.has(seed_acquired):
+		var item = ItemsDictionary.Dict[seed_acquired.to_lower()].duplicate()
+		toss_item_to_ground(item)
+	else:
+		print("Plot: Seed Item not found (",seed_acquired,")")
+
+func plant_seed():
+	plot_object.plant(GlobalVariables.player_invetory.get_at(0))
+	GlobalVariables.player_invetory.remove_item(0)
+	GlobalVariables.base_game_ui._on_item_drop()
+
+func harvest_plant():
+	plot_object.harvest()
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass

@@ -13,6 +13,9 @@ var harvestable : bool = true
 var hosting_plot = null
 
 var harvest_list : Dictionary = {}
+
+var seed_id : String = ""
+
 # Called when the node enters the scene tree for the first time.
 
 
@@ -45,12 +48,12 @@ func _ready():
 	global_position = GlobalVariables.snap_to_grid(global_position)
 
 func destroy_plant():
-	hosting_plot.is_planted = false
-	queue_free()
+	hosting_plot.plant_destroyed()
 
 func grow():
 	if (growth_level >= GlobalVariables.PlantGrowthLevel.Rotting): 
 		destroy_plant()
+		return
 	harvestable = harvest_changes[growth_level].Harvestable
 	step_time = harvest_changes[growth_level].StepTime
 	growth_per_step = harvest_changes[growth_level].GrowthPerStep
@@ -62,11 +65,28 @@ func grow():
 		GlobalVariables.PlantGrowthLevel.Growing:
 			$Sprite.animation = "ready_blown"
 			action_animation_playing = true
-			
+			pick_harvest()
+			place_products_on_image()
 		GlobalVariables.PlantGrowthLevel.Ready:
 			$Sprite.animation = "wilt_action"
 			action_animation_playing = true
+			
 	growth_level+= 1
+
+func place_products_on_image():
+	var rotation_1 = GlobalVariables.rng.randi_range(0,360)
+	var rotation_2 = GlobalVariables.rng.randi_range(0,360)
+	var rotation_3 = GlobalVariables.rng.randi_range(0,360)
+	if ItemsDictionary.Dict[product].item_icon != null:
+		$HarvestIcons/Icon1.texture = ItemsDictionary.Dict[product].item_icon
+		$HarvestIcons/Icon2.texture = ItemsDictionary.Dict[product].item_icon
+		$HarvestIcons/Icon3.texture = ItemsDictionary.Dict[product].item_icon
+	$HarvestIcons/Icon1.rotation_degrees = rotation_1
+	$HarvestIcons/Icon2.rotation_degrees = rotation_2
+	$HarvestIcons/Icon3.rotation_degrees = rotation_3
+	$HarvestIcons/Icon1.scale = Vector2(1,1)*0.6
+	$HarvestIcons/Icon2.scale = Vector2(1,1)*0.6
+	$HarvestIcons/Icon3.scale = Vector2(1,1)*0.6
 
 func _on_StepTimer_timeout():
 	growth_progress += growth_per_step
@@ -77,27 +97,35 @@ func _on_StepTimer_timeout():
 		step_timer.wait_time = step_time
 		step_timer.start()
 
+var product = null
+func pick_harvest():
+	var selection_ranges :Dictionary = {}
+	var range_start = 0
+	for kvp in harvest_list.keys():
+		selection_ranges[kvp] = range_start
+		range_start = range_start + harvest_list[kvp]
+	var number_picked = GlobalVariables.rng.randi_range(0,range_start)
+	var item_key_selected = selection_ranges.keys()[0]
+	for kvp in selection_ranges.keys():
+		if number_picked >= selection_ranges[kvp]:
+			item_key_selected = kvp
+			break
+	#print("ITEM RETRIEVED: " + item_key_selected)
+	product = item_key_selected
+	return item_key_selected
+
 func harvest() -> bool:
 	if (!harvestable):
 		#Give message - Not Harvestable?
 		print("NOT HARVESTABLE AT THIS GROWTH LEVEL")
 		return false
-	if (harvest_list.size() < 1):
-		print("NO TributeItem keys in HARVEST LIST")
+	if product != null:
+		var new_item = ItemsDictionary.Dict[product].duplicate()
+		GlobalVariables.player_invetory.add_item(new_item)
+		GlobalVariables.base_game_ui._on_item_pickup(GlobalVariables.player_invetory.get_at(0).item_icon)
 		destroy_plant()
 		return true
-	var selection_ranges :Dictionary = {}
-	var range_start = 0
-	for kvp in harvest_list:
-		selection_ranges[kvp.key] = range_start
-		range_start = range_start + kvp.value
-	var number_picked = GlobalVariables.rng.randi_range(0,range_start)
-	var item_key_selected = selection_ranges.keys()[0]
-	for kvp in selection_ranges:
-		if number_picked >= kvp.value:
-			item_key_selected = kvp.key
-			break
-	print("ITEM RETRIEVED: " + item_key_selected)
+	
 	#More Code should be added here about actually giving the item to the player. 
 	return true
 	
