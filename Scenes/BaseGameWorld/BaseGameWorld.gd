@@ -13,6 +13,7 @@ onready var tile_content_template
 onready var item_template = preload("res://Scenes/TributeItem/TributeItem.tscn")
 onready var stone_object = preload("res://Scenes/Obstacles/StoneObstacle.tscn")
 onready var plot_object = preload("res://Scenes/Plot/Plot.tscn")
+onready var cloud_horizontal = preload("res://Scenes/RainyCloud/RainyCloud.tscn")
 onready var cooking_bench_combine = preload("res://Scenes/CookingBench/CookingBenchCombine/CookingBenchCombine.tscn")
 
 onready var PathFindingTileMap = $TileMaps/AstarTileMap
@@ -124,9 +125,7 @@ func _input(event):
 	elif event is InputEventMouseMotion:
 		pass #Do Stuff with Mouse Motion Event
 	if event is InputEventKey:
-		print("HELP")
 		if event.is_action_pressed("ui_accept"):
-			print("ENTER")
 			spawn_object_from_player(2)
 			
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -230,7 +229,6 @@ func spawn_object_from_player(item_type):
 	item.item_owner = PlayerPawn
 	#var offset = PlayerPawn.sprite.offset
 	item.drop_down(_find_nearest_tile(PlayerPawn.position)+ Vector2(16,16), Vector2.UP*16)
-	print("SPAWNED")
 	pass
 
 func flood_tiles_with_water():
@@ -288,6 +286,9 @@ func _on_action_switch_item(trigger_location):
 	tile_contents[trigger_location].switch_item()
 
 func _on_action_break_stone(trigger_location):
+	if tile_contents[trigger_location].stone_obstacle != null:
+		tile_contents[trigger_location].stone_obstacle.queue_free()
+		GlobalVariables.player_power_ups.break_stone_count -= 1
 	pass
 
 func _on_action_cook(trigger_location):
@@ -301,10 +302,18 @@ func _on_action_plant(trigger_location):
 	pass
 
 func _on_action_remove_water(trigger_location):
+	if tile_contents[trigger_location].tile_state != TileContent.TileState.Normal:
+		tile_contents[trigger_location].tile_state = TileContent.TileState.Normal
+		GlobalVariables.player_power_ups.remove_water_count -= 1
 	pass
 
 func _on_action_place_totem(trigger_location):
 	pass
 
 func _on_action_summon_cloud(trigger_location):
+	var cloud_instanse = cloud_horizontal.instance()
+	cloud_instanse.position = tile_contents[trigger_location].coordinates
+	GlobalVariables.base_game_world.add_child(cloud_instanse)
+	yield(get_tree().create_timer(5), "timeout")
+	cloud_instanse.queue_free()
 	pass

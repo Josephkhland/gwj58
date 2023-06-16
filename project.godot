@@ -55,6 +55,11 @@ _global_script_classes=[ {
 "path": "res://Scenes/PlantObject/PlantObject.gd"
 }, {
 "base": "Reference",
+"class": "PowerUpsClass",
+"language": "GDScript",
+"path": "res://Core/Classes/PowerUpsClass.gd"
+}, {
+"base": "Reference",
 "class": "TileContent",
 "language": "GDScript",
 "path": "res://Core/Classes/TileContentClass.gd"
@@ -79,6 +84,7 @@ _global_script_class_icons={
 "InventoryClass": "",
 "OrderClass": "",
 "Plant": "",
+"PowerUpsClass": "",
 "TileContent": "",
 "TributeItemClass": "",
 "Types": ""
