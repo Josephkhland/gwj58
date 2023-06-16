@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Assets/Sourced/UI/UI assets pack 2/UI books & more.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/BaseGameUI/ActionsUI/ActionsUI.gd" type="Script" id=2]
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 690, 241, 12, 14 )
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 786, 211, 12, 11 )
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 786, 226, 12, 12 )
+
+[node name="ActionsUI" type="CenterContainer"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -152.0
+margin_bottom = 299.0
+script = ExtResource( 2 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 506.0
+margin_top = 73.0
+margin_right = 518.0
+margin_bottom = 377.0
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer"]
+margin_right = 12.0
+columns = 20
+
+[node name="OffsetFromPlayer" type="MarginContainer" parent="VBoxContainer"]
+margin_top = 4.0
+margin_right = 12.0
+margin_bottom = 304.0
+rect_min_size = Vector2( 0, 300 )
+
+[node name="CancelButton" type="TextureButton" parent="VBoxContainer/OffsetFromPlayer"]
+margin_right = 12.0
+margin_bottom = 300.0
+action_mode = 0
+texture_normal = SubResource( 1 )
+texture_pressed = SubResource( 2 )
+texture_hover = SubResource( 3 )
+
+[connection signal="pressed" from="VBoxContainer/OffsetFromPlayer/CancelButton" to="." method="_on_CancelButton_pressed"]

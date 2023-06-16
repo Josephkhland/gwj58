@@ -4,7 +4,9 @@ extends Node
 onready var item_template = preload("res://Scenes/TributeItem/TributeItem.tscn")
 
 var is_movement_locked = false
+var is_actionsUI_open = false
 var tile_size = 32
+var action_max_distance = 48
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 var base_game_ui
 var player_invetory : InventoryClass

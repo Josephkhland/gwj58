@@ -70,7 +70,7 @@ func set_direction(new_direction:Vector2 = Vector2.RIGHT):
 
 func set_random_direction():
 	var rand_angle = GlobalVariables.rng.randi_range(0,360)
-	print(rand_angle)
+	#print(rand_angle)
 	var chosen_direction = Vector2.RIGHT
 	chosen_direction = chosen_direction.rotated(deg2rad(rand_angle))
 	set_direction(chosen_direction)
