@@ -24,6 +24,5 @@ func set_icon(icon:Texture):
 func _on_IconFrame_gui_input(event):
 	if event is InputEventMouseButton:
 		if event.is_action_pressed("travel") and GlobalVariables.is_actionsUI_open:
-			#print("Clicked")
 			emit_signal("action_box_clicked", action_reference)
 

@@ -33,7 +33,6 @@ func update_node(value):
 	rename_node(value)
 
 func rename_node(new_name):
-	#print("Trying to rename node to: ", new_name)
 	emit_signal("try_rename",get_name(),new_name)
 
 

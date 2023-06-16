@@ -12,6 +12,7 @@ var base_game_ui
 var base_game_world
 var player_pawn 
 var player_invetory : InventoryClass
+var player_power_ups : PowerUpsClass
 
 var groups_dict : Dictionary = {
 	Groups.Obstacles : "obstacles",
@@ -53,7 +54,7 @@ enum PlantGrowthLevel {
 
 enum ActionKeys{
 	NONE = 0,
-	MOVE =1,
+	MOVE = 1,
 	COOK,
 	BREAK_STONE,
 	REMOVE_WATER,
@@ -74,11 +75,10 @@ func snap_to_grid(position_to_snap:Vector2):
 	var new_position_w_offset = new_position_no_offset + Vector2(tile_size/2, tile_size/2)
 	return new_position_w_offset
 	
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	pass
 	
 func _init():
 	player_invetory = InventoryClass.new(1)
+	player_power_ups = PowerUpsClass.new()
 	

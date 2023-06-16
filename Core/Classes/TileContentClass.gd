@@ -84,6 +84,9 @@ func has_shrine():
 func has_item():
 	return !inventory.has_space()
 
+func has_pond():
+	return water_amount > flood_level_threshold
+
 func has_cooking_bench():
 	return cooking_bench_object != null
 
@@ -108,8 +111,7 @@ func can_place_item():
 
 func get_available_actions():
 	var available_actions: Array = []
-	print(GlobalVariables.player_invetory.has_space())
-	if has_stone(): #and has_powerup_break_stone
+	if has_stone() and GlobalVariables.player_power_ups.break_stone_count > 0:
 		available_actions.append(GlobalVariables.ActionKeys.BREAK_STONE)
 	if has_item() and GlobalVariables.player_invetory.has_space() and !has_seed_generator():
 		available_actions.append(GlobalVariables.ActionKeys.PICKUP_ITEM)
@@ -130,6 +132,10 @@ func get_available_actions():
 			available_actions.append(GlobalVariables.ActionKeys.PICKUP_ITEM)
 		else:
 			available_actions.append(GlobalVariables.ActionKeys.SWITCH_ITEM)
+	if GlobalVariables.player_power_ups.summon_cloud_count > 0:
+		available_actions.append(GlobalVariables.ActionKeys.SUMMON_CLOUD)
+	if has_pond() and GlobalVariables.player_power_ups.remove_water_count > 0:
+		available_actions.append(GlobalVariables.ActionKeys.REMOVE_WATER)
 	#Then probably only the power-ups are left to add.
 	return available_actions
 
