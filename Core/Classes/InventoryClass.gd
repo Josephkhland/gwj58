@@ -36,4 +36,4 @@ func clear():
 	inventory = []
 	
 func has_space():
-	return !inventory.size() > max_capasity
+	return inventory.size() < max_capasity

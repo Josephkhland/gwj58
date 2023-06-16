@@ -109,13 +109,14 @@ func can_place_item():
 
 func get_available_actions():
 	var available_actions: Array = []
+	print(GlobalVariables.player_invetory.has_space())
 	if has_stone(): #and has_powerup_break_stone
 		available_actions.append(GlobalVariables.ActionKeys.BREAK_STONE)
-	if has_item() and GlobalVariables.player_invetory.has_space():
+	if has_item() and GlobalVariables.player_invetory.has_space() and !has_seed_generator():
 		available_actions.append(GlobalVariables.ActionKeys.PICKUP_ITEM)
-	if !has_item() and !GlobalVariables.player_invetory.has_space():
+	if !has_item() and !GlobalVariables.player_invetory.has_space() and !has_stone():
 		available_actions.append(GlobalVariables.ActionKeys.DROP_ITEM)
-	if has_item() and !GlobalVariables.player_invetory.has_space():
+	if has_item() and !GlobalVariables.player_invetory.has_space() and !has_seed_generator():
 		available_actions.append(GlobalVariables.ActionKeys.SWITCH_ITEM)
 	if has_plot():
 		if plot_object.is_planted and GlobalVariables.player_invetory.has_space():
@@ -125,6 +126,11 @@ func get_available_actions():
 				available_actions.append(GlobalVariables.ActionKeys.PLANT)
 	if has_cooking_bench():
 		available_actions.append(GlobalVariables.ActionKeys.COOK)
+	if has_seed_generator() and !seed_generator_object.inventory.has_space():
+		if GlobalVariables.player_invetory.has_space():
+			available_actions.append(GlobalVariables.ActionKeys.PICKUP_ITEM)
+		else:
+			available_actions.append(GlobalVariables.ActionKeys.SWITCH_ITEM)
 	#Then probably only the power-ups are left to add.
 	return available_actions
 

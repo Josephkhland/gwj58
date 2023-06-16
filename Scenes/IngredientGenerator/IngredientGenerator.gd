@@ -19,6 +19,7 @@ func debug_print(value):
 		ingredient_key = value
 
 func _ready():
+	add_to_group(GlobalVariables.groups_dict[GlobalVariables.Groups.ItemGenerator])
 	$GenerateTimer.wait_time= time_to_generate
 	$GenerateTimer.start()
 	if !Engine.editor_hint:

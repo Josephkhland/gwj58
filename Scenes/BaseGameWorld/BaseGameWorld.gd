@@ -74,16 +74,17 @@ func add_details_to_tile_contents():
 				PathFindingTileMap.add_obstacle(cooking_bench)
 			GlobalVariables.DetailCellTypes.SEED_GEN:
 				pass
-			#ShrineObjects are added to tile_contents through a signal in their _ready,
-			#since each of them is unique and it seems better to just place them manually on the map
-	#Remove this later
-	link_map_interactibles_to_coords_dictionary()
+	#ShrineObjects are added to tile_contents through a signal in their _ready,
+	#since each of them is unique and it seems better to just place them manually on the map
+	
+	#Same goes for Generators
+	link_item_generators_to_coords_dictionary()
 
-var coords_dictionary : Dictionary = {}
-func link_map_interactibles_to_coords_dictionary():
-	for node in get_tree().get_nodes_in_group(GlobalVariables.groups_dict[GlobalVariables.Groups.MapInterractible]):
+func link_item_generators_to_coords_dictionary():
+	for node in get_tree().get_nodes_in_group(GlobalVariables.groups_dict[GlobalVariables.Groups.ItemGenerator]):
 		var coords = _find_nearest_tile(node.global_position)
-		coords_dictionary[coords] = node
+		tile_contents[coords].seed_generator_object = node
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -153,7 +154,7 @@ func has_obstacle(destination: Vector2) -> bool:
 			var player_pos = _find_nearest_tile(PlayerPawn.position)
 			var reverse_path = PathFindingTileMap.get_astar_path_avoiding_obstacles_ignore_last(player_pos,dest)
 			if reverse_path.size()<2:
-				return false
+				return true
 			move_pc_to_destination(reverse_path[-2] - PlayerPawn.position)
 			return true
 	return false
@@ -179,11 +180,8 @@ func move_pc_to_destination(destination : Vector2, delay : float = move_time):
 	#$PlayerCharacter._enter_walk_animation()
 	#movement_click_sound_player.play()
 	var path_iter = 1
-	var path_cut = 0
 	#If destination has an interractible- Don't walk on it? Stop right next to it.
-	if coords_dictionary.has(end_tile):
-		path_cut =1
-	while(path_iter < path_points.size() - path_cut):
+	while(path_iter < path_points.size()):
 		var path_point = path_points[path_iter]
 		path_point = GlobalVariables.snap_to_grid(path_point)
 		if path_point.x > PlayerPawn.position.x : 
@@ -211,35 +209,14 @@ func move_pc_to_destination(destination : Vector2, delay : float = move_time):
 	#update_move_indicator = true
 	destination_reached = true
 
-	PlayerPawn._idle_animation()
+	
 	$ControlIndicators/PointIndicator.hide()
 	
 	if move_aborted:
 		move_aborted = false
 		emit_signal("dest_changed")
-
-func interact_with_object(end_tile):
-	if !coords_dictionary.has(end_tile): return
-	var node_triggered = coords_dictionary[end_tile]
-	if node_triggered.is_in_group("Plot"):
-		print("THIS IS PLANT")
-		node_triggered.interact()
-	elif node_triggered.is_in_group("Shrine"):
-		var item = item_template.instance()
-		node_triggered.place_item(item)
-	elif node_triggered.is_in_group("CookingBench"):
-		print("THIS IS CookingBench")
-		# TODO: take the actual item from player and don't generate one
-		var item = item_template.instance()
-		$YSort.add_child(item)
-		item.hide()
-		item.item_owner = PlayerPawn
-		#
-		node_triggered.interact()
-		#node_triggered.cooking_bench.place_item(item)
-		#node_triggered.cooking_bench.call_popup()
 	else:
-		print("THIS IS INTERRACTIBLES")
+		PlayerPawn._idle_animation()
 
 func spawn_object_from_player(item_type):
 	var item = item_template.instance()
@@ -262,6 +239,62 @@ func flood_tiles_with_water():
 func _on_FloodingUpdate_timeout():
 	flood_tiles_with_water()
 
+
+###FROM THIS POINT ON IS THE LOGIC REGARDING ACTIONS HANDLING. 
+
 func do_action(action_ref):
+	var trigger_location = $ControlIndicators/ActionIndicator.position
 	print("Doing action with ref: ", action_ref)
+	match action_ref:
+		GlobalVariables.ActionKeys.PICKUP_ITEM:
+			pass
+		GlobalVariables.ActionKeys.DROP_ITEM:
+			pass
+		GlobalVariables.ActionKeys.SWITCH_ITEM:
+			pass
+		GlobalVariables.ActionKeys.BREAK_STONE:
+			pass
+		GlobalVariables.ActionKeys.COOK:
+			pass
+		GlobalVariables.ActionKeys.HARVEST:
+			pass
+		GlobalVariables.ActionKeys.PLANT:
+			pass
+		GlobalVariables.ActionKeys.REMOVE_WATER:
+			pass
+		GlobalVariables.ActionKeys.PLACE_PROTECTIVE_TOTEM:
+			pass
+		GlobalVariables.ActionKeys.SUMMON_CLOUD:
+			pass
 	GlobalVariables.is_movement_locked = false
+
+
+func _on_action_pick_up(trigger_location):
+	pass
+
+func _on_action_drop_item(trigger_location):
+	pass
+
+func _on_action_switch_item(trigger_location):
+	pass
+
+func _on_action_break_stone(trigger_location):
+	pass
+
+func _on_action_cook(trigger_location):
+	pass
+
+func _on_action_harvest(trigger_location):
+	pass
+
+func _on_action_plant(trigger_location):
+	pass
+
+func _on_action_remove_water(trigger_location):
+	pass
+
+func _on_action_place_totem(trigger_location):
+	pass
+
+func _on_action_summon_cloud(trigger_location):
+	pass
