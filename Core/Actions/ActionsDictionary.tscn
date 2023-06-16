@@ -1,0 +1,76 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://Core/Actions/ActionsDictionary.gd" type="Script" id=1]
+[ext_resource path="res://Core/Actions/ActionRefObject.tscn" type="PackedScene" id=2]
+[ext_resource path="res://TResources/ActionIcons/PlaceProtectiveTokenIcon.tres" type="Texture" id=3]
+[ext_resource path="res://TResources/ActionIcons/DropItemIcon.tres" type="Texture" id=4]
+[ext_resource path="res://TResources/ActionIcons/PlantIcon.tres" type="Texture" id=5]
+[ext_resource path="res://TResources/ActionIcons/SummonCloudIcon.tres" type="Texture" id=6]
+[ext_resource path="res://TResources/ActionIcons/SwitchItemIcon.tres" type="Texture" id=7]
+[ext_resource path="res://TResources/ActionIcons/PickupItemIcon.tres" type="Texture" id=8]
+[ext_resource path="res://TResources/ActionIcons/HarvestIcon.tres" type="Texture" id=9]
+[ext_resource path="res://TResources/ActionIcons/CookIcon.tres" type="Texture" id=10]
+[ext_resource path="res://TResources/ActionIcons/MoveIcon.tres" type="Texture" id=11]
+[ext_resource path="res://TResources/ActionIcons/BreakStoneIcon.tres" type="Texture" id=12]
+[ext_resource path="res://TResources/ActionIcons/RemoveWaterIcon.tres" type="Texture" id=13]
+
+[node name="ActionsDictionary" type="Node"]
+script = ExtResource( 1 )
+
+[node name="MOVE" parent="." instance=ExtResource( 2 )]
+action_key = 1
+action_string = "MOVE"
+action_icon = ExtResource( 11 )
+
+[node name="COOK" parent="." instance=ExtResource( 2 )]
+action_key = 2
+action_string = "COOK"
+action_icon = ExtResource( 10 )
+
+[node name="BREAK_STONE" parent="." instance=ExtResource( 2 )]
+action_key = 3
+action_string = "BREAK_STONE"
+action_icon = ExtResource( 12 )
+
+[node name="REMOVE_WATER" parent="." instance=ExtResource( 2 )]
+action_key = 4
+action_string = "REMOVE_WATER"
+action_icon = ExtResource( 13 )
+
+[node name="SUMMON_CLOUD" parent="." instance=ExtResource( 2 )]
+action_key = 5
+action_string = "SUMMON_CLOUD"
+action_icon = ExtResource( 6 )
+
+[node name="PLANT" parent="." instance=ExtResource( 2 )]
+action_key = 6
+action_string = "PLANT"
+action_icon = ExtResource( 5 )
+
+[node name="HARVEST" parent="." instance=ExtResource( 2 )]
+action_key = 7
+action_string = "HARVEST"
+action_icon = ExtResource( 9 )
+
+[node name="DROP_ITEM" parent="." instance=ExtResource( 2 )]
+action_key = 8
+action_string = "DROP_ITEM"
+action_icon = ExtResource( 4 )
+
+[node name="PLACE_PROTECTIVE_TOTEM" parent="." instance=ExtResource( 2 )]
+action_key = 9
+action_string = "PLACE_PROTECTIVE_TOTEM"
+action_icon = ExtResource( 3 )
+
+[node name="PICKUP_ITEM" parent="." instance=ExtResource( 2 )]
+action_key = 10
+action_string = "PICKUP_ITEM"
+action_icon = ExtResource( 8 )
+
+[node name="SWITCH_ITEM" parent="." instance=ExtResource( 2 )]
+action_key = 11
+action_string = "SWITCH_ITEM"
+action_icon = ExtResource( 7 )
+
+[connection signal="child_entered_tree" from="." to="." method="_on_ActionsDictionary_child_entered_tree"]
+[connection signal="child_exiting_tree" from="." to="." method="_on_ActionsDictionary_child_exiting_tree"]

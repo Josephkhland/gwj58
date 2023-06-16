@@ -47,6 +47,8 @@ enum PlantGrowthLevel {
 	Rotting = 3
 }
 
+
+
 func snap_to_grid(position_to_snap:Vector2):
 	var x_diff = int(position_to_snap.x) %tile_size
 	var y_diff = int(position_to_snap.y) %tile_size

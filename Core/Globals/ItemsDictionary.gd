@@ -23,6 +23,7 @@ func refresh_scene(value):
 	if value:
 		for key in Dict.keys():
 			print("-- Key:",key,"| Value: ", Dict[key])
+		print("===")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
