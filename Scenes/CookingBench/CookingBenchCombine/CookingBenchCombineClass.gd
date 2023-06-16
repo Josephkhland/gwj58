@@ -13,7 +13,6 @@ func _init():
 func required_items_sufficient():
 	return inventory.size() >= SUFFICIENT_ITEMS
 
-# TODO: add igridient history
 func cook():
 	var items = inventory.get_all()
 	var item = items.pop_front() 
@@ -25,6 +24,8 @@ func cook():
 		item.flavor_chart.Umami		= umami_combined	(item, next_item)
 		item.flavor_chart.Sour		= sour_combined		(item, next_item)
 		item.flavor_chart.Bitter	= bitter_combined	(item, next_item)
+
+		item.ingredients_history.push_back(item.item_key)
 	
 	inventory.inventory.clear()
 	inventory.add_item(item)
