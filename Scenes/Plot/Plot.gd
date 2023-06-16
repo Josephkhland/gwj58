@@ -27,10 +27,13 @@ func plant(seed_given):
 	if is_planted == true:
 		print("ALREADY HAS PLANT")
 		return
-	plant_object =  PlantsDictionary.Dict[seed_given.item_key.to_lower()].generate_plant()#plantObject_scene.instance()
-	add_child(plant_object)
-	plant_object.hosting_plot = self
-	is_planted = true
+	if PlantsDictionary.Dict.has(seed_given.item_key.to_lower()):
+		plant_object =  PlantsDictionary.Dict[seed_given.item_key.to_lower()].generate_plant()#plantObject_scene.instance()
+		add_child(plant_object)
+		plant_object.hosting_plot = self
+		is_planted = true
+	else:
+		print("COULDN'T FIND SEED FOR THIS PLANT")
 	#If Player is Adjacent 
 	pass
 

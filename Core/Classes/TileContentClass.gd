@@ -38,6 +38,8 @@ func set_water_amount(value):
 				tile_state = TileState.Muddy
 			elif water_amount > flood_level_threshold:
 				tile_state = TileState.Flooded
+				inventory.clear()
+				withdraw_item_from_ground()
 				if plot_object != null:
 					plot_object.turn_to_puddle()
 					emit_signal("add_pathfinding_obstacle",plot_object)
@@ -48,6 +50,8 @@ func set_water_amount(value):
 				tile_state = TileState.Normal
 			elif water_amount > flood_level_threshold:
 				tile_state = TileState.Flooded
+				inventory.clear()
+				withdraw_item_from_ground()
 				if plot_object != null:
 					plot_object.turn_to_puddle()
 					emit_signal("add_pathfinding_obstacle",plot_object)
@@ -107,7 +111,10 @@ func remove_stone():
 
 func can_place_item():
 	return not has_plot() and not has_cooking_bench()
-	
+
+func can_drop_item():
+	return !has_item() and !GlobalVariables.player_invetory.has_space() and !has_stone()\
+	and !has_pond() and !has_plot()
 
 func get_available_actions():
 	var available_actions: Array = []
@@ -115,7 +122,7 @@ func get_available_actions():
 		available_actions.append(GlobalVariables.ActionKeys.BREAK_STONE)
 	if has_item() and GlobalVariables.player_invetory.has_space() and !has_seed_generator():
 		available_actions.append(GlobalVariables.ActionKeys.PICKUP_ITEM)
-	if !has_item() and !GlobalVariables.player_invetory.has_space() and !has_stone():
+	if can_drop_item():
 		available_actions.append(GlobalVariables.ActionKeys.DROP_ITEM)
 	if has_item() and !GlobalVariables.player_invetory.has_space() and !has_seed_generator():
 		available_actions.append(GlobalVariables.ActionKeys.SWITCH_ITEM)

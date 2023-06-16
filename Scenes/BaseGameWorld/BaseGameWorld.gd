@@ -37,6 +37,7 @@ func add_puddle_to_coords(coords):
 	puddle.position = GlobalVariables.snap_to_grid(coords)
 	puddle.turn_to_puddle()
 	tile_contents[coords].plot_object = puddle
+	puddle.tile_content_parent = tile_contents[coords]
 	PathFindingTileMap.add_obstacle(puddle)
 
 func add_details_to_tile_contents():
@@ -236,7 +237,7 @@ func flood_tiles_with_water():
 		for point in cloud.get_points_coords():
 			var tile = _find_nearest_tile(point)
 			if tile_contents.has(tile):
-				tile_contents[tile].add_to_water_level(10)
+				tile_contents[tile].add_to_water_level(100)
 
 
 func _on_FloodingUpdate_timeout():
