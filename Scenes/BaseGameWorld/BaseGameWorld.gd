@@ -2,6 +2,8 @@ extends Node2D
 
 signal tile_reached
 signal dest_changed
+signal request_ActionsUI(available_actions)
+signal cancel_ActionsUI
 export(float) var move_time : float = 0.5
 var destination_reached = true
 var move_aborted = false
@@ -16,6 +18,7 @@ onready var cooking_bench_combine = preload("res://Scenes/CookingBench/CookingBe
 onready var PathFindingTileMap = $TileMaps/AstarTileMap
 onready var PlayerPawn = $YSort/PlayerCharacter 
 onready var ObjectsLayer = $YSort
+
 
 var tile_contents : Dictionary = {}
 func generate_tile_contents():
@@ -97,6 +100,25 @@ func _input(event):
 		if event.is_action_pressed("travel") and not GlobalVariables.is_movement_locked:
 			var relative_position = event.position - _get_viewport_offset()
 			move_pc_to_destination(relative_position)
+		elif event.is_action_pressed("open_actions_menu"):
+			var relative_position = event.position - _get_viewport_offset()
+			var target_point = PlayerPawn.position + relative_position
+			var rect_top_left_corner = _find_nearest_tile(PlayerPawn.global_position) - Vector2(2,2)*GlobalVariables.tile_size
+			var rect_size = GlobalVariables.tile_size*Vector2(5,5)
+			var rectangle = Rect2(rect_top_left_corner, rect_size)
+			#relative position is the Vector2 from the PlayerPawn (Center of Screen) to the click
+			if rectangle.has_point(target_point):
+				target_point = GlobalVariables.snap_to_grid(_find_nearest_tile(target_point))
+				operate_action_at_tile(target_point)
+				if not GlobalVariables.is_movement_locked:
+					move_pc_to_destination(target_point - PlayerPawn.position)
+			elif !GlobalVariables.is_movement_locked:
+				target_point = PlayerPawn.position + GlobalVariables.tile_size*relative_position.normalized()*2.4
+				target_point = GlobalVariables.snap_to_grid(_find_nearest_tile(target_point))
+				if not GlobalVariables.is_movement_locked:
+					move_pc_to_destination(target_point - PlayerPawn.position)
+		
+			
 			
 	elif event is InputEventMouseMotion:
 		pass #Do Stuff with Mouse Motion Event
@@ -112,6 +134,11 @@ func _input(event):
 func _find_nearest_tile(nearby_position : Vector2):
 	return PathFindingTileMap.get_nearest_tile_position(nearby_position)
 
+func operate_action_at_tile(tile_selected_coords):
+	$ControlIndicators/ActionIndicator.position = tile_selected_coords
+	interact_with_object(tile_selected_coords- Vector2(16,16))
+	
+
 func _reach_tile():
 	emit_signal("tile_reached")
 
@@ -121,6 +148,8 @@ func has_obstacle(destination: Vector2) -> bool:
 			var dest = _find_nearest_tile(PlayerPawn.position + destination)
 			var player_pos = _find_nearest_tile(PlayerPawn.position)
 			var reverse_path = PathFindingTileMap.get_astar_path_avoiding_obstacles_ignore_last(player_pos,dest)
+			if reverse_path.size()<2:
+				return false
 			move_pc_to_destination(reverse_path[-2] - PlayerPawn.position)
 			return true
 	return false
@@ -132,14 +161,14 @@ func move_pc_to_destination(destination : Vector2, delay : float = move_time):
 			move_aborted = true
 		yield(self,"dest_changed")
 		#return #Prevent it from activating again before action is completed.
-	$PointIndicator.reposition(PlayerPawn.position + destination)
+	$ControlIndicators/PointIndicator.reposition(PlayerPawn.position + destination)
 	var start_tile = _find_nearest_tile(PlayerPawn.position)
 	var end_tile = _find_nearest_tile(PlayerPawn.position + destination)
 	if move_tween is SceneTreeTween:
 		move_tween.stop()
 	var path_points = PathFindingTileMap.get_astar_path_avoiding_obstacles(start_tile, end_tile)
 	if path_points.size() < 2:
-		$PointIndicator.warn_and_hide()
+		$ControlIndicators/PointIndicator.warn_and_hide()
 		return
 	#update_move_indicator = false
 	destination_reached = false
@@ -152,6 +181,7 @@ func move_pc_to_destination(destination : Vector2, delay : float = move_time):
 		path_cut =1
 	while(path_iter < path_points.size() - path_cut):
 		var path_point = path_points[path_iter]
+		path_point = GlobalVariables.snap_to_grid(path_point)
 		if path_point.x > PlayerPawn.position.x : 
 			PlayerPawn._walk_right()
 		elif path_point.x < PlayerPawn.position.x:
@@ -168,7 +198,7 @@ func move_pc_to_destination(destination : Vector2, delay : float = move_time):
 		#$PathHint._remove_first_point()
 		path_iter += 1
 		if move_aborted:
-			$PointIndicator.warn_and_hide()
+			$ControlIndicators/PointIndicator.warn_and_hide()
 			#move_aborted = false
 			#emit_signal("dest_changed")
 			break
@@ -178,15 +208,14 @@ func move_pc_to_destination(destination : Vector2, delay : float = move_time):
 	destination_reached = true
 
 	PlayerPawn._idle_animation()
-	$PointIndicator.hide()
+	$ControlIndicators/PointIndicator.hide()
 	
 	if move_aborted:
 		move_aborted = false
 		emit_signal("dest_changed")
-	if coords_dictionary.has(end_tile):
-		interact_with_object(end_tile)
 
 func interact_with_object(end_tile):
+	if !coords_dictionary.has(end_tile): return
 	var node_triggered = coords_dictionary[end_tile]
 	if node_triggered.is_in_group("Plot"):
 		print("THIS IS PLANT")
@@ -194,6 +223,9 @@ func interact_with_object(end_tile):
 	elif node_triggered.is_in_group("Shrine"):
 		var item = item_template.instance()
 		node_triggered.place_item(item)
+		
+		#Debug for testing Secondary Action and ActionsUI
+		emit_signal("request_ActionsUI",[0,1,2,3,4,5])
 	elif node_triggered.is_in_group("CookingBench"):
 		print("THIS IS CookingBench")
 		# TODO: take the actual item from player and don't generate one
@@ -228,3 +260,7 @@ func flood_tiles_with_water():
 
 func _on_FloodingUpdate_timeout():
 	flood_tiles_with_water()
+
+func do_action(action_ref):
+	print("Doing action with ref: ", action_ref)
+	GlobalVariables.is_movement_locked = false

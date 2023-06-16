@@ -278,9 +278,9 @@ script = ExtResource( 2 )
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 18 )
 animation = "Idle"
-frame = 7
+frame = 5
 playing = true
-offset = Vector2( 32, -8 )
+offset = Vector2( 0, -32 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 visible = false
