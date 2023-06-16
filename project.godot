@@ -121,6 +121,10 @@ open_actions_menu={
  ]
 }
 
+[logging]
+
+file_logging/enable_file_logging=true
+
 [mono]
 
 project/assembly_name="Gwj 58"
