@@ -9,6 +9,8 @@ var tile_size = 32
 var action_max_distance = 48
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 var base_game_ui
+var base_game_world
+var player_pawn 
 var player_invetory : InventoryClass
 
 var groups_dict : Dictionary = {
@@ -75,9 +77,6 @@ func snap_to_grid(position_to_snap:Vector2):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	# TODO: remove adding of item on init
-	var item = item_template.instance()
-	player_invetory.add_item(item) 
 	pass # Replace with function body.
 	
 func _init():

@@ -36,11 +36,12 @@ func _on_cooking_popup_signal(val):
 	emit_signal("cooking_popup_done")
 
 func _on_item_pickup(icon:Texture):
-	$MarginContainer/PlayerItem.texture = icon
-	$MarginContainer/PlayerItem.show()
+	print("Picking up Item")
+	$MarginContainer/InventoryBackground/CenterContainer/PlayerItem.texture = icon
+	$MarginContainer/InventoryBackground/CenterContainer/PlayerItem.show()
 
 func _on_item_drop():
-	$MarginContainer/PlayerItem.hide()
+	$MarginContainer/InventoryBackground/CenterContainer/PlayerItem.hide()
 
 func _on_ActionsUI_action_selected(action_ref):
 	print("BaseGameUI: Action Selected")

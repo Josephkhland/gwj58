@@ -35,13 +35,16 @@ func generate():
 	
 func collect():
 	if inventory.size() > 0:
+		var item = inventory.get_at(0)
 		inventory.remove_item(0)
-		
+		return item
+
 func place_item(tribute_item):
 	if inventory.size() == 0:
 		inventory.add_item(tribute_item)
-		
-		
+		return true
+	else:
+		return false
 	
 	
 

@@ -25,7 +25,6 @@ var shrine_object = null #If it has a shrine_object, this value should be set
 var cooking_bench_object = null #If it has a cooking_bench_object, this value should be set.
 var seed_generator_object = null #If it has a seed_generator_object this value should be set. 
 
-var object_placed = null #For placing the item
 # Potentially Plot,Shrine,CookingBench,Seed Generator should belong in the same class. As only one of them could exist on a tile at a time.
 
 # If Water_amount is higher than a specific 
@@ -83,7 +82,7 @@ func has_shrine():
 	return shrine_object !=null
 
 func has_item():
-	return object_placed != null
+	return !inventory.has_space()
 
 func has_cooking_bench():
 	return cooking_bench_object != null
@@ -122,7 +121,7 @@ func get_available_actions():
 		if plot_object.is_planted and GlobalVariables.player_invetory.has_space():
 			available_actions.append(GlobalVariables.ActionKeys.HARVEST)
 		elif !plot_object.is_planted and !GlobalVariables.player_invetory.has_space():
-			if GlobalVariables.player_invetory.get_at(0).isSeed:
+			if GlobalVariables.player_invetory.get_at(0).is_seed:
 				available_actions.append(GlobalVariables.ActionKeys.PLANT)
 	if has_cooking_bench():
 		available_actions.append(GlobalVariables.ActionKeys.COOK)
@@ -134,6 +133,64 @@ func get_available_actions():
 	#Then probably only the power-ups are left to add.
 	return available_actions
 
+
+func pick_up():
+	if has_seed_generator():
+		GlobalVariables.player_invetory.add_item(seed_generator_object.collect())
+		GlobalVariables.base_game_ui._on_item_pickup(GlobalVariables.player_invetory.get_at(0).item_icon)
+		return
+	if has_shrine():
+		return
+	GlobalVariables.player_invetory.add_item(inventory.get_at(0))
+	GlobalVariables.base_game_ui._on_item_pickup(inventory.get_at(0).item_icon)
+	inventory.remove_item(0)
+	withdraw_item_from_ground()
+
+func drop_down():
+	if has_seed_generator():
+		if seed_generator_object.place_item(GlobalVariables.player_invetory.get_at(0)):
+			GlobalVariables.player_invetory.remove_item(0)
+			GlobalVariables.base_game_ui._on_item_drop()
+		else: 
+			print("SeedGenerator: Another Item was found on position")
+		return
+	if has_shrine():
+		return
+	toss_item_to_ground(GlobalVariables.player_invetory.get_at(0))
+	GlobalVariables.player_invetory.remove_item(0)
+	GlobalVariables.base_game_ui._on_item_drop()
+	
+
+func switch_item():
+	var tmp = GlobalVariables.player_invetory.get_at(0)
+	GlobalVariables.player_invetory.remove_item(0)
+	pick_up()
+	#Then Place the item on the spot
+	if has_seed_generator():
+		if seed_generator_object.place_item(tmp):
+			pass
+			#Succesfully placed.
+		else: 
+			print("SeedGenerator: Another Item was found on position")
+		return
+	if has_shrine():
+		return
+	withdraw_item_from_ground()
+	toss_item_to_ground(tmp)
+
+
+var placed_object
+func toss_item_to_ground(item):
+	inventory.add_item(item)
+	GlobalVariables.base_game_world.ObjectsLayer.add_child(item)
+	item.set_icon_real_quick()
+	item.toss_item(GlobalVariables.player_pawn, coordinates + Vector2(16,16), Vector2.UP*32)
+	placed_object = item
+
+func withdraw_item_from_ground():
+	if placed_object != null:
+		placed_object.queue_free()
+		placed_object= null
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass

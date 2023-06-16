@@ -91,6 +91,8 @@ func _ready():
 	$TileMaps/DetailsTileMap.hide()
 	generate_tile_contents()
 	add_details_to_tile_contents()
+	GlobalVariables.player_pawn = PlayerPawn
+	GlobalVariables.base_game_world = self
 	pass # Replace with function body.
 
 func _get_viewport_offset() -> Vector2:
@@ -193,7 +195,8 @@ func move_pc_to_destination(destination : Vector2, delay : float = move_time):
 		elif path_point.y < PlayerPawn.position.y:
 			PlayerPawn._walk_up()
 		move_tween = get_tree().create_tween()
-		move_tween.tween_property(PlayerPawn, "position", path_point, delay)
+		var offset_for_Ysort_correction = Vector2.DOWN
+		move_tween.tween_property(PlayerPawn, "position", path_point +offset_for_Ysort_correction, delay)
 		yield(move_tween, "finished")
 		move_tween = null
 		_reach_tile()
@@ -243,40 +246,44 @@ func _on_FloodingUpdate_timeout():
 ###FROM THIS POINT ON IS THE LOGIC REGARDING ACTIONS HANDLING. 
 
 func do_action(action_ref):
-	var trigger_location = $ControlIndicators/ActionIndicator.position
+	var trigger_location = _find_nearest_tile($ControlIndicators/ActionIndicator.position)
+	if !tile_contents.has(trigger_location):
+		print("INVALID COORDINATES")
+		return
 	print("Doing action with ref: ", action_ref)
 	match action_ref:
 		GlobalVariables.ActionKeys.PICKUP_ITEM:
-			pass
+			_on_action_pick_up(trigger_location)
 		GlobalVariables.ActionKeys.DROP_ITEM:
-			pass
+			_on_action_drop_item(trigger_location)
 		GlobalVariables.ActionKeys.SWITCH_ITEM:
-			pass
+			_on_action_switch_item(trigger_location)
 		GlobalVariables.ActionKeys.BREAK_STONE:
-			pass
+			_on_action_break_stone(trigger_location)
 		GlobalVariables.ActionKeys.COOK:
-			pass
+			_on_action_cook(trigger_location)
 		GlobalVariables.ActionKeys.HARVEST:
-			pass
+			_on_action_harvest(trigger_location)
 		GlobalVariables.ActionKeys.PLANT:
-			pass
+			_on_action_plant(trigger_location)
 		GlobalVariables.ActionKeys.REMOVE_WATER:
-			pass
+			_on_action_remove_water(trigger_location)
 		GlobalVariables.ActionKeys.PLACE_PROTECTIVE_TOTEM:
-			pass
+			_on_action_place_totem(trigger_location)
 		GlobalVariables.ActionKeys.SUMMON_CLOUD:
-			pass
+			_on_action_summon_cloud(trigger_location)
 	GlobalVariables.is_movement_locked = false
 
 
 func _on_action_pick_up(trigger_location):
+	tile_contents[trigger_location].pick_up()
 	pass
 
 func _on_action_drop_item(trigger_location):
-	pass
+	tile_contents[trigger_location].drop_down()
 
 func _on_action_switch_item(trigger_location):
-	pass
+	tile_contents[trigger_location].switch_item()
 
 func _on_action_break_stone(trigger_location):
 	pass

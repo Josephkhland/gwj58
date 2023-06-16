@@ -6,7 +6,7 @@
 [sub_resource type="AtlasTexture" id=1]
 flags = 4
 atlas = ExtResource( 2 )
-region = Rect2( 352, 256, 96, 96 )
+region = Rect2( 224, 0, 32, 64 )
 
 [node name="IngredientGen" type="Node2D"]
 script = ExtResource( 1 )
@@ -14,6 +14,7 @@ ingredient_key = "fish"
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = SubResource( 1 )
+offset = Vector2( 0, -16 )
 
 [node name="GenerateTimer" type="Timer" parent="."]
 
