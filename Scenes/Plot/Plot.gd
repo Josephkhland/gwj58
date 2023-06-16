@@ -14,6 +14,8 @@ func _ready():
 	add_to_group("Plot")
 	pass # Replace with function body.
 
+func can_harvest():
+	return is_planted and plant_object.harvestable
 
 func harvest():
 	var destroyed_plant = plant_object.harvest()

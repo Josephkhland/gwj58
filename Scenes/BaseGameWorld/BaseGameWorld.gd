@@ -238,7 +238,7 @@ func flood_tiles_with_water():
 		for point in cloud.get_points_coords():
 			var tile = _find_nearest_tile(point)
 			if tile_contents.has(tile):
-				tile_contents[tile].add_to_water_level(1)
+				tile_contents[tile].add_to_water_level(10)
 
 
 func _on_FloodingUpdate_timeout():

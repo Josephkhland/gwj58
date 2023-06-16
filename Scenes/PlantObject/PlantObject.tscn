@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=2]
+[gd_scene load_steps=57 format=2]
 
 [ext_resource path="res://Assets/Original/Sprites/gwj58-readyPlant.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/PlantObject/PlantObject.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Assets/Original/Sprites/gwj58-seedPlant.png" type="Texture" id=5]
 [ext_resource path="res://Assets/Sourced/UI/Pixel UI Pack 3/07.png" type="Texture" id=6]
 [ext_resource path="res://TResources/swaying_fruits.tres" type="Material" id=7]
+[ext_resource path="res://Assets/Sourced/Pipoya_emotes/pipo-popupemotes.png" type="Texture" id=8]
 
 [sub_resource type="AtlasTexture" id=1]
 flags = 4
@@ -310,6 +311,29 @@ shader_param/distortion = 0.5
 shader_param/heightOffset = 0.175
 shader_param/offset = 0.0
 
+[sub_resource type="AtlasTexture" id=45]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 480, 64, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=46]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 512, 64, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=47]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 544, 64, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=48]
+animations = [ {
+"frames": [ SubResource( 45 ), SubResource( 46 ), SubResource( 47 ) ],
+"loop": true,
+"name": "default",
+"speed": 6.0
+} ]
+
 [node name="PlantObject" type="Position2D"]
 script = ExtResource( 2 )
 
@@ -317,6 +341,7 @@ script = ExtResource( 2 )
 position = Vector2( 0, -17 )
 frames = SubResource( 39 )
 animation = "ready_blown"
+frame = 7
 playing = true
 
 [node name="StepTimer" type="Timer" parent="."]
@@ -344,6 +369,14 @@ position = Vector2( -3, -16 )
 [node name="Icon3" type="Sprite" parent="HarvestIcons"]
 material = SubResource( 44 )
 position = Vector2( 0, -10 )
+
+[node name="NeedWaterIndicator" type="AnimatedSprite" parent="."]
+visible = false
+modulate = Color( 1, 1, 1, 0.941176 )
+position = Vector2( 0, -18 )
+scale = Vector2( 0.5, 0.5 )
+frames = SubResource( 48 )
+playing = true
 
 [connection signal="animation_finished" from="Sprite" to="." method="_on_Sprite_animation_finished"]
 [connection signal="timeout" from="StepTimer" to="." method="_on_StepTimer_timeout"]

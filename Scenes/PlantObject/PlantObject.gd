@@ -88,14 +88,34 @@ func place_products_on_image():
 	$HarvestIcons/Icon2.scale = Vector2(1,1)*0.6
 	$HarvestIcons/Icon3.scale = Vector2(1,1)*0.6
 
+var water_consumption = 1
 func _on_StepTimer_timeout():
-	growth_progress += growth_per_step
-	$ProgressBar.value = growth_progress*100
-	if growth_progress >= 1:
-		growth_progress = 0
-		grow()
-		step_timer.wait_time = step_time
-		step_timer.start()
+	if hosting_plot != null:
+		if hosting_plot.tile_content_parent.water_amount >= water_consumption and growth_level < GlobalVariables.PlantGrowthLevel.Rotting:
+			$NeedWaterIndicator.hide()
+			hosting_plot.tile_content_parent.add_to_water_level(-water_consumption)
+			growth_progress += growth_per_step
+			$ProgressBar.value = growth_progress*100
+			if growth_progress >= 1:
+				growth_progress = 0
+				grow()
+				step_timer.wait_time = step_time
+				step_timer.start()
+		else:
+			if growth_level == GlobalVariables.PlantGrowthLevel.Rotting:
+				growth_progress += growth_per_step
+				$ProgressBar.value = growth_progress*100
+				if growth_progress >= 1:
+					growth_progress = 0
+					grow()
+					step_timer.wait_time = step_time
+					step_timer.start()
+			else:
+				$NeedWaterIndicator.show()
+				growth_progress -= 0.1
+				if growth_progress <= 0:
+					destroy_plant()
+	
 
 var product = null
 func pick_harvest():
@@ -128,7 +148,6 @@ func harvest() -> bool:
 	
 	#More Code should be added here about actually giving the item to the player. 
 	return true
-	
 
 
 func _on_Sprite_animation_finished():
