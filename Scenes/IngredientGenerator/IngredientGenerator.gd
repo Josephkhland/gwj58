@@ -3,7 +3,7 @@ extends Node2D
 
 const time_to_generate: int = 5
 
-export (String) var ingredient_key = ItemsDictionary.Dict.keys()[0] setget debug_print
+export (String) var ingredient_key setget debug_print
 
 var ingredient: TributeItemClass = null
 var inventory: InventoryClass = null

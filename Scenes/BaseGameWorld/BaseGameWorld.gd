@@ -270,6 +270,8 @@ func do_action(action_ref):
 			_on_action_place_totem(trigger_location)
 		GlobalVariables.ActionKeys.SUMMON_CLOUD:
 			_on_action_summon_cloud(trigger_location)
+		GlobalVariables.ActionKeys.PLACE_ITEM_COOKING:
+			_on_actions_place_item_cooking(trigger_location)
 	GlobalVariables.is_movement_locked = false
 
 
@@ -290,6 +292,9 @@ func _on_action_break_stone(trigger_location):
 	pass
 
 func _on_action_cook(trigger_location):
+	var cooking_bench = tile_contents[trigger_location].cooking_bench_object
+	if cooking_bench != null:
+		cooking_bench.interact()
 	pass
 
 func _on_action_harvest(trigger_location):
@@ -311,6 +316,20 @@ func _on_action_summon_cloud(trigger_location):
 	var cloud_instanse = cloud_horizontal.instance()
 	cloud_instanse.position = tile_contents[trigger_location].coordinates
 	GlobalVariables.base_game_world.add_child(cloud_instanse)
+	GlobalVariables.player_power_ups.summon_cloud_count -= 1
 	yield(get_tree().create_timer(5), "timeout")
 	cloud_instanse.queue_free()
+	pass
+
+func _on_actions_place_item_cooking(trigger_location):
+	var cooking_bench_inst = tile_contents[trigger_location].cooking_bench_object
+	if cooking_bench_inst != null:
+		cooking_bench_inst.cooking_bench.inventory.add_item(
+			GlobalVariables.player_invetory.get_at(0)
+		)
+		tile_contents[trigger_location].toss_item_only_animation(
+			GlobalVariables.player_invetory.get_at(0)
+		)
+		GlobalVariables.player_invetory.remove_item(0)
+		GlobalVariables.base_game_ui._on_item_drop()
 	pass

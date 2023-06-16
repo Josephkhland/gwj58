@@ -90,6 +90,9 @@ func has_pond():
 func has_cooking_bench():
 	return cooking_bench_object != null
 
+func bench_has_item():
+	return cooking_bench_object != null and cooking_bench_object.cooking_bench.inventory.size() > 0
+
 func has_seed_generator():
 	return seed_generator_object != null
 
@@ -107,26 +110,33 @@ func remove_stone():
 
 func can_place_item():
 	return not has_plot() and not has_cooking_bench()
+
+func holds_item():
+	return !GlobalVariables.player_invetory.has_space()
 	
 
 func get_available_actions():
 	var available_actions: Array = []
 	if has_stone() and GlobalVariables.player_power_ups.break_stone_count > 0:
 		available_actions.append(GlobalVariables.ActionKeys.BREAK_STONE)
-	if has_item() and GlobalVariables.player_invetory.has_space() and !has_seed_generator():
+	if has_item() and !holds_item() and !has_seed_generator():
 		available_actions.append(GlobalVariables.ActionKeys.PICKUP_ITEM)
-	if !has_item() and !GlobalVariables.player_invetory.has_space() and !has_stone():
+	if bench_has_item():
+		available_actions.append(GlobalVariables.ActionKeys.PICKUP_ITEM)
+	if !has_item() and holds_item() and !has_stone() and !has_cooking_bench():
 		available_actions.append(GlobalVariables.ActionKeys.DROP_ITEM)
-	if has_item() and !GlobalVariables.player_invetory.has_space() and !has_seed_generator():
+	if has_item() and holds_item() and !has_seed_generator():
 		available_actions.append(GlobalVariables.ActionKeys.SWITCH_ITEM)
 	if has_plot():
-		if plot_object.is_planted and GlobalVariables.player_invetory.has_space():
+		if plot_object.is_planted and !holds_item():
 			available_actions.append(GlobalVariables.ActionKeys.HARVEST)
-		elif !plot_object.is_planted and !GlobalVariables.player_invetory.has_space():
+		elif !plot_object.is_planted and holds_item():
 			if GlobalVariables.player_invetory.get_at(0).is_seed:
 				available_actions.append(GlobalVariables.ActionKeys.PLANT)
 	if has_cooking_bench():
 		available_actions.append(GlobalVariables.ActionKeys.COOK)
+	if has_cooking_bench() and holds_item():
+		available_actions.append(GlobalVariables.ActionKeys.PLACE_ITEM_COOKING)
 	if has_seed_generator() and !seed_generator_object.inventory.has_space():
 		if GlobalVariables.player_invetory.has_space():
 			available_actions.append(GlobalVariables.ActionKeys.PICKUP_ITEM)
@@ -146,6 +156,25 @@ func pick_up():
 		GlobalVariables.base_game_ui._on_item_pickup(GlobalVariables.player_invetory.get_at(0).item_icon)
 		return
 	if has_shrine():
+		return
+	if bench_has_item():
+		var bench = cooking_bench_object.cooking_bench
+		var shoud_remove = true
+		if !holds_item():
+			GlobalVariables.player_invetory.add_item(bench.inventory.get_at(0))
+			GlobalVariables.base_game_ui._on_item_pickup(bench.inventory.get_at(0).item_icon)
+		else:
+			var tile_contents = GlobalVariables.base_game_world.tile_contents
+			var cardnals = [Vector2.UP, Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT]
+			for car in cardnals:
+				var tile = tile_contents[coordinates + 32 * car]
+				if !tile.has_item():
+					tile.toss_item_to_ground(bench.inventory.get_at(0))
+					GlobalVariables.base_game_ui._on_item_drop()
+					break
+				shoud_remove = false
+		if shoud_remove:
+			bench.inventory.remove_item(0)
 		return
 	GlobalVariables.player_invetory.add_item(inventory.get_at(0))
 	GlobalVariables.base_game_ui._on_item_pickup(inventory.get_at(0).item_icon)
@@ -192,6 +221,13 @@ func toss_item_to_ground(item):
 	item.set_icon_real_quick()
 	item.toss_item(GlobalVariables.player_pawn, coordinates + Vector2(16,16), Vector2.UP*32)
 	placed_object = item
+
+func toss_item_only_animation(item):
+	GlobalVariables.base_game_world.ObjectsLayer.add_child(item)
+	item.set_icon_real_quick()
+	item.toss_item(GlobalVariables.player_pawn, coordinates + Vector2(16,16), Vector2.UP*32)
+	yield(item.get_tree().create_timer(0.5), "timeout")
+	item.queue_free()
 
 func withdraw_item_from_ground():
 	if placed_object != null:

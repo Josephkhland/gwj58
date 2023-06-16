@@ -247,7 +247,7 @@ script = ExtResource( 2 )
 position = Vector2( 0, -17 )
 frames = SubResource( 39 )
 animation = "growing_state"
-frame = 12
+frame = 14
 playing = true
 
 [node name="StepTimer" type="Timer" parent="."]

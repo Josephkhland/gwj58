@@ -24,11 +24,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/CookingBench/CookingBenchCombine/CookingBenchCombineClass.gd"
 }, {
-"base": "Control",
-"class": "CookingPopupBase",
-"language": "GDScript",
-"path": "res://Scenes/BaseGameUI/CookingPopup/CookingPopupBase.gd"
-}, {
 "base": "Reference",
 "class": "FlavorChart",
 "language": "GDScript",
@@ -78,7 +73,6 @@ _global_script_class_icons={
 "AstarTileMap": "",
 "CookingBenchClass": "",
 "CookingBenchCombineClass": "",
-"CookingPopupBase": "",
 "FlavorChart": "",
 "HarvestChange": "",
 "InventoryClass": "",
