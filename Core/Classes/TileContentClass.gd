@@ -120,7 +120,7 @@ func holds_item():
 	
 func can_drop_item():
 	return !has_item() and !GlobalVariables.player_invetory.has_space() and !has_stone()\
-	and !has_pond() and !has_plot()
+	and !has_pond() and !has_plot() and !has_cooking_bench()
 
 func get_available_actions():
 	var available_actions: Array = []

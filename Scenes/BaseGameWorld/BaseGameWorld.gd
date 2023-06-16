@@ -309,7 +309,7 @@ func _on_action_plant(trigger_location):
 
 func _on_action_remove_water(trigger_location):
 	if tile_contents[trigger_location].tile_state != TileContent.TileState.Normal:
-		tile_contents[trigger_location].tile_state = TileContent.TileState.Normal
+		tile_contents[trigger_location].set_water_amount(0)
 		GlobalVariables.player_power_ups.remove_water_count -= 1
 	pass
 
