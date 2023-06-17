@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Assets/Sourced/Texture/TX Props.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/ShrineObject/ShrineObject.gd" type="Script" id=2]
@@ -10,27 +10,102 @@ flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 416, 0, 96, 96 )
 
+[sub_resource type="Animation" id=2]
+resource_name = "Default"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Cloud:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -1, -120.25 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Cloud:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.669922, 0.932292 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "Pop-up"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Cloud:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -1, -120.25 ), Vector2( -7.62939e-06, -48 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Cloud:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.669922, 0.932292 ), Vector2( 0.0302735, 0.0677085 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Cloud:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, true, false ]
+}
+
 [node name="ShrineObject" type="Sprite"]
 texture = SubResource( 1 )
 offset = Vector2( 0, -32 )
 script = ExtResource( 2 )
 
 [node name="Cloud" type="Sprite" parent="."]
-position = Vector2( -1, -120.25 )
-scale = Vector2( 0.669922, 0.932292 )
+visible = false
+position = Vector2( -7.62939e-06, -48 )
+scale = Vector2( 0.0302735, 0.0677085 )
 texture = ExtResource( 3 )
 
 [node name="God" type="Sprite" parent="Cloud"]
-position = Vector2( -49.2595, 6.70391 )
-scale = Vector2( 1.36297, 1 )
+scale = Vector2( 1e-05, 1e-05 )
 texture = ExtResource( 4 )
 
 [node name="Ingredient" type="Sprite" parent="Cloud"]
 position = Vector2( 64.1866, -12.6033 )
 scale = Vector2( 0.76312, 0.509777 )
-texture = ExtResource( 4 )
 
 [node name="Flavor" type="Sprite" parent="Cloud"]
 position = Vector2( 64.1866, 23.8659 )
 scale = Vector2( 0.763, 0.51 )
 texture = ExtResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Default = SubResource( 2 )
+anims/Pop-up = SubResource( 3 )
+
+[node name="OrderGeneratorTimer" type="Timer" parent="."]
+
+[connection signal="generate_order" from="." to="." method="_on_ShrineObject_generate_order"]
+[connection signal="timeout" from="OrderGeneratorTimer" to="." method="_on_OrderGeneratorTimer_timeout"]

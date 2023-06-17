@@ -236,7 +236,7 @@ func flood_tiles_with_water():
 		for point in cloud.get_points_coords():
 			var tile = _find_nearest_tile(point)
 			if tile_contents.has(tile):
-				tile_contents[tile].add_to_water_level(100)
+				tile_contents[tile].add_to_water_level(10)
 
 
 func _on_FloodingUpdate_timeout():
@@ -336,3 +336,8 @@ func _on_actions_place_item_cooking(trigger_location):
 		GlobalVariables.player_invetory.remove_item(0)
 		GlobalVariables.base_game_ui._on_item_drop()
 	pass
+
+var water_level_reduction_per_dryness_step = 1
+func _on_DrynessUpdate_timeout():
+	for key in tile_contents.keys():
+		tile_contents[key].add_to_water_level(-water_level_reduction_per_dryness_step)

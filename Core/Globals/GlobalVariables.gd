@@ -79,6 +79,7 @@ func snap_to_grid(position_to_snap:Vector2):
 	return new_position_w_offset
 	
 func _ready():
+	rng.seed = Time.get_unix_time_from_system()
 	pass
 	
 func _init():

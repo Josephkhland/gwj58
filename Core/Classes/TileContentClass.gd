@@ -5,6 +5,7 @@ signal add_pathfinding_obstacle(obstacle)
 signal remove_pathfinding_obstacle(obstacle)
 signal create_paddle(coords)
 
+const dry_warning_threshdold = 300
 const mud_level_threshold = 1700 #When the Water_amount is increased above mud_level
 const flood_level_threshold = 2000 
 const max_level = 3000

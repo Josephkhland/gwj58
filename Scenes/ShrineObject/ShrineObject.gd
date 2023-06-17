@@ -38,7 +38,7 @@ func set_sprite(texture):
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	add_to_group(GlobalVariables.groups_dict[GlobalVariables.Groups.Shrine])
-	#add_to_group("Shrine")
+	$OrderGeneratorTimer.start()
 	pass # Replace with function body.
 
 func _init():
@@ -46,14 +46,10 @@ func _init():
 	
 	
 func hide_cloud():
-	var children = self.get_children()
-	for child in children:
-		child.hide()
+	$AnimationPlayer.play("Pop-up")
 		
 func show_cloud():
-	var children = self.get_children()
-	for child in children:
-		child.show()
+	$AnimationPlayer.play_backwards("Pop-up")
 	
 	
 func place_item(tribute_item):
@@ -73,21 +69,43 @@ func get_score(order, tribute_item):
 		score -= points_lost_for_incorrect_flavor
 	return score
 	
+
+func _process(delta):
+	if order != null and inventory.size() > 0:
+		eat_order()
+
+
+func create_order():
+	order = OrderClass.new()
+	show_cloud()
+	for i in range(0,1000):
+		emit_signal("generate_order")
+		
+	
 	
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	if !Engine.editor_hint:
-		if order == null:
-			yield(get_tree().create_timer(wait_between_orders), "timeout")
-			order = OrderClass.new()
-			$Cloud/God.texture = god_image
-			$Cloud/Ingredient.texture = ItemsDictionary.Dict[order.ingredient.to_lower()].item_icon
-			$Cloud/Ingredient.scale = Vector2(1,1)*2
-			show_cloud()
-		elif order != null and inventory.size() > 0:
-			var score = get_score(order, inventory.inventory[0])
-			print(score)
-			order = null
-			inventory.clear()
-			hide_cloud()
+func eat_order():
+	var score = get_score(order, inventory.inventory[0])
+	#print(score)
+	order = null
+	inventory.clear()
+	hide_cloud()
+
+signal generate_order
+var chance_to_create_order = 0
+func _on_OrderGeneratorTimer_timeout():
+	if order == null:
+		chance_to_create_order += 1
+		var random_pick = GlobalVariables.rng.randi_range(1,100)
+		if random_pick < chance_to_create_order:
+			if !Engine.editor_hint:
+				create_order()
+			chance_to_create_order =0
+
+
+func _on_ShrineObject_generate_order():
+	yield(get_tree().create_timer(0.1), "timeout")
+	order = OrderClass.new()
+	#$Cloud/God.texture = god_image
+	$Cloud/Ingredient.texture = ItemsDictionary.Dict[order.ingredient.to_lower()].item_icon
+	$Cloud/Ingredient.scale = Vector2(1,1)*2

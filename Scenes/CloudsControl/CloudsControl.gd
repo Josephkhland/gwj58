@@ -89,8 +89,8 @@ func _ready():
 func get_generation_points_along_x(poly : Polygon2D):
 	var first_point_x = get_minimum_x(poly.polygon)
 	var last_point_x = get_maximum_x(poly.polygon)
-	var point_y = (get_maximum_y(poly.polygon) + get_maximum_y(poly.polygon))/2
-	var step = GlobalVariables.tile_size*2
+	var point_y = (get_minimum_y(poly.polygon) + get_maximum_y(poly.polygon))/2
+	var step = GlobalVariables.tile_size*4
 	var array_of_points = []
 	for point_x in range(first_point_x,last_point_x, step):
 		array_of_points.append(Vector2(point_x,point_y))
@@ -99,7 +99,7 @@ func get_generation_points_along_x(poly : Polygon2D):
 func get_generation_points_along_y(poly : Polygon2D):
 	var first_point_y = get_minimum_y(poly.polygon)
 	var last_point_y = get_maximum_y(poly.polygon)
-	var point_x = (get_maximum_x(poly.polygon) + get_maximum_x(poly.polygon))/2
+	var point_x = (get_minimum_x(poly.polygon) + get_maximum_x(poly.polygon))/2
 	var step = GlobalVariables.tile_size*2
 	var array_of_points = []
 	for point_y in range(first_point_y,last_point_y, step):
@@ -141,12 +141,12 @@ func change_wind():
 func init_array_of_waves():
 	for wave_count in range(0, turn_duration):
 			var wave :Array = []
-			var max_turn_density = generator[CardinalsToSpawnDirection[current_wind_direction]].size()/2
 			for i in range(0,generator[CardinalsToSpawnDirection[current_wind_direction]].size()):
 				wave.append(0)
 			array_of_waves.append(wave)
 
 var array_of_waves :Array = []
+var max_clouds = 5
 func change_day():
 	print("DAY CHANGED")
 	array_of_waves.clear()
@@ -156,7 +156,7 @@ func change_day():
 		#Pick how many clouds to generate today
 		for wave_count in range(0, turn_duration):
 			var wave :Array = []
-			var max_turn_density = generator[CardinalsToSpawnDirection[current_wind_direction]].size()/2
+			var max_turn_density = min(max_clouds,generator[CardinalsToSpawnDirection[current_wind_direction]].size()/2)
 			clouds_to_generate_this_wave = GlobalVariables.rng.randi_range(0, max_turn_density)
 			total_clouds_of_turn += clouds_to_generate_this_wave
 			var gen_slots : Array = []
@@ -165,9 +165,11 @@ func change_day():
 				wave.append(0)
 			
 			gen_slots.shuffle()
+			var counter_thing = 0
 			for i in gen_slots:
-				if i > clouds_to_generate_this_wave : break
+				if counter_thing > clouds_to_generate_this_wave : break
 				wave[i] = 1
+				counter_thing += 1
 			array_of_waves.append(wave)
 	else:
 		init_array_of_waves()
@@ -211,8 +213,7 @@ func add_cloud_to_point(point):
 func erase_clouds_out_of_bounds():
 	for node in get_tree().get_nodes_in_group(GlobalVariables.groups_dict[GlobalVariables.Groups.Clouds]):
 		if !ValidRect.has_point(node.position):
-			pass
-			#node.queue_free()
+			node.queue_free()
 
 func update_clouds_direction():
 	for node in get_tree().get_nodes_in_group(GlobalVariables.groups_dict[GlobalVariables.Groups.Clouds]):

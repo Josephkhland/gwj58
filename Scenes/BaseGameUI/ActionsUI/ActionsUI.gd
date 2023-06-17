@@ -36,6 +36,7 @@ func show_actions(available_actions:Array):
 		_on_cancel()
 
 func _on_action_box_clicked(action_ref):
+	print("ACTION BOX CLICKED: ", action_ref)
 	emit_signal("action_selected", action_ref)
 	clear_actions()
 	hide()
