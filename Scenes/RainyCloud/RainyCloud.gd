@@ -40,6 +40,9 @@ func get_points_coords():
 
 func _process(delta):
 	position += delta*travel_speed*direction
+	#check_for_random_rotation
+
+func check_for_random_rotation():
 	chance_to_turn_around += 0.001
 	var number_picked = GlobalVariables.rng.randi_range(1,100)
 	if number_picked < chance_to_turn_around:
