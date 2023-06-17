@@ -1,10 +1,11 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://icon.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Original/Tilesets/gwj58-grass.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Original/Tilesets/gwj58-detailed-grass.png" type="Texture" id=3]
 [ext_resource path="res://Scenes/TileMap/AstarTileMap.gd" type="Script" id=4]
-[ext_resource path="res://Scenes/RainyCloud/RainyCloud.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/CloudsControl/CloudsControl.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Assets/Sourced/Texture/TX Props.png" type="Texture" id=6]
 [ext_resource path="res://Scenes/PlayerCharacter/PlayerCharacter.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/BaseGameWorld/BaseGameWorld.gd" type="Script" id=8]
 [ext_resource path="res://Scenes/PointIndicators/PointIndicator.tscn" type="PackedScene" id=9]
@@ -21,6 +22,7 @@
 [ext_resource path="res://Assets/Original/5.PURPLE.png" type="Texture" id=20]
 [ext_resource path="res://Assets/Original/4.YELLOW.png" type="Texture" id=21]
 [ext_resource path="res://Scenes/IngredientGenerator/IngredientGenerator.tscn" type="PackedScene" id=22]
+[ext_resource path="res://Assets/Original/Backgrounds/malakia6.png" type="Texture" id=23]
 
 [sub_resource type="TileSet" id=4]
 0/name = "gwj58-grass.png 0"
@@ -216,6 +218,22 @@
 script = ExtResource( 8 )
 move_time = 0.2
 
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+
+[node name="TextureRect" type="TextureRect" parent="ParallaxBackground"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -256.0
+margin_top = -256.0
+margin_right = 288.0
+margin_bottom = 168.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 23 )
+expand = true
+
 [node name="TileMaps" type="Node2D" parent="."]
 
 [node name="AstarTileMap" type="TileMap" parent="TileMaps"]
@@ -250,7 +268,7 @@ position = Vector2( 1648, 1296 )
 [node name="YSort" type="YSort" parent="."]
 
 [node name="PlayerCharacter" parent="YSort" instance=ExtResource( 7 )]
-position = Vector2( 2081, 1249 )
+position = Vector2( 2112, 1216 )
 scale = Vector2( 0.5, 0.5 )
 
 [node name="ShrineObject2" parent="YSort" instance=ExtResource( 11 )]
@@ -284,13 +302,20 @@ texture = ExtResource( 1 )
 wait_time = 0.5
 autostart = true
 
-[node name="Cloud" parent="." instance=ExtResource( 5 )]
-position = Vector2( 1799, 1431 )
+[node name="CloudsControl" parent="." instance=ExtResource( 5 )]
 
-[node name="Cloud2" parent="." instance=ExtResource( 5 )]
-position = Vector2( 2378, 1191 )
+[node name="WestGenerationArea" parent="CloudsControl" index="1"]
+polygon = PoolVector2Array( 992, 640, 1024, 640, 1024, 1696, 992, 1696 )
 
-[node name="Cloud3" parent="." instance=ExtResource( 5 )]
-position = Vector2( 2266, 1485 )
+[node name="EastGenerationArea" parent="CloudsControl" index="2"]
+polygon = PoolVector2Array( 3168, 1696, 3200, 1696, 3200, 640, 3168, 640 )
+
+[node name="NorthGenerationArea" parent="CloudsControl" index="3"]
+polygon = PoolVector2Array( 1536, 320, 2656, 320, 2656, 352, 1536, 352 )
+
+[node name="SoutGenerationArea" parent="CloudsControl" index="4"]
+polygon = PoolVector2Array( 1536, 1984, 2656, 1984, 2656, 2016, 1536, 2016 )
 
 [connection signal="timeout" from="FloodingUpdate" to="." method="_on_FloodingUpdate_timeout"]
+
+[editable path="CloudsControl"]
