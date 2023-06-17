@@ -56,14 +56,8 @@ func add_details_to_tile_contents():
 				tile_contents[world_coords].stone_obstacle = stone
 				PathFindingTileMap.add_obstacle(stone)
 			GlobalVariables.DetailCellTypes.PUDDLE:
-				var puddle = plot_object.instance()
-				ObjectsLayer.add_child(puddle)
-				puddle.position = GlobalVariables.snap_to_grid(world_coords)
-				puddle.turn_to_puddle()
-				puddle.tile_content_parent = tile_contents[world_coords]
-				tile_contents[world_coords].plot_object = puddle
+				tile_contents[world_coords].set_water_amount(tile_contents[world_coords].max_level)
 				
-				PathFindingTileMap.add_obstacle(puddle)
 			GlobalVariables.DetailCellTypes.PLOT:
 				var plot = plot_object.instance()
 				ObjectsLayer.add_child(plot)
