@@ -13,20 +13,34 @@ const points_gained_for_correct_flavor = 0
 const points_lost_for_incorrect_flavor =0
 
 export var god_name = "Chizuru"
+export(Texture) var god_image
 
 var inventory: InventoryClass
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	add_to_group(GlobalVariables.groups_dict[GlobalVariables.Groups.MapInterractible])
-	add_to_group("Shrine")
+	add_to_group(GlobalVariables.groups_dict[GlobalVariables.Groups.Shrine])
+	#add_to_group("Shrine")
 	pass # Replace with function body.
 
 func _init():
 	inventory = InventoryClass.new(1)
 	
-func place_item(tribute_item: TributeItemClass):
+	
+func hide_cloud():
+	var children = self.get_children()
+	for child in children:
+		child.hide()
+		
+func show_cloud():
+	var children = self.get_children()
+	for child in children:
+		child.show()
+	
+	
+func place_item(tribute_item):
 	inventory.add_item(tribute_item)
+	
 
 func get_score(order: OrderClass, tribute_item: TributeItemClass):
 	var score = 0
@@ -48,11 +62,15 @@ func _process(delta):
 	if order == null:
 		yield(get_tree().create_timer(wait_between_orders), "timeout")
 		order = OrderClass.new()
+		$Cloud/Ingredient.texture = ItemsDictionary.Dict[order.ingredient.to_lower()].item_icon
+		$Cloud/Ingredient.scale = Vector2(1,1)*2
+		show_cloud()
 	elif order != null and inventory.size() > 0:
 		var score = get_score(order, inventory.inventory[0])
 		print(score)
 		order = null
 		inventory.clear()
+		hide_cloud()
 		
 		
 		

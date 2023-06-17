@@ -197,6 +197,9 @@ func drop_down():
 			print("SeedGenerator: Another Item was found on position")
 		return
 	if has_shrine():
+		shrine_object.place_item(GlobalVariables.player_invetory.get_at(0))
+		GlobalVariables.player_invetory.remove_item(0)
+		GlobalVariables.base_game_ui._on_item_drop()
 		return
 	toss_item_to_ground(GlobalVariables.player_invetory.get_at(0))
 	GlobalVariables.player_invetory.remove_item(0)

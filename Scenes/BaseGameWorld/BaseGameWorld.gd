@@ -84,12 +84,17 @@ func add_details_to_tile_contents():
 	
 	#Same goes for Generators
 	link_item_generators_to_coords_dictionary()
-
+	link_shrine_objects_to_coords_dictionary()	
+	
 func link_item_generators_to_coords_dictionary():
 	for node in get_tree().get_nodes_in_group(GlobalVariables.groups_dict[GlobalVariables.Groups.ItemGenerator]):
 		var coords = _find_nearest_tile(node.global_position)
 		tile_contents[coords].seed_generator_object = node
 
+func link_shrine_objects_to_coords_dictionary():
+	for node in get_tree().get_nodes_in_group(GlobalVariables.groups_dict[GlobalVariables.Groups.Shrine]):
+		var coords = _find_nearest_tile(node.global_position)
+		tile_contents[coords].shrine_object = node
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

@@ -1,11 +1,10 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://icon.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Original/Tilesets/gwj58-grass.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Original/Tilesets/gwj58-detailed-grass.png" type="Texture" id=3]
 [ext_resource path="res://Scenes/TileMap/AstarTileMap.gd" type="Script" id=4]
 [ext_resource path="res://Scenes/RainyCloud/RainyCloud.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Assets/Sourced/Texture/TX Props.png" type="Texture" id=6]
 [ext_resource path="res://Scenes/PlayerCharacter/PlayerCharacter.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/BaseGameWorld/BaseGameWorld.gd" type="Script" id=8]
 [ext_resource path="res://Scenes/PointIndicators/PointIndicator.tscn" type="PackedScene" id=9]
@@ -213,11 +212,6 @@
 8/shapes = [  ]
 8/z_index = 0
 
-[sub_resource type="AtlasTexture" id=3]
-flags = 4
-atlas = ExtResource( 6 )
-region = Rect2( 416, 0, 96, 96 )
-
 [node name="BaseGameWorld" type="Node2D"]
 script = ExtResource( 8 )
 move_time = 0.2
@@ -252,79 +246,13 @@ visible = false
 position = Vector2( 1648, 1296 )
 
 [node name="ActionIndicator" parent="ControlIndicators" instance=ExtResource( 10 )]
-frame = 1
+frame = 0
 
 [node name="YSort" type="YSort" parent="."]
 
 [node name="PlayerCharacter" parent="YSort" instance=ExtResource( 7 )]
 position = Vector2( 2081, 1249 )
 scale = Vector2( 0.5, 0.5 )
-
-[node name="ObstacleExample" type="Position2D" parent="YSort" groups=["Obstacles"]]
-position = Vector2( 1905, 753 )
-
-[node name="Sprite" type="Sprite" parent="YSort/ObstacleExample"]
-texture = SubResource( 3 )
-centered = false
-offset = Vector2( -48, -80 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="ObstacleExample2" type="Position2D" parent="YSort" groups=["Obstacles"]]
-position = Vector2( 1776, 783 )
-
-[node name="Sprite" type="Sprite" parent="YSort/ObstacleExample2"]
-texture = SubResource( 3 )
-centered = false
-offset = Vector2( -48, -80 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="ObstacleExample3" type="Position2D" parent="YSort" groups=["Obstacles"]]
-position = Vector2( 2032, 721 )
-
-[node name="Sprite" type="Sprite" parent="YSort/ObstacleExample3"]
-texture = SubResource( 3 )
-centered = false
-offset = Vector2( -48, -80 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="ObstacleExample4" type="Position2D" parent="YSort" groups=["Obstacles"]]
-position = Vector2( 2160, 719 )
-
-[node name="Sprite" type="Sprite" parent="YSort/ObstacleExample4"]
-texture = SubResource( 3 )
-centered = false
-offset = Vector2( -48, -80 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="ObstacleExample5" type="Position2D" parent="YSort" groups=["Obstacles"]]
-position = Vector2( 2291, 751 )
-
-[node name="Sprite" type="Sprite" parent="YSort/ObstacleExample5"]
-texture = SubResource( 3 )
-centered = false
-offset = Vector2( -48, -80 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="ObstacleExample6" type="Position2D" parent="YSort" groups=["Obstacles"]]
-position = Vector2( 2419, 784 )
-
-[node name="Sprite" type="Sprite" parent="YSort/ObstacleExample6"]
-texture = SubResource( 3 )
-centered = false
-offset = Vector2( -48, -80 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="ShrineObject2" parent="YSort" instance=ExtResource( 11 )]
 position = Vector2( 2001, 878 )

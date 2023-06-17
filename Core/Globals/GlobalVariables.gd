@@ -19,6 +19,7 @@ var groups_dict : Dictionary = {
 	Groups.MapInterractible : "map_interractible",
 	Groups.Clouds: "clouds",
 	Groups.ItemGenerator :"item_generator",
+	Groups.Shrine: "shrine_object"
 }
 
 enum DetailCellTypes{
@@ -34,6 +35,7 @@ enum Groups{
 	MapInterractible,
 	Clouds,
 	ItemGenerator,
+	Shrine
 }
 
 enum Flavours{
