@@ -181,13 +181,11 @@ func change_day():
 
 var turn_counter = 0
 func _on_WaveTimer_timeout():
-	print("TURN: ", turn_counter)
 	erase_clouds_out_of_bounds()
 	if turn_counter >= turn_duration:
 		if turn_counter >= turn_duration + break_between_turns:
 			turn_counter = 0
 			change_day()
-			print(total_clouds_of_turn)
 			update_clouds_direction()
 		else:
 			turn_counter += 1

@@ -248,8 +248,6 @@ func withdraw_item_from_ground():
 func replace_with_seed(seed_acquired):
 	plot_object.queue_free()
 	plot_object = null
-	print(seed_acquired)
-	print(ItemsDictionary.Dict)
 	if ItemsDictionary.Dict.has(seed_acquired):
 		var item = ItemsDictionary.Dict[seed_acquired.to_lower()].duplicate()
 		toss_item_to_ground(item)

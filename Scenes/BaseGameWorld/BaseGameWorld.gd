@@ -138,12 +138,13 @@ func operate_action_at_tile(tile_selected_coords):
 	$ControlIndicators/ActionIndicator.position = tile_selected_coords
 	var usable_coords = tile_selected_coords- Vector2(16,16)
 	#interact_with_object(tile_selected_coords- Vector2(16,16))
-	var av_actions = tile_contents[usable_coords].get_available_actions()
-	if (av_actions.size() > 0):
-		#Debug for testing Secondary Action and ActionsUI
-		emit_signal("request_ActionsUI",av_actions)
-	else:
-		move_pc_to_destination(tile_selected_coords - PlayerPawn.position)
+	if usable_coords in tile_contents:
+		var av_actions = tile_contents[usable_coords].get_available_actions()
+		if (av_actions.size() > 0):
+			#Debug for testing Secondary Action and ActionsUI
+			emit_signal("request_ActionsUI", av_actions)
+		else:
+			move_pc_to_destination(tile_selected_coords - PlayerPawn.position)
 	
 
 func _reach_tile():
@@ -246,11 +247,12 @@ func _on_FloodingUpdate_timeout():
 ###FROM THIS POINT ON IS THE LOGIC REGARDING ACTIONS HANDLING. 
 
 func do_action(action_ref):
+	print("do_action")
 	var trigger_location = _find_nearest_tile($ControlIndicators/ActionIndicator.position)
 	if !tile_contents.has(trigger_location):
-		print("INVALID COORDINATES")
+		# print("INVALID COORDINATES")
 		return
-	print("Doing action with ref: ", action_ref)
+	# print("Doing action with ref: ", action_ref)
 	match action_ref:
 		GlobalVariables.ActionKeys.PICKUP_ITEM:
 			_on_action_pick_up(trigger_location)
@@ -278,6 +280,7 @@ func do_action(action_ref):
 
 
 func _on_action_pick_up(trigger_location):
+	print("_on_action_pick_up")
 	tile_contents[trigger_location].pick_up()
 	pass
 
