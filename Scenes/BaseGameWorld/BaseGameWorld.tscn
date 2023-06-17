@@ -246,7 +246,6 @@ visible = false
 position = Vector2( 1648, 1296 )
 
 [node name="ActionIndicator" parent="ControlIndicators" instance=ExtResource( 10 )]
-frame = 0
 
 [node name="YSort" type="YSort" parent="."]
 
@@ -255,7 +254,23 @@ position = Vector2( 2081, 1249 )
 scale = Vector2( 0.5, 0.5 )
 
 [node name="ShrineObject2" parent="YSort" instance=ExtResource( 11 )]
-position = Vector2( 2001, 878 )
+position = Vector2( 1647, 849 )
+god_image = ExtResource( 1 )
+
+[node name="ShrineObject3" parent="YSort" instance=ExtResource( 11 )]
+position = Vector2( 2000, 691 )
+
+[node name="ShrineObject4" parent="YSort" instance=ExtResource( 11 )]
+position = Vector2( 2190, 690 )
+
+[node name="ShrineObject5" parent="YSort" instance=ExtResource( 11 )]
+position = Vector2( 2384, 753 )
+
+[node name="ShrineObject6" parent="YSort" instance=ExtResource( 11 )]
+position = Vector2( 1807, 755 )
+
+[node name="ShrineObject7" parent="YSort" instance=ExtResource( 11 )]
+position = Vector2( 2545, 850 )
 
 [node name="IngredientGen" parent="YSort" instance=ExtResource( 22 )]
 position = Vector2( 1712, 1134 )

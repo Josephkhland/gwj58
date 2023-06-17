@@ -4,7 +4,7 @@ extends Sprite
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-var order: OrderClass = null
+var order = null
 
 const wait_between_orders: int = 5
 const points_gained_for_correct_ingredient = 0
@@ -42,7 +42,7 @@ func place_item(tribute_item):
 	inventory.add_item(tribute_item)
 	
 
-func get_score(order: OrderClass, tribute_item: TributeItemClass):
+func get_score(order, tribute_item):
 	var score = 0
 	if order.ingredient in tribute_item.ingredients_history:
 		score += points_gained_for_correct_ingredient
@@ -62,6 +62,7 @@ func _process(delta):
 	if order == null:
 		yield(get_tree().create_timer(wait_between_orders), "timeout")
 		order = OrderClass.new()
+		$Cloud/God.texture = god_image
 		$Cloud/Ingredient.texture = ItemsDictionary.Dict[order.ingredient.to_lower()].item_icon
 		$Cloud/Ingredient.scale = Vector2(1,1)*2
 		show_cloud()
@@ -71,13 +72,3 @@ func _process(delta):
 		order = null
 		inventory.clear()
 		hide_cloud()
-		
-		
-		
-		
-		
-			
-			
-		
-		
-	pass
