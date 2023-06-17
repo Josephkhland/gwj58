@@ -7,7 +7,7 @@ var god: String = ""
 
 const god_list = ["Poseidon", "Ra", "Dragon", "Thor", "Ganesha", "Chizuru"]
 
-const order_mapping: Dictionary = {
+var order_mapping: Dictionary = {
 	"Poseidon": GlobalVariables.Flavours.Salty,
 	"Ra": GlobalVariables.Flavours.Bitter,
 	"Dragon": GlobalVariables.Flavours.Sweet,

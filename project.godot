@@ -42,7 +42,7 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "OrderClass",
 "language": "GDScript",
-"path": "res://Core/Classes/OrderClass.gd"
+"path": "res://Core/Classes/OrderClassScript.gd"
 }, {
 "base": "Position2D",
 "class": "Plant",

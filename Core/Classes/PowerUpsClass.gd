@@ -12,25 +12,25 @@ var add_water_progress = 0
 var summon_cloud_progress = 0
 
 func progress_break_stone(progress):
-    var newVal = break_stone_progress + progress
-    if newVal > 100:
-        break_stone_count += 1
-        break_stone_progress %= 100
+	var newVal = break_stone_progress + progress
+	if newVal > 100:
+		break_stone_count += 1
+		break_stone_progress %= 100
 
 func progress_remove_water(progress):
-    var newVal = remove_water_progress + progress
-    if newVal > 100:
-        remove_water_count += 1
-        remove_water_progress %= 100
+	var newVal = remove_water_progress + progress
+	if newVal > 100:
+		remove_water_count += 1
+		remove_water_progress %= 100
 
 func progress_add_water(progress):
-    var newVal = add_water_progress + progress
-    if newVal > 100:
-        add_water_count += 1
-        add_water_progress %= 100
+	var newVal = add_water_progress + progress
+	if newVal > 100:
+		add_water_count += 1
+		add_water_progress %= 100
 
 func progress_summon_cloud(progress):
-    var newVal = summon_cloud_progress + progress
-    if newVal > 100:
-        summon_cloud_count += 1
-        summon_cloud_progress %= 100
+	var newVal = summon_cloud_progress + progress
+	if newVal > 100:
+		summon_cloud_count += 1
+		summon_cloud_progress %= 100

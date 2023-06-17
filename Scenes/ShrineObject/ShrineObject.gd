@@ -4,7 +4,7 @@ extends Sprite
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-var order: OrderClass = null
+var order = null
 
 const wait_between_orders: int = 5
 const points_gained_for_correct_ingredient = 0
@@ -12,30 +12,37 @@ const points_lost_for_incorrect_ingredient = 0
 const points_gained_for_correct_flavor = 0
 const points_lost_for_incorrect_flavor =0
 
-const flavor_global_mapping: Dictionary = {
-	"Sweet": GlobalVariables.Flavours.Sweet,
-	"Bitter": GlobalVariables.Flavours.Bitter,
-	"Umami": GlobalVariables.Flavours.Umami,
-	"Salty": GlobalVariables.Flavours.Salty,
-	"Spicy": GlobalVariables.Flavours.Spicy,
-	"Sour": GlobalVariables.Flavours.Sour
-}
+export var god_name = "Chizuru"
+export(Texture) var god_image
 
 var inventory: InventoryClass
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	add_to_group(GlobalVariables.groups_dict[GlobalVariables.Groups.MapInterractible])
-	add_to_group("Shrine")
+	add_to_group(GlobalVariables.groups_dict[GlobalVariables.Groups.Shrine])
+	#add_to_group("Shrine")
 	pass # Replace with function body.
 
 func _init():
 	inventory = InventoryClass.new(1)
 	
-func place_item(tribute_item: TributeItemClass):
+	
+func hide_cloud():
+	var children = self.get_children()
+	for child in children:
+		child.hide()
+		
+func show_cloud():
+	var children = self.get_children()
+	for child in children:
+		child.show()
+	
+	
+func place_item(tribute_item):
 	inventory.add_item(tribute_item)
+	
 
-func get_score(order: OrderClass, tribute_item: TributeItemClass):
+func get_score(order, tribute_item):
 	var score = 0
 	if order.ingredient in tribute_item.ingredients_history:
 		score += points_gained_for_correct_ingredient
@@ -55,18 +62,13 @@ func _process(delta):
 	if order == null:
 		yield(get_tree().create_timer(wait_between_orders), "timeout")
 		order = OrderClass.new()
+		$Cloud/God.texture = god_image
+		$Cloud/Ingredient.texture = ItemsDictionary.Dict[order.ingredient.to_lower()].item_icon
+		$Cloud/Ingredient.scale = Vector2(1,1)*2
+		show_cloud()
 	elif order != null and inventory.size() > 0:
 		var score = get_score(order, inventory.inventory[0])
 		print(score)
 		order = null
 		inventory.clear()
-		
-		
-		
-		
-		
-			
-			
-		
-		
-	pass
+		hide_cloud()

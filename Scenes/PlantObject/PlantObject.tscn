@@ -341,7 +341,6 @@ script = ExtResource( 2 )
 position = Vector2( 0, -17 )
 frames = SubResource( 39 )
 animation = "growing_state"
-frame = 14
 playing = true
 
 [node name="StepTimer" type="Timer" parent="."]
@@ -376,6 +375,7 @@ modulate = Color( 1, 1, 1, 0.941176 )
 position = Vector2( 0, -18 )
 scale = Vector2( 0.5, 0.5 )
 frames = SubResource( 48 )
+frame = 1
 playing = true
 
 [connection signal="animation_finished" from="Sprite" to="." method="_on_Sprite_animation_finished"]
