@@ -20,10 +20,6 @@ func refresh_scene(value):
 		var isErased = Dict.erase("")
 		if !isErased :
 			print("ItemsDictionary: Failed to erase key(String.Empty()) from Dictionary")
-	if value:
-		for key in Dict.keys():
-			print("-- Key:",key,"| Value: ", Dict[key])
-		print("===")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

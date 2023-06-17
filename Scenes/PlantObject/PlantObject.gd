@@ -130,7 +130,6 @@ func pick_harvest():
 		if number_picked >= selection_ranges[kvp]:
 			item_key_selected = kvp
 			break
-	#print("ITEM RETRIEVED: " + item_key_selected)
 	product = item_key_selected
 	return item_key_selected
 

@@ -26,15 +26,11 @@ func refresh_scene(value):
 				if error_code !=0 : 
 					print("PlantsDictionary:Self 'child_rename_status' Signal Connect Error (",node,"):",error_code)
 			Dict[node.get_name().to_lower()] = node
-			#node.node_name = node.get_name().to_lower()
+
 	if Dict.has(""):
 		var isErased = Dict.erase("")
 		if !isErased :
 			print("PlantsDictionary: Failed to erase key(String.Empty()) from Dictionary")
-	if value:
-		for key in Dict.keys():
-			print("-- Key:",key,"| Value: ", Dict[key])
-		print("===")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -52,7 +48,6 @@ func child_renamed(old_name, new_name):
 		emit_signal("child_rename_status", old_name)
 
 func _on_PlantsDictionary_child_entered_tree(node):
-	#print("ADDING NODE: ", node)
 	if node.get_script().get_path() == scripts_path:
 		if !node.is_connected("try_rename",self,"child_renamed"):
 			var error_code = node.connect("try_rename",self,"child_renamed")
@@ -64,10 +59,6 @@ func _on_PlantsDictionary_child_entered_tree(node):
 				print("PlantsDictionary:Self 'child_rename_status' Signal Connect Error (",node,"):",error_code)
 		Dict[node.get_name().to_lower()] = node
 		node.node_name = node.get_name().to_lower()
-		#if (node.node_name != "" and node.node_name != "NONE"):
-			#node.rename_node(node.node_name)
-
-
 
 func _on_PlantsDictionary_child_exiting_tree(node):
 	if node.get_script().get_path() == scripts_path:

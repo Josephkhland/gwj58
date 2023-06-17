@@ -14,7 +14,6 @@ func _ready():
 		print("BaseGameUI: Failed to connect cancel_ActionsUI signal from ", game_world)
 
 func _on_item_pickup(icon:Texture):
-	print("Picking up Item")
 	$MarginContainer/InventoryBackground/CenterContainer/PlayerItem.texture = icon
 	$MarginContainer/InventoryBackground/CenterContainer/PlayerItem.show()
 
@@ -22,7 +21,6 @@ func _on_item_drop():
 	$MarginContainer/InventoryBackground/CenterContainer/PlayerItem.hide()
 
 func _on_ActionsUI_action_selected(action_ref):
-	print("BaseGameUI: Action Selected")
 	game_world.do_action(action_ref)
 
 func _on_ActionsUI_call_requested(actions_available: Array):

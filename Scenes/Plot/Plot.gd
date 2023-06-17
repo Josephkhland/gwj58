@@ -34,7 +34,6 @@ func plant(seed_given):
 		is_planted = true
 	else:
 		print("COULDN'T FIND SEED FOR THIS PLANT")
-	#If Player is Adjacent 
 	pass
 
 func plant_destroyed():

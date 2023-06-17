@@ -21,7 +21,6 @@ func update_node(value):
 	rename_node(value)
 
 func rename_node(new_name):
-	#print("Trying to rename node to: ", new_name)
 	emit_signal("try_rename",get_name(),new_name)
 
 func do_rename(new_name):
@@ -75,11 +74,7 @@ func generate_plant():
 	
 	var plant_object = plantObject_scene.instance()
 	plant_object.harvest_changes = harvest_changes.duplicate(true)
-	print(plant_object.harvest_changes)
-	for hc in harvest_changes.keys():
-		print(plant_object.harvest_changes[hc].NewHarvestList)
 	plant_object.seed_id = node_name
-	print("PLANT NAMED AS: ",node_name)
 	return plant_object
 	
 func make_harvest_change(harvestable, step_time, growth_per_step, harvest_list):

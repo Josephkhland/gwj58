@@ -21,7 +21,6 @@ func interact():
 
 func _on_StepTimer_timeout():
 	wait_progress += wait_per_step
-	print($ProgressBar.value)
 	$ProgressBar.value = wait_progress*100
 	if wait_progress >= 1:
 		wait_progress = 0

@@ -68,7 +68,6 @@ func _process(delta):
 		show_cloud()
 	elif order != null and inventory.size() > 0:
 		var score = get_score(order, inventory.inventory[0])
-		print(score)
 		order = null
 		inventory.clear()
 		hide_cloud()
