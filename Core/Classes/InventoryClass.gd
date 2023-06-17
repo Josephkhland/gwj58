@@ -26,6 +26,12 @@ func get_at(index):
 	var original = inventory[index]
 	var copy = original.duplicate(true)
 	for property in inventory[index].get_property_list():
+		if property["name"]=="global_transform"\
+			or property["name"] == "global_position"\
+			or property["name"] == "global_rotation"\
+			or property["name"] == "global_rotation_degrees"\
+			or property["name"] == "global_scale":
+			continue
 		copy.set(property["name"], inventory[index].get(property["name"]))
 	return copy
 
@@ -35,3 +41,5 @@ func remove_item(index):
 func clear():
 	inventory = []
 	
+func has_space():
+	return inventory.size() < max_capasity

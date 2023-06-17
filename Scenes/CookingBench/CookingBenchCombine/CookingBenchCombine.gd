@@ -1,12 +1,30 @@
 extends "res://Scenes/CookingBench/CookingBench.gd"
 
-# TODO: remove
-onready var item_template = preload("res://Scenes/TributeItem/TributeItem.tscn")
+var wait_progress : float = 0
+var wait_per_step : float = 0.05
+var step_time : float = 0.1
+
+onready var step_timer = $StepTimer
 
 func _init():
 	cooking_bench = CookingBenchCombineClass.new()
 
 func _ready():
-	# TODO: remove
-	var item = item_template.instance()
-	cooking_bench.inventory.add_item(item)
+	pass
+	
+func interact():
+	if cooking_bench.required_items_sufficient():
+		step_timer.wait_time = step_time
+		step_timer.start()
+		$ProgressBar.show()
+	pass
+
+func _on_StepTimer_timeout():
+	wait_progress += wait_per_step
+	print($ProgressBar.value)
+	$ProgressBar.value = wait_progress*100
+	if wait_progress >= 1:
+		wait_progress = 0
+		step_timer.stop()
+		$ProgressBar.hide()
+		cooking_bench.cook()

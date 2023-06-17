@@ -1,0 +1,134 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://Core/Actions/ActionsDictionary.gd" type="Script" id=1]
+[ext_resource path="res://Core/Actions/ActionRefObject.tscn" type="PackedScene" id=2]
+[ext_resource path="res://TResources/ActionIcons/PlaceProtectiveTokenIcon.tres" type="Texture" id=3]
+[ext_resource path="res://TResources/ActionIcons/DropItemIcon.tres" type="Texture" id=4]
+[ext_resource path="res://TResources/ActionIcons/PlantIcon.tres" type="Texture" id=5]
+[ext_resource path="res://TResources/ActionIcons/SummonCloudIcon.tres" type="Texture" id=6]
+[ext_resource path="res://TResources/ActionIcons/SwitchItemIcon.tres" type="Texture" id=7]
+[ext_resource path="res://TResources/ActionIcons/PickupItemIcon.tres" type="Texture" id=8]
+[ext_resource path="res://TResources/ActionIcons/HarvestIcon.tres" type="Texture" id=9]
+[ext_resource path="res://TResources/ActionIcons/CookIcon.tres" type="Texture" id=10]
+[ext_resource path="res://TResources/ActionIcons/MoveIcon.tres" type="Texture" id=11]
+[ext_resource path="res://TResources/ActionIcons/BreakStoneIcon.tres" type="Texture" id=12]
+[ext_resource path="res://TResources/ActionIcons/RemoveWaterIcon.tres" type="Texture" id=13]
+[ext_resource path="res://TResources/ActionIcons/PlaceItemCooking.tres" type="Texture" id=14]
+
+[node name="ActionsDictionary" type="Node"]
+script = ExtResource( 1 )
+Dict = {
+"break_stone": Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Actions/ActionReference.gd" ),"action_key":3,"action_string":"BREAK_STONE","action_icon":ExtResource( 12 ))
+,
+"cook": Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Actions/ActionReference.gd" ),"action_key":2,"action_string":"COOK","action_icon":ExtResource( 10 ))
+,
+"drop_item": Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Actions/ActionReference.gd" ),"action_key":8,"action_string":"DROP_ITEM","action_icon":ExtResource( 4 ))
+,
+"harvest": Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Actions/ActionReference.gd" ),"action_key":7,"action_string":"HARVEST","action_icon":ExtResource( 9 ))
+,
+"move": Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Actions/ActionReference.gd" ),"action_key":1,"action_string":"MOVE","action_icon":ExtResource( 11 ))
+,
+"pickup_item": Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Actions/ActionReference.gd" ),"action_key":10,"action_string":"PICKUP_ITEM","action_icon":ExtResource( 8 ))
+,
+"place_item_cooking2": Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Actions/ActionReference.gd" ),"action_key":12,"action_string":"PLACE_ITEM_COOKING","action_icon":null)
+,
+"place_protective_totem": Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Actions/ActionReference.gd" ),"action_key":9,"action_string":"PLACE_PROTECTIVE_TOTEM","action_icon":ExtResource( 3 ))
+,
+"plant": Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Actions/ActionReference.gd" ),"action_key":6,"action_string":"PLANT","action_icon":ExtResource( 5 ))
+,
+"remove_water": Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Actions/ActionReference.gd" ),"action_key":4,"action_string":"REMOVE_WATER","action_icon":ExtResource( 13 ))
+,
+"summon_cloud": Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Actions/ActionReference.gd" ),"action_key":5,"action_string":"SUMMON_CLOUD","action_icon":ExtResource( 6 ))
+,
+"switch_item": Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Actions/ActionReference.gd" ),"action_key":11,"action_string":"SWITCH_ITEM","action_icon":ExtResource( 7 ))
+
+}
+LUT = {
+1: Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Actions/ActionReference.gd" ),"action_key":1,"action_string":"MOVE","action_icon":ExtResource( 11 ))
+,
+2: Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Actions/ActionReference.gd" ),"action_key":2,"action_string":"COOK","action_icon":ExtResource( 10 ))
+,
+3: Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Actions/ActionReference.gd" ),"action_key":3,"action_string":"BREAK_STONE","action_icon":ExtResource( 12 ))
+,
+4: Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Actions/ActionReference.gd" ),"action_key":4,"action_string":"REMOVE_WATER","action_icon":ExtResource( 13 ))
+,
+5: Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Actions/ActionReference.gd" ),"action_key":5,"action_string":"SUMMON_CLOUD","action_icon":ExtResource( 6 ))
+,
+6: Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Actions/ActionReference.gd" ),"action_key":6,"action_string":"PLANT","action_icon":ExtResource( 5 ))
+,
+7: Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Actions/ActionReference.gd" ),"action_key":7,"action_string":"HARVEST","action_icon":ExtResource( 9 ))
+,
+8: Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Actions/ActionReference.gd" ),"action_key":8,"action_string":"DROP_ITEM","action_icon":ExtResource( 4 ))
+,
+9: Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Actions/ActionReference.gd" ),"action_key":9,"action_string":"PLACE_PROTECTIVE_TOTEM","action_icon":ExtResource( 3 ))
+,
+10: Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Actions/ActionReference.gd" ),"action_key":10,"action_string":"PICKUP_ITEM","action_icon":ExtResource( 8 ))
+,
+11: Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Actions/ActionReference.gd" ),"action_key":11,"action_string":"SWITCH_ITEM","action_icon":ExtResource( 7 ))
+,
+12: Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Actions/ActionReference.gd" ),"action_key":12,"action_string":"PLACE_ITEM_COOKING","action_icon":null)
+
+}
+
+[node name="MOVE" parent="." instance=ExtResource( 2 )]
+action_key = 1
+action_string = "MOVE"
+action_icon = ExtResource( 11 )
+
+[node name="COOK" parent="." instance=ExtResource( 2 )]
+action_key = 2
+action_string = "COOK"
+action_icon = ExtResource( 10 )
+
+[node name="BREAK_STONE" parent="." instance=ExtResource( 2 )]
+action_key = 3
+action_string = "BREAK_STONE"
+action_icon = ExtResource( 12 )
+
+[node name="REMOVE_WATER" parent="." instance=ExtResource( 2 )]
+action_key = 4
+action_string = "REMOVE_WATER"
+action_icon = ExtResource( 13 )
+
+[node name="SUMMON_CLOUD" parent="." instance=ExtResource( 2 )]
+action_key = 5
+action_string = "SUMMON_CLOUD"
+action_icon = ExtResource( 6 )
+
+[node name="PLANT" parent="." instance=ExtResource( 2 )]
+action_key = 6
+action_string = "PLANT"
+action_icon = ExtResource( 5 )
+
+[node name="HARVEST" parent="." instance=ExtResource( 2 )]
+action_key = 7
+action_string = "HARVEST"
+action_icon = ExtResource( 9 )
+
+[node name="DROP_ITEM" parent="." instance=ExtResource( 2 )]
+action_key = 8
+action_string = "DROP_ITEM"
+action_icon = ExtResource( 4 )
+
+[node name="PLACE_PROTECTIVE_TOTEM" parent="." instance=ExtResource( 2 )]
+action_key = 9
+action_string = "PLACE_PROTECTIVE_TOTEM"
+action_icon = ExtResource( 3 )
+
+[node name="PICKUP_ITEM" parent="." instance=ExtResource( 2 )]
+action_key = 10
+action_string = "PICKUP_ITEM"
+action_icon = ExtResource( 8 )
+
+[node name="SWITCH_ITEM" parent="." instance=ExtResource( 2 )]
+action_key = 11
+action_string = "SWITCH_ITEM"
+action_icon = ExtResource( 7 )
+
+[node name="PLACE_ITEM_COOKING" parent="." instance=ExtResource( 2 )]
+action_key = 12
+action_string = "PLACE_ITEM_COOKING"
+action_icon = ExtResource( 14 )
+
+[connection signal="child_entered_tree" from="." to="." method="_on_ActionsDictionary_child_entered_tree"]
+[connection signal="child_exiting_tree" from="." to="." method="_on_ActionsDictionary_child_exiting_tree"]

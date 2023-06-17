@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Core/Plants/PlantsDictionary.gd" type="Script" id=1]
+[ext_resource path="res://Core/Plants/PlantReference/PlantReference.tscn" type="PackedScene" id=2]
+
+[node name="PlantsDictionary" type="Node"]
+script = ExtResource( 1 )
+
+[node name="Fishseed" parent="." instance=ExtResource( 2 )]
+node_name = "fishseed"
+SEED_Harvestable = false
+GROWING_StepTime = 0.2
+GROWING_HarvestList = {
+"fish": 100
+}
+READY_StepTime = 1.0
+READY_HarvestList = {
+"fish": 100
+}
+
+[connection signal="child_entered_tree" from="." to="." method="_on_PlantsDictionary_child_entered_tree"]
+[connection signal="child_exiting_tree" from="." to="." method="_on_PlantsDictionary_child_exiting_tree"]

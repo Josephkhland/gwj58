@@ -24,11 +24,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/CookingBench/CookingBenchCombine/CookingBenchCombineClass.gd"
 }, {
-"base": "Control",
-"class": "CookingPopupBase",
-"language": "GDScript",
-"path": "res://Scenes/BaseGameUI/CookingPopup/CookingPopupBase.gd"
-}, {
 "base": "Reference",
 "class": "FlavorChart",
 "language": "GDScript",
@@ -55,6 +50,11 @@ _global_script_classes=[ {
 "path": "res://Scenes/PlantObject/PlantObject.gd"
 }, {
 "base": "Reference",
+"class": "PowerUpsClass",
+"language": "GDScript",
+"path": "res://Core/Classes/PowerUpsClass.gd"
+}, {
+"base": "Reference",
 "class": "TileContent",
 "language": "GDScript",
 "path": "res://Core/Classes/TileContentClass.gd"
@@ -73,12 +73,12 @@ _global_script_class_icons={
 "AstarTileMap": "",
 "CookingBenchClass": "",
 "CookingBenchCombineClass": "",
-"CookingPopupBase": "",
 "FlavorChart": "",
 "HarvestChange": "",
 "InventoryClass": "",
 "OrderClass": "",
 "Plant": "",
+"PowerUpsClass": "",
 "TileContent": "",
 "TributeItemClass": "",
 "Types": ""
@@ -94,6 +94,12 @@ config/icon="res://icon.png"
 
 GlobalVariables="*res://Core/Globals/GlobalVariables.gd"
 ItemsDictionary="*res://Core/Globals/ItemsDictionary.tscn"
+ActionsDictionary="*res://Core/Actions/ActionsDictionary.tscn"
+PlantsDictionary="*res://Core/Plants/PlantsDictionary.tscn"
+
+[debug]
+
+gdscript/warnings/integer_division=false
 
 [display]
 
@@ -110,6 +116,15 @@ travel={
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
+open_actions_menu={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+
+[logging]
+
+file_logging/enable_file_logging=true
 
 [mono]
 

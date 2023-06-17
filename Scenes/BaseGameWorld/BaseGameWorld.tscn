@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://icon.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Original/Tilesets/gwj58-grass.png" type="Texture" id=2]
@@ -8,7 +8,8 @@
 [ext_resource path="res://Assets/Sourced/Texture/TX Props.png" type="Texture" id=6]
 [ext_resource path="res://Scenes/PlayerCharacter/PlayerCharacter.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/BaseGameWorld/BaseGameWorld.gd" type="Script" id=8]
-[ext_resource path="res://Scenes/PointIndicator/PointIndicator.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/PointIndicators/PointIndicator.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/PointIndicators/ActionIndicator.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scenes/ShrineObject/ShrineObject.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Assets/Original/1.RED.png" type="Texture" id=12]
 [ext_resource path="res://Assets/Original/Tilesets/gwj58-wood_tile.png" type="Texture" id=13]
@@ -20,6 +21,7 @@
 [ext_resource path="res://Assets/Original/9.GRAY.png" type="Texture" id=19]
 [ext_resource path="res://Assets/Original/5.PURPLE.png" type="Texture" id=20]
 [ext_resource path="res://Assets/Original/4.YELLOW.png" type="Texture" id=21]
+[ext_resource path="res://Scenes/IngredientGenerator/IngredientGenerator.tscn" type="PackedScene" id=22]
 
 [sub_resource type="TileSet" id=4]
 0/name = "gwj58-grass.png 0"
@@ -243,6 +245,15 @@ format = 1
 tile_data = PoolIntArray( 2097223, 0, 0, 2097224, 0, 0, 2162758, 0, 0, 2162759, 0, 0, 2162760, 0, 0, 2228293, 0, 0, 2228294, 0, 0, 2228295, 0, 0, 2228296, 0, 0, 2293831, 0, 0, 2293832, 0, 0, 2359355, 3, 0, 2359367, 0, 0, 2555965, 2, 0, 2555975, 1, 0, 2555976, 1, 0, 2555977, 1, 0, 2621511, 1, 0, 2621512, 1, 0, 2621513, 1, 0, 2687047, 1, 0, 2687048, 1, 0, 2687049, 1, 0, 2687050, 1, 0 )
 script = ExtResource( 13 )
 
+[node name="ControlIndicators" type="Node2D" parent="."]
+
+[node name="PointIndicator" parent="ControlIndicators" instance=ExtResource( 9 )]
+visible = false
+position = Vector2( 1648, 1296 )
+
+[node name="ActionIndicator" parent="ControlIndicators" instance=ExtResource( 10 )]
+frame = 1
+
 [node name="YSort" type="YSort" parent="."]
 
 [node name="PlayerCharacter" parent="YSort" instance=ExtResource( 7 )]
@@ -318,13 +329,13 @@ __meta__ = {
 [node name="ShrineObject2" parent="YSort" instance=ExtResource( 11 )]
 position = Vector2( 2001, 878 )
 
+[node name="IngredientGen" parent="YSort" instance=ExtResource( 22 )]
+position = Vector2( 1712, 1134 )
+ingredient_key = "fishseed"
+
 [node name="Sprite" type="Sprite" parent="."]
 visible = false
 texture = ExtResource( 1 )
-
-[node name="PointIndicator" parent="." instance=ExtResource( 9 )]
-visible = false
-position = Vector2( 1648, 1296 )
 
 [node name="FloodingUpdate" type="Timer" parent="."]
 wait_time = 0.5
