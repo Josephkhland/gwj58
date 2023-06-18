@@ -5,16 +5,18 @@ signal add_pathfinding_obstacle(obstacle)
 signal remove_pathfinding_obstacle(obstacle)
 signal create_paddle(coords)
 
-const dry_warning_threshdold = 300
+const dry_warning_threshold = 300
 const mud_level_threshold = 1700 #When the Water_amount is increased above mud_level
 const flood_level_threshold = 2000 
 const max_level = 3000
 
 enum TileState{
-	Normal,
+	Dry=-1,
+	Normal=0,
 	Muddy,
 	Flooded
 }
+
 
 var coordinates : Vector2 
 var tile_state = TileState.Normal
@@ -27,6 +29,7 @@ var cooking_bench_object = null #If it has a cooking_bench_object, this value sh
 var seed_generator_object = null #If it has a seed_generator_object this value should be set. 
 
 # Potentially Plot,Shrine,CookingBench,Seed Generator should belong in the same class. As only one of them could exist on a tile at a time.
+var tile_flavor = null
 
 # If Water_amount is higher than a specific 
 var water_amount : int =1000 setget set_water_amount
@@ -34,11 +37,59 @@ var water_amount : int =1000 setget set_water_amount
 func set_water_amount(value):
 	water_amount = int(clamp(value, 0, max_level))
 	match tile_state:
-		TileState.Normal:
-			if water_amount > mud_level_threshold and water_amount <= flood_level_threshold:
+		TileState.Dry:
+			if water_amount > dry_warning_threshold and water_amount <= mud_level_threshold:
+				#Make Normal
+				tile_state = TileState.Normal
+				tile_flavor.queue_free()
+				tile_flavor = null
+				pass
+			elif water_amount > mud_level_threshold and water_amount <= flood_level_threshold:
+				#Make Muddy
 				tile_state = TileState.Muddy
+				if tile_flavor == null:
+					tile_flavor.position = coordinates + Vector2(1,1)*GlobalVariables.tile_size/2
+					tile_flavor = GlobalVariables.tile_flavour_template.instance()
+				tile_flavor.texture = GlobalVariables.mud_tile_texture
+				GlobalVariables.base_game_world.TileFlavours.add_child(tile_flavor)
+				pass
+			elif water_amount > flood_level_threshold:
+				#Make Flooded
+				tile_state = TileState.Flooded
+				if tile_flavor == null:
+					tile_flavor.position = coordinates + Vector2(1,1)*GlobalVariables.tile_size/2
+					tile_flavor = GlobalVariables.tile_flavour_template.instance()
+				tile_flavor.texture = GlobalVariables.mud_tile_texture
+				GlobalVariables.base_game_world.TileFlavours.add_child(tile_flavor)
+				inventory.clear()
+				withdraw_item_from_ground()
+				if plot_object != null:
+					plot_object.turn_to_puddle()
+					emit_signal("add_pathfinding_obstacle",plot_object)
+				else:
+					emit_signal("create_paddle", coordinates)
+		TileState.Normal:
+			if water_amount <= dry_warning_threshold:
+				tile_state = TileState.Dry
+				if tile_flavor == null:
+					tile_flavor = GlobalVariables.tile_flavour_template.instance()
+					tile_flavor.position = coordinates + Vector2(1,1)*GlobalVariables.tile_size/2
+				tile_flavor.texture = GlobalVariables.dry_tile_texture
+				GlobalVariables.base_game_world.TileFlavours.add_child(tile_flavor)
+			elif water_amount > mud_level_threshold and water_amount <= flood_level_threshold:
+				tile_state = TileState.Muddy
+				if tile_flavor == null:
+					tile_flavor = GlobalVariables.tile_flavour_template.instance()
+					tile_flavor.position = coordinates + Vector2(1,1)*GlobalVariables.tile_size/2
+				tile_flavor.texture = GlobalVariables.mud_tile_texture
+				GlobalVariables.base_game_world.TileFlavours.add_child(tile_flavor)
 			elif water_amount > flood_level_threshold:
 				tile_state = TileState.Flooded
+				if tile_flavor == null:
+					tile_flavor = GlobalVariables.tile_flavour_template.instance()
+					tile_flavor.position = coordinates + Vector2(1,1)*GlobalVariables.tile_size/2
+				tile_flavor.texture = GlobalVariables.mud_tile_texture
+				GlobalVariables.base_game_world.TileFlavours.add_child(tile_flavor)
 				inventory.clear()
 				withdraw_item_from_ground()
 				if plot_object != null:
@@ -47,8 +98,13 @@ func set_water_amount(value):
 				else:
 					emit_signal("create_paddle", coordinates)
 		TileState.Muddy:
-			if water_amount <= mud_level_threshold:
+			if water_amount < dry_warning_threshold:
+				tile_state = TileState.Dry
+				tile_flavor.texture = GlobalVariables.dry_tile_texture
+			if water_amount < mud_level_threshold and water_amount >= dry_warning_threshold:
 				tile_state = TileState.Normal
+				tile_flavor.queue_free()
+				tile_flavor = null
 			elif water_amount > flood_level_threshold:
 				tile_state = TileState.Flooded
 				inventory.clear()
@@ -59,8 +115,14 @@ func set_water_amount(value):
 				else:
 					emit_signal("create_paddle", coordinates)
 		TileState.Flooded:
-			if water_amount < mud_level_threshold:
+			if water_amount < dry_warning_threshold:
+				tile_state = TileState.Dry
+				tile_flavor.texture = GlobalVariables.dry_tile_texture
+				remove_plot()
+			elif water_amount < mud_level_threshold and water_amount >= dry_warning_threshold:
 				tile_state = TileState.Normal
+				tile_flavor.queue_free()
+				tile_flavor = null
 				remove_plot()
 			elif water_amount >= mud_level_threshold and water_amount < flood_level_threshold:
 				tile_state = TileState.Muddy

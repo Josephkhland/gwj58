@@ -2,6 +2,9 @@ extends Node
 
 # TODO: remove
 onready var item_template = preload("res://Scenes/TributeItem/TributeItem.tscn")
+onready var dry_tile_texture = preload("res://Assets/Original/Tilesets/gwj58-dry_tile.png")
+onready var mud_tile_texture = preload("res://Assets/Original/Tilesets/gwj58-mud_tile.png")
+onready var tile_flavour_template = preload("res://Scenes/TileFlavours/TileFlavour.tscn")
 
 var is_movement_locked = false
 var is_actionsUI_open = false
@@ -85,4 +88,4 @@ func _ready():
 func _init():
 	player_invetory = InventoryClass.new(1)
 	player_power_ups = PowerUpsClass.new()
-	
+

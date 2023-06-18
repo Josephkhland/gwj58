@@ -19,6 +19,7 @@ onready var cooking_bench_combine = preload("res://Scenes/CookingBench/CookingBe
 onready var PathFindingTileMap = $TileMaps/AstarTileMap
 onready var PlayerPawn = $YSort/PlayerCharacter 
 onready var ObjectsLayer = $YSort
+onready var TileFlavours = $TileFlavours
 
 
 var tile_contents : Dictionary = {}
@@ -92,11 +93,12 @@ func link_shrine_objects_to_coords_dictionary():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	GlobalVariables.base_game_world = self
 	$TileMaps/DetailsTileMap.hide()
 	generate_tile_contents()
 	add_details_to_tile_contents()
 	GlobalVariables.player_pawn = PlayerPawn
-	GlobalVariables.base_game_world = self
+	
 	pass # Replace with function body.
 
 func _get_viewport_offset() -> Vector2:
@@ -310,7 +312,7 @@ func _on_action_plant(trigger_location):
 	pass
 
 func _on_action_remove_water(trigger_location):
-	if tile_contents[trigger_location].tile_state != TileContent.TileState.Normal:
+	if tile_contents[trigger_location].tile_state > TileContent.TileState.Normal:
 		tile_contents[trigger_location].set_water_amount(0)
 		GlobalVariables.player_power_ups.remove_water_count -= 1
 	pass
