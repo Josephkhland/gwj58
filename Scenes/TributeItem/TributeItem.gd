@@ -79,7 +79,9 @@ func set_icon_real_quick():
 
 func set_ingredient_history(history_array : Array):
 	ingredients_history = history_array
-	ingredients_history.append(item_key)
+	if !ingredients_history.has(item_key.to_lower()):
+		ingredients_history.append(item_key.to_lower())
+	print(item_key)
 
 func pick_up(new_owner):
 	if !isHeld:

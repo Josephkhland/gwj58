@@ -84,8 +84,8 @@ script = ExtResource( 2 )
 
 [node name="Cloud" type="Sprite" parent="."]
 visible = false
-position = Vector2( -7.62939e-06, -48 )
-scale = Vector2( 0.0302735, 0.0677085 )
+position = Vector2( -1, -120.25 )
+scale = Vector2( 0.669922, 0.932292 )
 texture = ExtResource( 3 )
 
 [node name="God" type="Sprite" parent="Cloud"]

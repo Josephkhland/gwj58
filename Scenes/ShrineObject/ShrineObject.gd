@@ -35,10 +35,14 @@ func set_sprite(texture):
 		$Cloud/God.texture = god_image
 	
 
+signal score_changed(value)
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	add_to_group(GlobalVariables.groups_dict[GlobalVariables.Groups.Shrine])
 	$OrderGeneratorTimer.start()
+	if !self.is_connected("score_changed",GlobalVariables.base_game_ui, "_on_score_change"):
+		self.connect("score_changed", GlobalVariables.base_game_ui, "_on_score_change")
 	pass # Replace with function body.
 
 func _init():
@@ -58,12 +62,15 @@ func place_item(tribute_item):
 
 func get_score(order, tribute_item):
 	var score = 0
+	print(tribute_item.ingredients_history)
 	if order.ingredient in tribute_item.ingredients_history:
+		print("CORRECT INGREDIENT EXISTS")
 		score += points_gained_for_correct_ingredient
 	else:
 		score -= points_lost_for_incorrect_ingredient
 	var tmp_dictionary = tribute_item.flavor_chart.get_flavours_as_dictionary()
 	if tribute_item.flavor_chart.get_flavours_as_dictionary()[order.flavor] == tribute_item.flavor_chart.get_max():
+		print("CORRECT FLAVOUR")
 		score += points_gained_for_correct_flavor
 	else:
 		score -= points_lost_for_incorrect_flavor
@@ -86,7 +93,8 @@ func create_order():
 
 func eat_order():
 	var score = get_score(order, inventory.inventory[0])
-	#print(score)
+	print(score)
+	emit_signal("score_changed",score)
 	order = null
 	inventory.clear()
 	hide_cloud()

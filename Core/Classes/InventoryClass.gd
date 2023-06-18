@@ -33,6 +33,7 @@ func get_at(index):
 			or property["name"] == "global_scale":
 			continue
 		copy.set(property["name"], inventory[index].get(property["name"]))
+	copy.set_ingredient_history(original.ingredients_history)
 	return copy
 
 func remove_item(index):

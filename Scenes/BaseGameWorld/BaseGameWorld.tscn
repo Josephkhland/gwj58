@@ -374,6 +374,8 @@ polygon = PoolVector2Array( 1536, 320, 2656, 320, 2656, 352, 1536, 352 )
 [node name="SoutGenerationArea" parent="CloudsControl" index="4"]
 polygon = PoolVector2Array( 1536, 1984, 2656, 1984, 2656, 2016, 1536, 2016 )
 
+[node name="DrynessUpdate" type="Timer" parent="."]
+
 [connection signal="timeout" from="FloodingUpdate" to="." method="_on_FloodingUpdate_timeout"]
 
 [editable path="CloudsControl"]
