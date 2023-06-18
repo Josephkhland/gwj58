@@ -85,7 +85,6 @@ func link_item_generators_to_coords_dictionary():
 	for node in get_tree().get_nodes_in_group(GlobalVariables.groups_dict[GlobalVariables.Groups.ItemGenerator]):
 		var coords = _find_nearest_tile(node.global_position)
 		tile_contents[coords].seed_generator_object = node
-		ObjectsLayer.add_child(node)
 		node.add_to_group(GlobalVariables.groups_dict[GlobalVariables.Groups.Obstacles])
 		PathFindingTileMap.add_obstacle(node)
 
@@ -93,7 +92,6 @@ func link_shrine_objects_to_coords_dictionary():
 	for node in get_tree().get_nodes_in_group(GlobalVariables.groups_dict[GlobalVariables.Groups.Shrine]):
 		var coords = _find_nearest_tile(node.global_position)
 		tile_contents[coords].shrine_object = node
-		ObjectsLayer.add_child(node)
 		node.add_to_group(GlobalVariables.groups_dict[GlobalVariables.Groups.Obstacles])
 		PathFindingTileMap.add_obstacle(node)
 
