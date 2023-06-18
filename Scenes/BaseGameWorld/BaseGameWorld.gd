@@ -85,11 +85,17 @@ func link_item_generators_to_coords_dictionary():
 	for node in get_tree().get_nodes_in_group(GlobalVariables.groups_dict[GlobalVariables.Groups.ItemGenerator]):
 		var coords = _find_nearest_tile(node.global_position)
 		tile_contents[coords].seed_generator_object = node
+		ObjectsLayer.add_child(node)
+		node.add_to_group(GlobalVariables.groups_dict[GlobalVariables.Groups.Obstacles])
+		PathFindingTileMap.add_obstacle(node)
 
 func link_shrine_objects_to_coords_dictionary():
 	for node in get_tree().get_nodes_in_group(GlobalVariables.groups_dict[GlobalVariables.Groups.Shrine]):
 		var coords = _find_nearest_tile(node.global_position)
 		tile_contents[coords].shrine_object = node
+		ObjectsLayer.add_child(node)
+		node.add_to_group(GlobalVariables.groups_dict[GlobalVariables.Groups.Obstacles])
+		PathFindingTileMap.add_obstacle(node)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -106,14 +112,24 @@ func _get_viewport_offset() -> Vector2:
 	
 func _input(event):
 	if event is InputEventMouseButton:
+		var relative_position = event.position - _get_viewport_offset()
+		var target_point = PlayerPawn.position + relative_position
+
 		if event.is_action_pressed("travel") and not GlobalVariables.is_movement_locked:
-			var relative_position = event.position - _get_viewport_offset()
-			move_pc_to_destination(relative_position)
+			target_point = PlayerPawn.position + GlobalVariables.tile_size * relative_position.normalized() * 2
+			target_point = GlobalVariables.snap_to_grid(_find_nearest_tile(target_point))
+			if ((target_point - PlayerPawn.position).length() < relative_position.length()):
+				move_pc_to_destination(target_point - PlayerPawn.position)
+			else:
+				move_pc_to_destination(relative_position)
+			print(target_point - PlayerPawn.position, relative_position)
+			$ControlIndicators/ActionIndicator.position = Vector2(0,0)
+
 		elif event.is_action_released("travel") and GlobalVariables.is_actionsUI_open:
 			emit_signal("cancel_ActionsUI")
-		elif event.is_action_pressed("open_actions_menu") and not GlobalVariables.is_movement_locked:
-			var relative_position = event.position - _get_viewport_offset()
-			var target_point = PlayerPawn.position + relative_position
+			$ControlIndicators/ActionIndicator.position = Vector2(0,0)
+
+		elif event.is_action_pressed("open_actions_menu") and not GlobalVariables.is_movement_locked:	
 			var rect_top_left_corner = _find_nearest_tile(PlayerPawn.global_position) - Vector2(1,1)*GlobalVariables.tile_size
 			var rect_size = GlobalVariables.tile_size*Vector2(3,3)
 			var rectangle = Rect2(rect_top_left_corner, rect_size)
@@ -124,6 +140,7 @@ func _input(event):
 				target_point = PlayerPawn.position + GlobalVariables.tile_size*relative_position.normalized()
 				target_point = GlobalVariables.snap_to_grid(_find_nearest_tile(target_point))
 			operate_action_at_tile(target_point)
+
 	elif event is InputEventMouseMotion:
 		pass #Do Stuff with Mouse Motion Event
 	if event is InputEventKey:
@@ -139,14 +156,11 @@ func _find_nearest_tile(nearby_position : Vector2):
 func operate_action_at_tile(tile_selected_coords):
 	$ControlIndicators/ActionIndicator.position = tile_selected_coords
 	var usable_coords = tile_selected_coords- Vector2(16,16)
-	#interact_with_object(tile_selected_coords- Vector2(16,16))
 	if usable_coords in tile_contents:
 		var av_actions = tile_contents[usable_coords].get_available_actions()
 		if (av_actions.size() > 0):
 			#Debug for testing Secondary Action and ActionsUI
 			emit_signal("request_ActionsUI", av_actions)
-		else:
-			move_pc_to_destination(tile_selected_coords - PlayerPawn.position)
 	
 
 func _reach_tile():
