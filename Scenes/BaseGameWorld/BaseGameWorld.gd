@@ -342,7 +342,7 @@ func _on_action_summon_cloud(trigger_location):
 func _on_actions_place_item_cooking(trigger_location):
 	var cooking_bench_inst = tile_contents[trigger_location].cooking_bench_object
 	if cooking_bench_inst != null:
-		cooking_bench_inst.cooking_bench.inventory.add_item(
+		cooking_bench_inst.cooking_bench.place_item(
 			GlobalVariables.player_invetory.get_at(0)
 		)
 		tile_contents[trigger_location].toss_item_only_animation(
