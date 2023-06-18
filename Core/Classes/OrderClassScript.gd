@@ -5,28 +5,27 @@ var ingredient: String = ""
 var flavor: int
 var god: String = ""
 
-const god_list = ["Poseidon", "Ra", "Dragon", "Thor", "Ganesha", "Chizuru"]
+const god_list = ["poseidon", "ra", "ryu", "thor", "ganeesha", "chizuru"]
 
 var order_mapping: Dictionary = {
-	"Poseidon": GlobalVariables.Flavours.Salty,
-	"Ra": GlobalVariables.Flavours.Bitter,
-	"Dragon": GlobalVariables.Flavours.Sweet,
-	"Thor": GlobalVariables.Flavours.Sour,
-	"Ganesha": GlobalVariables.Flavours.Spicy,
-	"Chizuru": GlobalVariables.Flavours.Umami	
+	"poseidon": GlobalVariables.Flavours.Salty,
+	"ra": GlobalVariables.Flavours.Bitter,
+	"ryu": GlobalVariables.Flavours.Sweet,
+	"thor": GlobalVariables.Flavours.Sour,
+	"ganeesha": GlobalVariables.Flavours.Spicy,
+	"chizuru": GlobalVariables.Flavours.Umami	
 }
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 	
-func _init():
+func _init(god):
 	var tmp = ItemsDictionary.Dict.keys().duplicate()
 	tmp.shuffle()
 	ingredient = tmp[0]
-	tmp = god_list.duplicate()
-	god = tmp[0]
-	flavor = order_mapping[god]
+	god = god
+	flavor = order_mapping[god.to_lower()]
 	
 #func set_god(god_name: String):
 #	god = god_name

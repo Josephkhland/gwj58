@@ -8,10 +8,10 @@ extends Sprite
 var order = null
 
 const wait_between_orders: int = 5
-const points_gained_for_correct_ingredient = 5
+const points_gained_for_correct_ingredient = 3
 const points_lost_for_incorrect_ingredient = 2
-const points_gained_for_correct_flavor = 3
-const points_lost_for_incorrect_flavor =0
+const points_gained_for_correct_flavor = 5
+const points_lost_for_incorrect_flavor = 2
 
 export var god_name = "Chizuru"
 export(Texture) var god_image setget set_sprite
@@ -111,13 +111,9 @@ func _process(delta):
 
 
 func create_order():
-	order = OrderClass.new()
+	order = OrderClass.new(god_name)
 	show_cloud()
-	for i in range(0,1000):
-		emit_signal("generate_order")
-		
-	
-	
+	emit_signal("generate_order")
 
 func eat_order():
 	var score = get_score(order, inventory.inventory[0])
@@ -141,7 +137,6 @@ func _on_OrderGeneratorTimer_timeout():
 
 func _on_ShrineObject_generate_order():
 	yield(get_tree().create_timer(0.1), "timeout")
-	order = OrderClass.new()
 	#$Cloud/God.texture = god_image
 	$Cloud/Ingredient.texture = ItemsDictionary.Dict[order.ingredient.to_lower()].item_icon
 	$Cloud/Ingredient.scale = Vector2(1,1)*2
