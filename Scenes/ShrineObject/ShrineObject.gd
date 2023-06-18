@@ -8,9 +8,9 @@ extends Sprite
 var order = null
 
 const wait_between_orders: int = 5
-const points_gained_for_correct_ingredient = 0
-const points_lost_for_incorrect_ingredient = 0
-const points_gained_for_correct_flavor = 0
+const points_gained_for_correct_ingredient = 5
+const points_lost_for_incorrect_ingredient = 2
+const points_gained_for_correct_flavor = 3
 const points_lost_for_incorrect_flavor =0
 
 export var god_name = "Chizuru"
