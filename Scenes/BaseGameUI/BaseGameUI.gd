@@ -55,6 +55,7 @@ func _on_ActionsUI_call_cancelled():
 	$ActionsUI._on_cancel()
 
 func _on_score_change(value):
+	
 	var tween = get_tree().create_tween()
 	tween.tween_property(progressBar, "value", progressBar.value + value, 0.4)
 	if value > 0:
