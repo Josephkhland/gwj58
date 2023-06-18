@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Core/Globals/ItemsDictionary.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/TributeItem/TributeItem.tscn" type="PackedScene" id=2]
@@ -11,15 +11,44 @@
 [ext_resource path="res://TResources/TributeItemIcons/LemonIcon.tres" type="Texture" id=9]
 [ext_resource path="res://TResources/TributeItemIcons/PepperIcon.tres" type="Texture" id=10]
 [ext_resource path="res://TResources/TributeItemIcons/FishIcon.tres" type="Texture" id=11]
-[ext_resource path="res://Assets/Sourced/Texture/FOOD.png" type="Texture" id=12]
-
-[sub_resource type="AtlasTexture" id=1]
-flags = 4
-atlas = ExtResource( 12 )
-region = Rect2( 339, 369, 20, 20 )
+[ext_resource path="res://TResources/TributeItemIcons/FishseedIcon.tres" type="Texture" id=12]
+[ext_resource path="res://TResources/TributeItemIcons/BeefseedIcon.tres" type="Texture" id=13]
+[ext_resource path="res://TResources/TributeItemIcons/EggIcon.tres" type="Texture" id=14]
 
 [node name="ItemsDictionary" type="Node"]
 script = ExtResource( 1 )
+Dict = {
+"beef": Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Scenes/TributeItem/TributeItem.gd" ),"item_global_index":-1,"item_key":"Beefseed","force_rename_node":false,"item_icon":ExtResource( 13 ),"sweet":0,"spicy":0,"salty":1,"umami":0,"sour":0,"bitter":0,"is_seed":true,"is_ingredient":true,"is_dish":false,"flavor_chart":Object(Reference,"script":Resource( "res://Core/Classes/FlavorChartClass.gd" ),"Sweet":2,"Spicy":0,"Salty":1,"Umami":2,"Sour":0,"Bitter":3)
+,"temperature":0,"age":0,"expiration_progress":0.0,"plantObject_reference":null,"isWatery":false,"isChewy":false,"isFirm":false,"isCreamy":false,"isCrunchy":false,"isHeld":false,"ingredients_history":[  ])
+,
+"beer": Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Scenes/TributeItem/TributeItem.gd" ),"item_global_index":-1,"item_key":"Beer","force_rename_node":false,"item_icon":ExtResource( 3 ),"sweet":2,"spicy":0,"salty":0,"umami":2,"sour":0,"bitter":5,"is_seed":false,"is_ingredient":true,"is_dish":false,"flavor_chart":Object(Reference,"script":Resource( "res://Core/Classes/FlavorChartClass.gd" ),"Sweet":2,"Spicy":0,"Salty":0,"Umami":2,"Sour":0,"Bitter":5)
+,"temperature":0,"age":0,"expiration_progress":0.0,"plantObject_reference":null,"isWatery":false,"isChewy":false,"isFirm":false,"isCreamy":false,"isCrunchy":false,"isHeld":false,"ingredients_history":[  ])
+,
+"chicken": Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Scenes/TributeItem/TributeItem.gd" ),"item_global_index":-1,"item_key":"Egg","force_rename_node":true,"item_icon":ExtResource( 14 ),"sweet":3,"spicy":0,"salty":1,"umami":2,"sour":0,"bitter":3,"is_seed":false,"is_ingredient":true,"is_dish":false,"flavor_chart":Object(Reference,"script":Resource( "res://Core/Classes/FlavorChartClass.gd" ),"Sweet":3,"Spicy":0,"Salty":1,"Umami":2,"Sour":0,"Bitter":3)
+,"temperature":0,"age":0,"expiration_progress":0.0,"plantObject_reference":null,"isWatery":false,"isChewy":false,"isFirm":false,"isCreamy":false,"isCrunchy":false,"isHeld":false,"ingredients_history":[  ])
+,
+"fish": Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Scenes/TributeItem/TributeItem.gd" ),"item_global_index":-1,"item_key":"Fish","force_rename_node":false,"item_icon":ExtResource( 11 ),"sweet":2,"spicy":0,"salty":5,"umami":3,"sour":0,"bitter":2,"is_seed":false,"is_ingredient":true,"is_dish":false,"flavor_chart":Object(Reference,"script":Resource( "res://Core/Classes/FlavorChartClass.gd" ),"Sweet":2,"Spicy":0,"Salty":5,"Umami":3,"Sour":0,"Bitter":2)
+,"temperature":0,"age":0,"expiration_progress":0.0,"plantObject_reference":null,"isWatery":false,"isChewy":false,"isFirm":false,"isCreamy":false,"isCrunchy":false,"isHeld":false,"ingredients_history":[  ])
+,
+"fishseed": Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Scenes/TributeItem/TributeItem.gd" ),"item_global_index":-1,"item_key":"Fishseed","force_rename_node":true,"item_icon":ExtResource( 12 ),"sweet":1,"spicy":0,"salty":0,"umami":1,"sour":0,"bitter":1,"is_seed":true,"is_ingredient":true,"is_dish":false,"flavor_chart":Object(Reference,"script":Resource( "res://Core/Classes/FlavorChartClass.gd" ),"Sweet":1,"Spicy":0,"Salty":0,"Umami":1,"Sour":0,"Bitter":1)
+,"temperature":0,"age":0,"expiration_progress":0.0,"plantObject_reference":null,"isWatery":false,"isChewy":false,"isFirm":false,"isCreamy":false,"isCrunchy":false,"isHeld":false,"ingredients_history":[  ])
+,
+"lemon": Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Scenes/TributeItem/TributeItem.gd" ),"item_global_index":-1,"item_key":"Lemon","force_rename_node":false,"item_icon":ExtResource( 9 ),"sweet":3,"spicy":0,"salty":0,"umami":1,"sour":5,"bitter":3,"is_seed":true,"is_ingredient":true,"is_dish":false,"flavor_chart":Object(Reference,"script":Resource( "res://Core/Classes/FlavorChartClass.gd" ),"Sweet":3,"Spicy":0,"Salty":0,"Umami":1,"Sour":5,"Bitter":3)
+,"temperature":0,"age":0,"expiration_progress":0.0,"plantObject_reference":null,"isWatery":false,"isChewy":false,"isFirm":false,"isCreamy":false,"isCrunchy":false,"isHeld":false,"ingredients_history":[  ])
+,
+"lolipop": Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Scenes/TributeItem/TributeItem.gd" ),"item_global_index":-1,"item_key":"Lolipop","force_rename_node":false,"item_icon":ExtResource( 8 ),"sweet":5,"spicy":0,"salty":0,"umami":2,"sour":0,"bitter":0,"is_seed":true,"is_ingredient":true,"is_dish":false,"flavor_chart":Object(Reference,"script":Resource( "res://Core/Classes/FlavorChartClass.gd" ),"Sweet":5,"Spicy":0,"Salty":0,"Umami":2,"Sour":0,"Bitter":0)
+,"temperature":0,"age":0,"expiration_progress":0.0,"plantObject_reference":null,"isWatery":false,"isChewy":false,"isFirm":false,"isCreamy":false,"isCrunchy":false,"isHeld":false,"ingredients_history":[  ])
+,
+"mushroom": Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Scenes/TributeItem/TributeItem.gd" ),"item_global_index":-1,"item_key":"Mushroom","force_rename_node":false,"item_icon":ExtResource( 4 ),"sweet":3,"spicy":0,"salty":1,"umami":4,"sour":2,"bitter":3,"is_seed":true,"is_ingredient":true,"is_dish":false,"flavor_chart":Object(Reference,"script":Resource( "res://Core/Classes/FlavorChartClass.gd" ),"Sweet":3,"Spicy":0,"Salty":1,"Umami":4,"Sour":2,"Bitter":3)
+,"temperature":0,"age":0,"expiration_progress":0.0,"plantObject_reference":null,"isWatery":false,"isChewy":false,"isFirm":false,"isCreamy":false,"isCrunchy":false,"isHeld":false,"ingredients_history":[  ])
+,
+"pepper": Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Scenes/TributeItem/TributeItem.gd" ),"item_global_index":-1,"item_key":"Pepper","force_rename_node":false,"item_icon":ExtResource( 10 ),"sweet":2,"spicy":5,"salty":0,"umami":2,"sour":2,"bitter":3,"is_seed":true,"is_ingredient":true,"is_dish":false,"flavor_chart":Object(Reference,"script":Resource( "res://Core/Classes/FlavorChartClass.gd" ),"Sweet":2,"Spicy":5,"Salty":0,"Umami":2,"Sour":2,"Bitter":3)
+,"temperature":0,"age":0,"expiration_progress":0.0,"plantObject_reference":null,"isWatery":false,"isChewy":false,"isFirm":false,"isCreamy":false,"isCrunchy":false,"isHeld":false,"ingredients_history":[  ])
+,
+"tomato": Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Scenes/TributeItem/TributeItem.gd" ),"item_global_index":-1,"item_key":"Tomato","force_rename_node":false,"item_icon":ExtResource( 6 ),"sweet":4,"spicy":0,"salty":0,"umami":5,"sour":1,"bitter":0,"is_seed":true,"is_ingredient":true,"is_dish":false,"flavor_chart":Object(Reference,"script":Resource( "res://Core/Classes/FlavorChartClass.gd" ),"Sweet":4,"Spicy":0,"Salty":0,"Umami":5,"Sour":1,"Bitter":0)
+,"temperature":0,"age":0,"expiration_progress":0.0,"plantObject_reference":null,"isWatery":false,"isChewy":false,"isFirm":false,"isCreamy":false,"isCrunchy":false,"isHeld":false,"ingredients_history":[  ])
+
+}
 
 [node name="Fish" parent="." instance=ExtResource( 2 )]
 item_key = "Fish"
@@ -28,14 +57,13 @@ sweet = 2
 salty = 5
 umami = 3
 bitter = 2
-is_seed = true
 is_ingredient = true
 is_dish = false
 
 [node name="Fishseed" parent="." instance=ExtResource( 2 )]
 item_key = "Fishseed"
 force_rename_node = true
-item_icon = SubResource( 1 )
+item_icon = ExtResource( 12 )
 sweet = 1
 umami = 1
 bitter = 1
@@ -50,6 +78,13 @@ sweet = 2
 salty = 1
 umami = 2
 bitter = 3
+is_ingredient = true
+is_dish = false
+
+[node name="Beefseed" parent="." instance=ExtResource( 2 )]
+item_key = "Beefseed"
+item_icon = ExtResource( 13 )
+salty = 1
 is_seed = true
 is_ingredient = true
 is_dish = false
@@ -61,7 +96,17 @@ sweet = 3
 salty = 1
 umami = 2
 bitter = 3
-is_seed = true
+is_ingredient = true
+is_dish = false
+
+[node name="Egg" parent="." instance=ExtResource( 2 )]
+item_key = "Egg"
+force_rename_node = true
+item_icon = ExtResource( 14 )
+sweet = 3
+salty = 1
+umami = 2
+bitter = 3
 is_ingredient = true
 is_dish = false
 
@@ -125,7 +170,6 @@ item_icon = ExtResource( 3 )
 sweet = 2
 umami = 2
 bitter = 5
-is_seed = true
 is_ingredient = true
 is_dish = false
 
