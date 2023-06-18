@@ -35,6 +35,12 @@ var tile_flavor = null
 var water_amount : int =1000 setget set_water_amount
 
 func set_water_amount(value):
+	if stone_obstacle != null or \
+		shrine_object != null or \
+		cooking_bench_object != null or \
+		seed_generator_object != null:
+		return
+	
 	water_amount = int(clamp(value, 0, max_level))
 	match tile_state:
 		TileState.Dry:

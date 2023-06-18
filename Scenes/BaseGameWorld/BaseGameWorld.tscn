@@ -273,7 +273,7 @@ visible = false
 position = Vector2( 1648, 1296 )
 
 [node name="ActionIndicator" parent="ControlIndicators" instance=ExtResource( 10 )]
-frame = 1
+frame = 2
 
 [node name="YSort" type="YSort" parent="."]
 
