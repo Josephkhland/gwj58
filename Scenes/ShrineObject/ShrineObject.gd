@@ -74,6 +74,28 @@ func get_score(order, tribute_item):
 		score += points_gained_for_correct_flavor
 	else:
 		score -= points_lost_for_incorrect_flavor
+	
+	if score > 6:
+		match god_name.to_lower():
+			"thor":
+				GlobalVariables.player_power_ups.break_stone_count += 1
+				pass
+			"chizuru":
+				GlobalVariables.player_power_ups.remove_water_count += 1
+				pass
+			"ganeesha":
+				GlobalVariables.player_power_ups.break_stone_count += 1
+				pass
+			"ra":
+				GlobalVariables.player_power_ups.remove_water_count += 1
+				pass
+			"poseidon":
+				GlobalVariables.player_power_ups.remove_water_count += 1
+				pass
+			"ryu":
+				GlobalVariables.player_power_ups.summon_cloud_count += 1
+				pass
+	
 	return score
 	
 

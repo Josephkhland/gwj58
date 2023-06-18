@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Scenes/BaseGameWorld/BaseGameWorld.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/BaseGameUI/ActionsUI/ActionsUI.tscn" type="PackedScene" id=2]
@@ -12,6 +12,10 @@
 [ext_resource path="res://Assets/Sourced/Pipoya_emotes/pipo-popupemotes.png" type="Texture" id=10]
 [ext_resource path="res://Assets/Original/Flavours/bitter_final_fingasdgfasal.png" type="Texture" id=11]
 [ext_resource path="res://Assets/Original/Flavours/salty_final_finvzsgsdfbal.png" type="Texture" id=12]
+[ext_resource path="res://TResources/ActionIcons/BreakStoneIcon.tres" type="Texture" id=13]
+[ext_resource path="res://Assets/Sourced/UI/Pixel UI Pack 3/07.png" type="Texture" id=14]
+[ext_resource path="res://TResources/ActionIcons/SummonCloudIcon.tres" type="Texture" id=15]
+[ext_resource path="res://TResources/ActionIcons/RemoveWaterIcon.tres" type="Texture" id=16]
 
 [sub_resource type="Theme" id=7]
 
@@ -156,6 +160,16 @@ tracks/1/keys = {
 "update": 0,
 "values": [ Vector2( 0, 0 ), Vector2( 0, -2 ) ]
 }
+
+[sub_resource type="AtlasTexture" id=11]
+flags = 4
+atlas = ExtResource( 14 )
+region = Rect2( 0, 134, 16, 5 )
+
+[sub_resource type="AtlasTexture" id=12]
+flags = 4
+atlas = ExtResource( 14 )
+region = Rect2( 114, 135, 12, 3 )
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -408,5 +422,62 @@ texture = SubResource( 3 )
 anims/Default = SubResource( 4 )
 anims/ScoreDown = SubResource( 5 )
 anims/ScoreUP = SubResource( 6 )
+
+[node name="BreakStoneTexture" type="TextureRect" parent="."]
+margin_left = 43.0
+margin_top = 363.0
+margin_right = 75.0
+margin_bottom = 395.0
+texture = ExtResource( 13 )
+
+[node name="RemoveWaterTexture" type="TextureRect" parent="."]
+margin_left = 43.0
+margin_top = 417.0
+margin_right = 75.0
+margin_bottom = 449.0
+texture = ExtResource( 16 )
+
+[node name="SummonCloudTexture" type="TextureRect" parent="."]
+margin_left = 44.0
+margin_top = 469.0
+margin_right = 76.0
+margin_bottom = 501.0
+texture = ExtResource( 15 )
+
+[node name="BreakStoneProgressBar" type="TextureProgress" parent="."]
+margin_left = 91.0
+margin_top = 397.0
+margin_right = 123.0
+margin_bottom = 404.0
+rect_min_size = Vector2( 28, 5 )
+rect_rotation = -90.0
+max_value = 10.0
+texture_under = SubResource( 11 )
+texture_progress = SubResource( 12 )
+nine_patch_stretch = true
+
+[node name="RemoveWaterProgressBar" type="TextureProgress" parent="."]
+margin_left = 91.0
+margin_top = 448.0
+margin_right = 123.0
+margin_bottom = 455.0
+rect_min_size = Vector2( 28, 5 )
+rect_rotation = -90.0
+max_value = 10.0
+texture_under = SubResource( 11 )
+texture_progress = SubResource( 12 )
+nine_patch_stretch = true
+
+[node name="SummonCloudProgressBar" type="TextureProgress" parent="."]
+margin_left = 91.0
+margin_top = 500.0
+margin_right = 123.0
+margin_bottom = 507.0
+rect_min_size = Vector2( 28, 5 )
+rect_rotation = -90.0
+max_value = 10.0
+texture_under = SubResource( 11 )
+texture_progress = SubResource( 12 )
+nine_patch_stretch = true
 
 [connection signal="action_selected" from="ActionsUI" to="." method="_on_ActionsUI_action_selected"]
