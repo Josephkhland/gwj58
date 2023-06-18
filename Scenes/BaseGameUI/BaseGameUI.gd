@@ -26,7 +26,7 @@ onready var playerItem = $MarginContainer/VBoxContainer/CenterContainer/Inventor
 func _on_item_pickup(item):
 	playerItem.texture = item.item_icon
 	playerItem.show()
-	
+
 	#Set Flavours
 	sweetness.value = item.flavor_chart.Sweet
 	spicyness.value = item.flavor_chart.Spicy

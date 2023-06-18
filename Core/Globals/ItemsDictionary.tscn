@@ -17,6 +17,20 @@
 
 [node name="ItemsDictionary" type="Node"]
 script = ExtResource( 1 )
+Dict = {
+"beef": null,
+"beefseed": null,
+"beer": null,
+"chicken": null,
+"egg": null,
+"fish": null,
+"fishseed": null,
+"lemon": null,
+"lolipop": null,
+"mushroom": null,
+"pepper": null,
+"tomato": null
+}
 
 [node name="Fish" parent="." instance=ExtResource( 2 )]
 item_key = "Fish"

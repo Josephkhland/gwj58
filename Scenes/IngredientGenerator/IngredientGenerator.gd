@@ -24,7 +24,7 @@ func _ready():
 	$GenerateTimer.wait_time= time_to_generate
 	$GenerateTimer.start()
 	if !Engine.editor_hint:
-		ingredient = ItemsDictionary.Dict[ingredient_key].duplicate()
+		ingredient = ItemsDictionary.get_item(ingredient_key)
 		$IconIndicator.texture=ingredient.item_icon
 		$IconIndicator.hide()
 	pass # Replace with function body.

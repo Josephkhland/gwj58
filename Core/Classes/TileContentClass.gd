@@ -317,7 +317,7 @@ func replace_with_seed(seed_acquired):
 	plot_object.queue_free()
 	plot_object = null
 	if ItemsDictionary.Dict.has(seed_acquired):
-		var item = ItemsDictionary.Dict[seed_acquired.to_lower()].duplicate()
+		var item = ItemsDictionary.get_item(seed_acquired.to_lower())
 		toss_item_to_ground(item)
 	else:
 		print("Plot: Seed Item not found (",seed_acquired,")")

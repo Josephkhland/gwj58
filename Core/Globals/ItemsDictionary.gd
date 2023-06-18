@@ -21,6 +21,19 @@ func refresh_scene(value):
 		if !isErased :
 			print("ItemsDictionary: Failed to erase key(String.Empty()) from Dictionary")
 
+static func get_item(ingredient_key):
+	var original = ItemsDictionary.Dict[ingredient_key]
+	var copy = original.duplicate(true)
+	for property in  ItemsDictionary.Dict[ingredient_key].get_property_list():
+		if property["name"]=="global_transform"\
+			or property["name"] == "global_position"\
+			or property["name"] == "global_rotation"\
+			or property["name"] == "global_rotation_degrees"\
+			or property["name"] == "global_scale":
+			continue
+		copy.set(property["name"],  ItemsDictionary.Dict[ingredient_key].get(property["name"]))
+	return copy
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	refresh_scene(true)

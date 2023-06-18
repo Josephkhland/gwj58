@@ -139,7 +139,7 @@ func harvest() -> bool:
 		print("NOT HARVESTABLE AT THIS GROWTH LEVEL")
 		return false
 	if product != null:
-		var new_item = ItemsDictionary.Dict[product].duplicate()
+		var new_item = ItemsDictionary.get_item(product)
 		GlobalVariables.player_invetory.add_item(new_item)
 		GlobalVariables.base_game_ui._on_item_pickup(GlobalVariables.player_invetory.get_at(0))
 		destroy_plant()
