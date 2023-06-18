@@ -128,7 +128,7 @@ var chance_to_create_order = 0
 func _on_OrderGeneratorTimer_timeout():
 	if order == null:
 		chance_to_create_order += 1
-		var random_pick = GlobalVariables.rng.randi_range(1,100)
+		var random_pick = GlobalVariables.rng.randi_range(1,1000)
 		if random_pick < chance_to_create_order:
 			if !Engine.editor_hint:
 				create_order()

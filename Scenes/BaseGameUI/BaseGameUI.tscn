@@ -481,4 +481,15 @@ texture_under = SubResource( 11 )
 texture_progress = SubResource( 12 )
 nine_patch_stretch = true
 
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+visible = false
+margin_left = 436.0
+margin_top = 232.0
+margin_right = 516.0
+margin_bottom = 259.0
+rect_scale = Vector2( 2, 2 )
+custom_colors/default_color = Color( 0.694118, 0.0117647, 0.0117647, 1 )
+tab_size = 7
+text = "YOU LOSE :("
+
 [connection signal="action_selected" from="ActionsUI" to="." method="_on_ActionsUI_action_selected"]

@@ -1,11 +1,13 @@
 extends Control
 
 onready var game_world = $ViewportContainer/Viewport/BaseGameWorld
+onready var progressBar = $CenterContainer/VBoxContainer/HBoxContainer/TextureProgress
 
 func _init():
 	GlobalVariables.base_game_ui = self
 
 func _ready():
+	progressBar.value = 10
 	var error_code = game_world.connect("request_ActionsUI",self, "_on_ActionsUI_call_requested")
 	if error_code != 0:
 		print("BaseGameUI: Failed to connect request_ActionsUI signal from ", game_world)
@@ -52,7 +54,6 @@ func _on_ActionsUI_call_requested(actions_available: Array):
 func _on_ActionsUI_call_cancelled():
 	$ActionsUI._on_cancel()
 
-onready var progressBar = $CenterContainer/VBoxContainer/HBoxContainer/TextureProgress
 func _on_score_change(value):
 	var tween = get_tree().create_tween()
 	tween.tween_property(progressBar, "value", progressBar.value + value, 0.4)
@@ -64,6 +65,15 @@ func _on_score_change(value):
 		$AnimationPlayer.play("ScoreDown")
 		yield(get_tree().create_timer(2), "timeout")
 		$AnimationPlayer.play("Default")
+	
+	if progressBar.value <= 0:
+		$RichTextLabel.text = "You Lose :("
+		$RichTextLabel.show()
+		GlobalVariables.is_movement_locked = true
+	if progressBar.value >= 100:
+		$RichTextLabel.text = "You Win :)"
+		$RichTextLabel.show()
+		GlobalVariables.is_movement_locked = true
 		
 func _process(delta):
 	$BreakStoneProgressBar.value = GlobalVariables.player_power_ups.break_stone_count
