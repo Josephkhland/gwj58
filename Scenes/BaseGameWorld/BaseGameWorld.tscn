@@ -271,7 +271,6 @@ visible = false
 position = Vector2( 1648, 1296 )
 
 [node name="ActionIndicator" parent="ControlIndicators" instance=ExtResource( 10 )]
-frame = 2
 
 [node name="YSort" type="YSort" parent="."]
 
@@ -320,9 +319,37 @@ god_image = ExtResource( 28 )
 god_scale = Vector2( 0.4, 0.4 )
 god_position = Vector2( -40, -40 )
 
-[node name="IngredientGen" parent="YSort" instance=ExtResource( 22 )]
-position = Vector2( 1712, 1134 )
+[node name="FishGenerator" parent="YSort" instance=ExtResource( 22 )]
+position = Vector2( 2256, 1136 )
 ingredient_key = "fishseed"
+
+[node name="ChickenGenerator" parent="YSort" instance=ExtResource( 22 )]
+position = Vector2( 2256, 1360 )
+ingredient_key = "egg"
+
+[node name="BeefGenerator" parent="YSort" instance=ExtResource( 22 )]
+position = Vector2( 1936, 1360 )
+ingredient_key = "beefseed"
+
+[node name="PepperGenerator" parent="YSort" instance=ExtResource( 22 )]
+position = Vector2( 1936, 1136 )
+ingredient_key = "pepper"
+
+[node name="lolipopGenerator" parent="YSort" instance=ExtResource( 22 )]
+position = Vector2( 1808, 1680 )
+ingredient_key = "lolipop"
+
+[node name="lemonGenerator" parent="YSort" instance=ExtResource( 22 )]
+position = Vector2( 2096, 1680 )
+ingredient_key = "lemon"
+
+[node name="mushroomGenerato" parent="YSort" instance=ExtResource( 22 )]
+position = Vector2( 2384, 1680 )
+ingredient_key = "mushroom"
+
+[node name="beerGenerator" parent="YSort" instance=ExtResource( 22 )]
+position = Vector2( 2256, 1264 )
+ingredient_key = "beer"
 
 [node name="Sprite" type="Sprite" parent="."]
 visible = false

@@ -6,11 +6,24 @@
 [node name="PlantsDictionary" type="Node"]
 script = ExtResource( 1 )
 Dict = {
+"beefseed": Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Plants/PlantReference/PlantReference.gd" ),"node_name":"beefseed","action_icon":null,"SEED_Harvestable":false,"SEED_StepTime":0.1,"SEED_GrowthPerStep":0.01,"SEED_HarvestList":{
+},"GROWING_Harvestable":true,"GROWING_StepTime":0.2,"GROWING_GrowthPerStep":0.01,"GROWING_HarvestList":{
+"beef": 100
+},"READY_Harvestable":true,"READY_StepTime":1.0,"READY_GrowthPerStep":0.01,"READY_HarvestList":{
+"beef": 100
+})
+,
+"egg": Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Plants/PlantReference/PlantReference.gd" ),"node_name":"egg","action_icon":null,"SEED_Harvestable":false,"SEED_StepTime":0.1,"SEED_GrowthPerStep":0.01,"SEED_HarvestList":{
+},"GROWING_Harvestable":true,"GROWING_StepTime":0.2,"GROWING_GrowthPerStep":0.01,"GROWING_HarvestList":{
+"chicken": 100
+},"READY_Harvestable":true,"READY_StepTime":1.0,"READY_GrowthPerStep":0.01,"READY_HarvestList":{
+})
+,
 "egg2": Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Plants/PlantReference/PlantReference.gd" ),"node_name":"beefseed","action_icon":null,"SEED_Harvestable":false,"SEED_StepTime":0.1,"SEED_GrowthPerStep":0.01,"SEED_HarvestList":{
 },"GROWING_Harvestable":true,"GROWING_StepTime":0.2,"GROWING_GrowthPerStep":0.01,"GROWING_HarvestList":{
-"beefseed": 100
+"beef": 100
 },"READY_Harvestable":true,"READY_StepTime":1.0,"READY_GrowthPerStep":0.01,"READY_HarvestList":{
-"beefseed": 100
+"beef": 100
 })
 ,
 "fishseed": Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Plants/PlantReference/PlantReference.gd" ),"node_name":"fishseed","action_icon":null,"SEED_Harvestable":false,"SEED_StepTime":0.1,"SEED_GrowthPerStep":0.01,"SEED_HarvestList":{
@@ -92,9 +105,8 @@ Dict = {
 ,
 "tomato2": Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Plants/PlantReference/PlantReference.gd" ),"node_name":"egg","action_icon":null,"SEED_Harvestable":false,"SEED_StepTime":0.1,"SEED_GrowthPerStep":0.01,"SEED_HarvestList":{
 },"GROWING_Harvestable":true,"GROWING_StepTime":0.2,"GROWING_GrowthPerStep":0.01,"GROWING_HarvestList":{
-"egg": 100
+"chicken": 100
 },"READY_Harvestable":true,"READY_StepTime":1.0,"READY_GrowthPerStep":0.01,"READY_HarvestList":{
-"egg": 100
 })
 
 }
@@ -176,23 +188,20 @@ node_name = "egg"
 SEED_Harvestable = false
 GROWING_StepTime = 0.2
 GROWING_HarvestList = {
-"egg": 100
+"chicken": 100
 }
 READY_StepTime = 1.0
-READY_HarvestList = {
-"egg": 100
-}
 
 [node name="Beefseed" parent="." instance=ExtResource( 2 )]
 node_name = "beefseed"
 SEED_Harvestable = false
 GROWING_StepTime = 0.2
 GROWING_HarvestList = {
-"beefseed": 100
+"beef": 100
 }
 READY_StepTime = 1.0
 READY_HarvestList = {
-"beefseed": 100
+"beef": 100
 }
 
 [connection signal="child_entered_tree" from="." to="." method="_on_PlantsDictionary_child_entered_tree"]
