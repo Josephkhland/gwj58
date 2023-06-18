@@ -61,6 +61,12 @@ func change_icon(texture):
 
 func _init():
 	flavor_chart = FlavorChart.new()
+	flavor_chart.Sweet = sweet
+	flavor_chart.Spicy = spicy
+	flavor_chart.Salty = salty
+	flavor_chart.Umami = umami
+	flavor_chart.Sour = sour
+	flavor_chart.Bitter = bitter
 
 func _ready():
 	if item_icon != null:

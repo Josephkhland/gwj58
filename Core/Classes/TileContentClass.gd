@@ -223,7 +223,7 @@ func get_available_actions():
 func pick_up():
 	if has_seed_generator():
 		GlobalVariables.player_invetory.add_item(seed_generator_object.collect())
-		GlobalVariables.base_game_ui._on_item_pickup(GlobalVariables.player_invetory.get_at(0).item_icon)
+		GlobalVariables.base_game_ui._on_item_pickup(GlobalVariables.player_invetory.get_at(0))
 		return
 	if has_shrine():
 		return
@@ -232,7 +232,7 @@ func pick_up():
 		var shoud_remove = true
 		if !holds_item():
 			GlobalVariables.player_invetory.add_item(bench.inventory.get_at(0))
-			GlobalVariables.base_game_ui._on_item_pickup(bench.inventory.get_at(0).item_icon)
+			GlobalVariables.base_game_ui._on_item_pickup(bench.inventory.get_at(0))
 		else:
 			var tile_contents = GlobalVariables.base_game_world.tile_contents
 			var cardnals = [Vector2.UP, Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT]
@@ -247,7 +247,7 @@ func pick_up():
 			bench.inventory.remove_item(0)
 		return
 	GlobalVariables.player_invetory.add_item(inventory.get_at(0))
-	GlobalVariables.base_game_ui._on_item_pickup(inventory.get_at(0).item_icon)
+	GlobalVariables.base_game_ui._on_item_pickup(inventory.get_at(0))
 	inventory.remove_item(0)
 	withdraw_item_from_ground()
 

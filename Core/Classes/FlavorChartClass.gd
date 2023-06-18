@@ -4,7 +4,7 @@ class_name FlavorChart
 export var Sweet: int = 0
 export var Spicy: int = 0
 export var Salty: int = 0
-export var Umami: int = 69
+export var Umami: int = 0
 export var Sour : int = 0
 export var Bitter: int = 0
 
