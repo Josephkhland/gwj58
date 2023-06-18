@@ -15,6 +15,7 @@ const points_lost_for_incorrect_flavor =0
 
 export var god_name = "Chizuru"
 export(Texture) var god_image setget set_sprite
+export(Texture) var flavor_image setget set_flavor_sprite
 export(Vector2) var god_scale setget set_god_scale
 export(Vector2) var god_position setget set_god_image_position
 
@@ -33,6 +34,11 @@ func set_sprite(texture):
 	god_image = texture
 	if god_image != null:
 		$Cloud/God.texture = god_image
+		
+func set_flavor_sprite(texture):
+	flavor_image = texture
+	if flavor_image != null:
+		$Cloud/Flavor.texture = flavor_image
 	
 
 signal score_changed(value)
