@@ -95,11 +95,11 @@ func pick_up(new_owner):
 	#item_owner = new_owner
 	hide()
 
-func toss_item(owner_node, target_position: Vector2, offset:Vector2 = Vector2.ZERO):
+func toss_item(owner_node_pos, target_position: Vector2, offset:Vector2 = Vector2.ZERO):
 	
 	#Toss it from the center of the owner that holds it, to the target_position
 	var path = Curve2D.new()
-	var start_point : Vector2 = GlobalVariables.snap_to_grid(owner_node.global_position) + offset
+	var start_point : Vector2 = GlobalVariables.snap_to_grid(owner_node_pos) + offset
 	
 	var mid_x = (start_point.x + target_position.x)/2
 	var mid_y = start_point.y -16

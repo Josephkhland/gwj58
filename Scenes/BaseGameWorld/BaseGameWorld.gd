@@ -120,7 +120,6 @@ func _input(event):
 				move_pc_to_destination(target_point - PlayerPawn.position)
 			else:
 				move_pc_to_destination(relative_position)
-			print(target_point - PlayerPawn.position, relative_position)
 			$ControlIndicators/ActionIndicator.position = Vector2(0,0)
 
 		elif event.is_action_released("travel") and GlobalVariables.is_actionsUI_open:
@@ -294,7 +293,6 @@ func do_action(action_ref):
 
 
 func _on_action_pick_up(trigger_location):
-	print("_on_action_pick_up")
 	tile_contents[trigger_location].pick_up()
 	pass
 

@@ -38,9 +38,10 @@ func _on_item_pickup(item):
 	print(umaminess.value)
 	$MarginContainer/VBoxContainer/FlavoursPanel.show()
 
-func _on_item_drop():
+func _on_item_drop(hide = true):
 	$MarginContainer/VBoxContainer/FlavoursPanel.hide()
-	playerItem.hide()
+	if hide:
+		playerItem.hide()
 
 func _on_ActionsUI_action_selected(action_ref):
 	game_world.do_action(action_ref)

@@ -245,8 +245,8 @@ func pick_up():
 			for car in cardnals:
 				var tile = tile_contents[coordinates + 32 * car]
 				if !tile.has_item():
-					tile.toss_item_to_ground(bench.inventory.get_at(0))
-					GlobalVariables.base_game_ui._on_item_drop()
+					tile.toss_item_to_ground(bench.inventory.get_at(0), coordinates)
+					GlobalVariables.base_game_ui._on_item_drop(false)
 					break
 				shoud_remove = false
 		if shoud_remove:
@@ -294,17 +294,17 @@ func switch_item():
 
 
 var placed_object
-func toss_item_to_ground(item):
+func toss_item_to_ground(item, source = GlobalVariables.player_pawn.global_position):
 	inventory.add_item(item)
 	GlobalVariables.base_game_world.ObjectsLayer.add_child(item)
 	item.set_icon_real_quick()
-	item.toss_item(GlobalVariables.player_pawn, coordinates + Vector2(16,16), Vector2.UP*32)
+	item.toss_item(source, coordinates + Vector2(16,16), Vector2.UP*32)
 	placed_object = item
 
 func toss_item_only_animation(item):
 	GlobalVariables.base_game_world.ObjectsLayer.add_child(item)
 	item.set_icon_real_quick()
-	item.toss_item(GlobalVariables.player_pawn, coordinates + Vector2(16,16), Vector2.UP*32)
+	item.toss_item(GlobalVariables.player_pawn.global_position, coordinates + Vector2(16,16), Vector2.UP*32)
 	yield(item.get_tree().create_timer(0.5), "timeout")
 	item.queue_free()
 

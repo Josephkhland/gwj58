@@ -141,7 +141,7 @@ func harvest() -> bool:
 	if product != null:
 		var new_item = ItemsDictionary.Dict[product].duplicate()
 		GlobalVariables.player_invetory.add_item(new_item)
-		GlobalVariables.base_game_ui._on_item_pickup(GlobalVariables.player_invetory.get_at(0).item_icon)
+		GlobalVariables.base_game_ui._on_item_pickup(GlobalVariables.player_invetory.get_at(0))
 		destroy_plant()
 		return true
 	
