@@ -25,6 +25,8 @@ func _ready():
 	$GenerateTimer.start()
 	if !Engine.editor_hint:
 		ingredient = ItemsDictionary.Dict[ingredient_key].duplicate()
+		$IconIndicator.texture=ingredient.item_icon
+		$IconIndicator.hide()
 	pass # Replace with function body.
 	
 func _init():
@@ -32,12 +34,14 @@ func _init():
 
 func generate():
 	if inventory.size() == 0:
+		$IconIndicator.show()
 		inventory.add_item(ingredient)
 	
 func collect():
 	if inventory.size() > 0:
 		var item = inventory.get_at(0)
 		inventory.remove_item(0)
+		$IconIndicator.hide()
 		return item
 
 func place_item(tribute_item):
@@ -55,4 +59,4 @@ func _process(delta):
 
 func _on_GenerateTimer_timeout():
 	generate()
-	print("Item Created",inventory.get_at(0))
+	#print("Item Created",inventory.get_at(0))
