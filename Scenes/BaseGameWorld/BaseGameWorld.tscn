@@ -1,10 +1,11 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://icon.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Original/Tilesets/gwj58-grass.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Original/Tilesets/gwj58-detailed-grass.png" type="Texture" id=3]
 [ext_resource path="res://Scenes/TileMap/AstarTileMap.gd" type="Script" id=4]
 [ext_resource path="res://Scenes/CloudsControl/CloudsControl.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Assets/Original/Sprites/GaneeshaMinimalized.png" type="Texture" id=6]
 [ext_resource path="res://Scenes/PlayerCharacter/PlayerCharacter.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/BaseGameWorld/BaseGameWorld.gd" type="Script" id=8]
 [ext_resource path="res://Scenes/PointIndicators/PointIndicator.tscn" type="PackedScene" id=9]
@@ -22,6 +23,11 @@
 [ext_resource path="res://Assets/Original/4.YELLOW.png" type="Texture" id=21]
 [ext_resource path="res://Scenes/IngredientGenerator/IngredientGenerator.tscn" type="PackedScene" id=22]
 [ext_resource path="res://Assets/Original/Backgrounds/malakia6.png" type="Texture" id=23]
+[ext_resource path="res://Assets/Original/Sprites/chizuruwui_new.png" type="Texture" id=24]
+[ext_resource path="res://Assets/Original/Sprites/poseidon.png" type="Texture" id=25]
+[ext_resource path="res://Assets/Original/Sprites/thorMinimalized.png" type="Texture" id=26]
+[ext_resource path="res://Assets/Original/Sprites/RaMinimalized.png" type="Texture" id=27]
+[ext_resource path="res://Assets/Original/Sprites/RyuMinimalizedGold.png" type="Texture" id=28]
 
 [sub_resource type="TileSet" id=4]
 0/name = "gwj58-grass.png 0"
@@ -222,6 +228,7 @@ move_time = 0.2
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
 
 [node name="TextureRect" type="TextureRect" parent="ParallaxBackground"]
+modulate = Color( 0.290196, 0.278431, 0.278431, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -256.0
@@ -264,6 +271,7 @@ visible = false
 position = Vector2( 1648, 1296 )
 
 [node name="ActionIndicator" parent="ControlIndicators" instance=ExtResource( 10 )]
+frame = 2
 
 [node name="YSort" type="YSort" parent="."]
 
@@ -271,24 +279,46 @@ position = Vector2( 1648, 1296 )
 position = Vector2( 2112, 1216 )
 scale = Vector2( 0.5, 0.5 )
 
-[node name="ShrineObject2" parent="YSort" instance=ExtResource( 11 )]
+[node name="ThorShrine" parent="YSort" instance=ExtResource( 11 )]
 position = Vector2( 1647, 849 )
-god_image = ExtResource( 1 )
+god_name = "Thor"
+god_image = ExtResource( 26 )
+god_scale = Vector2( 0.35, 0.28 )
+god_position = Vector2( -40, -20 )
 
-[node name="ShrineObject3" parent="YSort" instance=ExtResource( 11 )]
+[node name="ChizuruShrine" parent="YSort" instance=ExtResource( 11 )]
 position = Vector2( 2000, 691 )
+god_image = ExtResource( 24 )
+god_scale = Vector2( 0.26, 0.26 )
+god_position = Vector2( -40, -40 )
 
-[node name="ShrineObject4" parent="YSort" instance=ExtResource( 11 )]
+[node name="GaneeshaShrine" parent="YSort" instance=ExtResource( 11 )]
 position = Vector2( 2190, 690 )
+god_name = "Ganeesha"
+god_image = ExtResource( 6 )
+god_scale = Vector2( 0.3, 0.3 )
+god_position = Vector2( -32, -36 )
 
-[node name="ShrineObject5" parent="YSort" instance=ExtResource( 11 )]
+[node name="RaShrine" parent="YSort" instance=ExtResource( 11 )]
 position = Vector2( 2384, 753 )
+god_name = "Ra"
+god_image = ExtResource( 27 )
+god_scale = Vector2( 0.25, 0.25 )
+god_position = Vector2( -40, -40 )
 
-[node name="ShrineObject6" parent="YSort" instance=ExtResource( 11 )]
+[node name="PoseidonShrine" parent="YSort" instance=ExtResource( 11 )]
 position = Vector2( 1807, 755 )
+god_name = "Poseidon"
+god_image = ExtResource( 25 )
+god_scale = Vector2( 0.7, 0.6 )
+god_position = Vector2( -32, -24 )
 
-[node name="ShrineObject7" parent="YSort" instance=ExtResource( 11 )]
+[node name="RyuShrine" parent="YSort" instance=ExtResource( 11 )]
 position = Vector2( 2545, 850 )
+god_name = "Ryu"
+god_image = ExtResource( 28 )
+god_scale = Vector2( 0.4, 0.4 )
+god_position = Vector2( -40, -40 )
 
 [node name="IngredientGen" parent="YSort" instance=ExtResource( 22 )]
 position = Vector2( 1712, 1134 )
