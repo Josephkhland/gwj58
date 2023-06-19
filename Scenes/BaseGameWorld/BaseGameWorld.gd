@@ -297,6 +297,10 @@ func do_action(action_ref):
 			_on_action_summon_cloud(trigger_location)
 		GlobalVariables.ActionKeys.PLACE_ITEM_COOKING:
 			_on_actions_place_item_cooking(trigger_location)
+		GlobalVariables.ActionKeys.FILL_BUCKET:
+			_on_actions_fill_bucket(trigger_location)
+		GlobalVariables.ActionKeys.EMPTY_BUCKET:
+			_on_actions_empty_bucket(trigger_location)
 	GlobalVariables.is_movement_locked = false
 
 
@@ -359,6 +363,12 @@ func _on_actions_place_item_cooking(trigger_location):
 		GlobalVariables.player_invetory.remove_item(0)
 		GlobalVariables.base_game_ui._on_item_drop()
 	pass
+	
+func _on_actions_fill_bucket(trigger_location):
+	tile_contents[trigger_location].fill_bucket()
+
+func _on_actions_empty_bucket(trigger_location):
+	tile_contents[trigger_location].empty_bucket()
 
 var water_level_reduction_per_dryness_step = 1
 func _on_DrynessUpdate_timeout():
