@@ -279,7 +279,6 @@ visible = false
 position = Vector2( 1648, 1296 )
 
 [node name="ActionIndicator" parent="ControlIndicators" instance=ExtResource( 10 )]
-frame = 2
 
 [node name="YSort" type="YSort" parent="."]
 
@@ -365,6 +364,10 @@ ingredient_key = "mushroom"
 [node name="beerGenerator" parent="YSort" instance=ExtResource( 22 )]
 position = Vector2( 2256, 1264 )
 ingredient_key = "beer"
+
+[node name="bucketGenerator2" parent="YSort" instance=ExtResource( 22 )]
+position = Vector2( 2064, 1296 )
+ingredient_key = "bucket_empty"
 
 [node name="Sprite" type="Sprite" parent="."]
 visible = false

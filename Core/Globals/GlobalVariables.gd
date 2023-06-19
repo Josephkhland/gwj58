@@ -16,6 +16,7 @@ var base_game_world
 var player_pawn 
 var player_invetory : InventoryClass
 var player_power_ups : PowerUpsClass
+var has_bucket = false
 
 var groups_dict : Dictionary = {
 	Groups.Obstacles : "obstacles",
@@ -59,7 +60,7 @@ enum PlantGrowthLevel {
 
 enum ActionKeys{
 	NONE = 0,
-	MOVE = 1,
+	MOVE =1,
 	COOK,
 	BREAK_STONE,
 	REMOVE_WATER,
@@ -71,8 +72,11 @@ enum ActionKeys{
 	PICKUP_ITEM,
 	SWITCH_ITEM,
 	PLACE_ITEM_COOKING,
+	FILL_BUCKET,
+	EMPTY_BUCKET,
 	OTHER,
 }
+
 
 func snap_to_grid(position_to_snap:Vector2):
 	var x_diff = int(position_to_snap.x) %tile_size
