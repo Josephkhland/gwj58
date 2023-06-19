@@ -21,6 +21,15 @@ onready var PlayerPawn = $YSort/PlayerCharacter
 onready var ObjectsLayer = $YSort
 onready var TileFlavours = $TileFlavours
 
+var water_indication_target
+
+func _process(delta):
+	if $ControlIndicators/ActionIndicator.visible:
+		water_indication_target = $ControlIndicators/ActionIndicator.position- Vector2(16,16)
+	else:
+		water_indication_target = _find_nearest_tile(PlayerPawn.position)
+	if tile_contents.has(water_indication_target):
+		tile_contents[water_indication_target].update_water_level_ui()
 
 var tile_contents : Dictionary = {}
 func generate_tile_contents():
@@ -120,11 +129,11 @@ func _input(event):
 				move_pc_to_destination(target_point - PlayerPawn.position)
 			else:
 				move_pc_to_destination(relative_position)
-			$ControlIndicators/ActionIndicator.position = Vector2(0,0)
+			$ControlIndicators/ActionIndicator.hide()
 
 		elif event.is_action_released("travel") and GlobalVariables.is_actionsUI_open:
 			emit_signal("cancel_ActionsUI")
-			$ControlIndicators/ActionIndicator.position = Vector2(0,0)
+			$ControlIndicators/ActionIndicator.hide()
 
 		elif event.is_action_pressed("open_actions_menu") and not GlobalVariables.is_movement_locked:	
 			var rect_top_left_corner = _find_nearest_tile(PlayerPawn.global_position) - Vector2(1,1)*GlobalVariables.tile_size
@@ -144,14 +153,13 @@ func _input(event):
 		if event.is_action_pressed("ui_accept"):
 			spawn_object_from_player(2)
 			
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+
 func _find_nearest_tile(nearby_position : Vector2):
 	return PathFindingTileMap.get_nearest_tile_position(nearby_position)
 
 func operate_action_at_tile(tile_selected_coords):
 	$ControlIndicators/ActionIndicator.position = tile_selected_coords
+	$ControlIndicators/ActionIndicator.show()
 	var usable_coords = tile_selected_coords- Vector2(16,16)
 	if usable_coords in tile_contents:
 		var av_actions = tile_contents[usable_coords].get_available_actions()

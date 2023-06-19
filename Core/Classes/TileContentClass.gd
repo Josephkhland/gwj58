@@ -191,6 +191,9 @@ func can_drop_item():
 	return !has_item() and !GlobalVariables.player_invetory.has_space() and !has_stone()\
 	and !has_pond() and !has_plot() and !has_cooking_bench()
 
+func update_water_level_ui():
+	GlobalVariables.base_game_ui.update_water_level_indicator(water_amount)
+
 func get_available_actions():
 	var available_actions: Array = []
 	if has_stone() and GlobalVariables.player_power_ups.break_stone_count > 0:

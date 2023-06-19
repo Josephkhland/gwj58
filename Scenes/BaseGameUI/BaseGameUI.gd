@@ -74,7 +74,10 @@ func _on_score_change(value):
 		$RichTextLabel.text = "You Win :)"
 		$RichTextLabel.show()
 		GlobalVariables.is_movement_locked = true
-		
+
+func update_water_level_indicator(new_water_level):
+	$WaterLevelIndicator/HBoxContainer/WaterLevel.value = new_water_level
+
 func _process(delta):
 	$BreakStoneProgressBar.value = GlobalVariables.player_power_ups.break_stone_count
 	$RemoveWaterProgressBar.value = GlobalVariables.player_power_ups.remove_water_count
