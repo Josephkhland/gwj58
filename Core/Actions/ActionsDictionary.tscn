@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Core/Actions/ActionsDictionary.gd" type="Script" id=1]
 [ext_resource path="res://Core/Actions/ActionRefObject.tscn" type="PackedScene" id=2]
@@ -14,6 +14,8 @@
 [ext_resource path="res://TResources/ActionIcons/BreakStoneIcon.tres" type="Texture" id=12]
 [ext_resource path="res://TResources/ActionIcons/RemoveWaterIcon.tres" type="Texture" id=13]
 [ext_resource path="res://TResources/ActionIcons/PlaceItemCooking.tres" type="Texture" id=14]
+[ext_resource path="res://TResources/ActionIcons/FillBucketIcon.tres" type="Texture" id=15]
+[ext_resource path="res://TResources/ActionIcons/EmptyBucketIcon.tres" type="Texture" id=16]
 
 [node name="ActionsDictionary" type="Node"]
 script = ExtResource( 1 )
@@ -41,6 +43,10 @@ LUT = {
 11: Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Actions/ActionReference.gd" ),"action_key":11,"action_string":"SWITCH_ITEM","action_icon":ExtResource( 7 ))
 ,
 12: Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Actions/ActionReference.gd" ),"action_key":12,"action_string":"PLACE_ITEM_COOKING","action_icon":ExtResource( 14 ))
+,
+13: Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Actions/ActionReference.gd" ),"action_key":13,"action_string":"FILL_BUCKET","action_icon":ExtResource( 15 ))
+,
+14: Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Actions/ActionReference.gd" ),"action_key":14,"action_string":"EMPTY_BUCKET","action_icon":ExtResource( 16 ))
 
 }
 
@@ -103,6 +109,16 @@ action_icon = ExtResource( 7 )
 action_key = 12
 action_string = "PLACE_ITEM_COOKING"
 action_icon = ExtResource( 14 )
+
+[node name="FILL_BUCKET" parent="." instance=ExtResource( 2 )]
+action_key = 13
+action_string = "FILL_BUCKET"
+action_icon = ExtResource( 15 )
+
+[node name="EMPTY_BUCKET" parent="." instance=ExtResource( 2 )]
+action_key = 14
+action_string = "EMPTY_BUCKET"
+action_icon = ExtResource( 16 )
 
 [connection signal="child_entered_tree" from="." to="." method="_on_ActionsDictionary_child_entered_tree"]
 [connection signal="child_exiting_tree" from="." to="." method="_on_ActionsDictionary_child_exiting_tree"]

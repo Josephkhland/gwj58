@@ -222,6 +222,10 @@ func get_available_actions():
 		available_actions.append(GlobalVariables.ActionKeys.SUMMON_CLOUD)
 	if has_pond() and GlobalVariables.player_power_ups.remove_water_count > 0:
 		available_actions.append(GlobalVariables.ActionKeys.REMOVE_WATER)
+	if has_pond() and !GlobalVariables.player_invetory.has_space() and GlobalVariables.player_invetory.get_at(0).item_key.to_lower() == "bucket_empty":
+		available_actions.append(GlobalVariables.ActionKeys.FILL_BUCKET)
+	if has_plot() and GlobalVariables.player_invetory.size() > 0 and GlobalVariables.player_invetory.get_at(0).item_key.to_lower() == "bucket_full":
+		available_actions.append(GlobalVariables.ActionKeys.EMPTY_BUCKET)
 	#Then probably only the power-ups are left to add.
 	return available_actions
 
@@ -329,6 +333,18 @@ func plant_seed():
 
 func harvest_plant():
 	plot_object.harvest()
+	
+func fill_bucket():
+	GlobalVariables.player_invetory.remove_item(0)
+	GlobalVariables.player_invetory.add_item(ItemsDictionary.Dict["bucket_full"])
+	add_to_water_level(-300)
+	GlobalVariables.base_game_ui._on_item_pickup(GlobalVariables.player_invetory.get_at(0))
+	
+func empty_bucket():
+	GlobalVariables.player_invetory.remove_item(0)
+	GlobalVariables.player_invetory.add_item(ItemsDictionary.Dict["bucket_empty"])
+	add_to_water_level(+300)
+	GlobalVariables.base_game_ui._on_item_pickup(GlobalVariables.player_invetory.get_at(0))
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
