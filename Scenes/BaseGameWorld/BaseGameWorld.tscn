@@ -279,6 +279,7 @@ visible = false
 position = Vector2( 1648, 1296 )
 
 [node name="ActionIndicator" parent="ControlIndicators" instance=ExtResource( 10 )]
+frame = 1
 
 [node name="YSort" type="YSort" parent="."]
 
@@ -392,6 +393,7 @@ polygon = PoolVector2Array( 1536, 320, 2656, 320, 2656, 352, 1536, 352 )
 polygon = PoolVector2Array( 1536, 1984, 2656, 1984, 2656, 2016, 1536, 2016 )
 
 [node name="DrynessUpdate" type="Timer" parent="."]
+autostart = true
 
 [connection signal="timeout" from="FloodingUpdate" to="." method="_on_FloodingUpdate_timeout"]
 [connection signal="timeout" from="DrynessUpdate" to="." method="_on_DrynessUpdate_timeout"]

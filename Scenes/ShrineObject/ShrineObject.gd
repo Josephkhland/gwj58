@@ -68,7 +68,7 @@ func place_item(tribute_item):
 
 func get_score(order, tribute_item):
 	var score = 0
-	print(tribute_item.ingredients_history)
+	#print(tribute_item.ingredients_history)
 	if order.ingredient in tribute_item.ingredients_history:
 		print("CORRECT INGREDIENT EXISTS")
 		score += points_gained_for_correct_ingredient
@@ -117,7 +117,7 @@ func create_order():
 
 func eat_order():
 	var score = get_score(order, inventory.inventory[0])
-	print(score)
+	#print(score)
 	emit_signal("score_changed",score)
 	order = null
 	inventory.clear()

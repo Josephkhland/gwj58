@@ -268,7 +268,6 @@ func _on_FloodingUpdate_timeout():
 ###FROM THIS POINT ON IS THE LOGIC REGARDING ACTIONS HANDLING. 
 
 func do_action(action_ref):
-	print("do_action")
 	var trigger_location = _find_nearest_tile($ControlIndicators/ActionIndicator.position)
 	if !tile_contents.has(trigger_location):
 		# print("INVALID COORDINATES")
@@ -370,7 +369,7 @@ func _on_actions_fill_bucket(trigger_location):
 func _on_actions_empty_bucket(trigger_location):
 	tile_contents[trigger_location].empty_bucket()
 
-var water_level_reduction_per_dryness_step = 1
+var water_level_reduction_per_dryness_step = 5
 func _on_DrynessUpdate_timeout():
 	for key in tile_contents.keys():
 		tile_contents[key].add_to_water_level(-water_level_reduction_per_dryness_step)

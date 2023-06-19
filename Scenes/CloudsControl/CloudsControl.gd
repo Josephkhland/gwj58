@@ -122,11 +122,11 @@ var current_wind_direction = Vector2.ZERO
 var valid_wind_directions = [Vector2.DOWN, Vector2.UP, Vector2.RIGHT, Vector2.LEFT, Vector2.DOWN, Vector2.UP, Vector2.RIGHT, Vector2.LEFT, Vector2.ZERO]
 
 var clouds_to_generate_this_wave = 0
-var turn_duration = 15
+var turn_duration = 16
 
 var total_clouds_of_turn = 0
 
-var break_between_turns = 1
+var break_between_turns = 8
 
 func change_wind():
 	var tmp_1 = valid_wind_strengths.duplicate()
@@ -146,7 +146,7 @@ func init_array_of_waves():
 			array_of_waves.append(wave)
 
 var array_of_waves :Array = []
-var max_clouds = 5
+var max_clouds = 1
 func change_day():
 	print("DAY CHANGED")
 	array_of_waves.clear()

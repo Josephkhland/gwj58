@@ -6,52 +6,59 @@
 [node name="PlantsDictionary" type="Node"]
 script = ExtResource( 1 )
 Dict = {
-"egg2": Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Plants/PlantReference/PlantReference.gd" ),"node_name":"beefseed","action_icon":null,"SEED_Harvestable":false,"SEED_StepTime":0.1,"SEED_GrowthPerStep":0.01,"SEED_HarvestList":{
-},"GROWING_Harvestable":true,"GROWING_StepTime":0.2,"GROWING_GrowthPerStep":0.01,"GROWING_HarvestList":{
+"beefseed": Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Plants/PlantReference/PlantReference.gd" ),"node_name":"beefseed","action_icon":null,"SEED_Harvestable":false,"SEED_StepTime":0.1,"SEED_GrowthPerStep":0.01,"SEED_HarvestList":{
+},"GROWING_Harvestable":true,"GROWING_StepTime":0.5,"GROWING_GrowthPerStep":0.01,"GROWING_HarvestList":{
 "beef": 100
 },"READY_Harvestable":true,"READY_StepTime":1.0,"READY_GrowthPerStep":0.01,"READY_HarvestList":{
 "beef": 100
 })
 ,
-"fishseed2": Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Plants/PlantReference/PlantReference.gd" ),"node_name":"lemon","action_icon":null,"SEED_Harvestable":false,"SEED_StepTime":0.1,"SEED_GrowthPerStep":0.01,"SEED_HarvestList":{
-},"GROWING_Harvestable":true,"GROWING_StepTime":0.2,"GROWING_GrowthPerStep":0.01,"GROWING_HarvestList":{
-"lemon": 100
-},"READY_Harvestable":true,"READY_StepTime":1.0,"READY_GrowthPerStep":0.01,"READY_HarvestList":{
-"lemon": 100
-})
-,
-"lemon2": Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Plants/PlantReference/PlantReference.gd" ),"node_name":"pepper","action_icon":null,"SEED_Harvestable":false,"SEED_StepTime":0.1,"SEED_GrowthPerStep":0.01,"SEED_HarvestList":{
-},"GROWING_Harvestable":true,"GROWING_StepTime":0.2,"GROWING_GrowthPerStep":0.01,"GROWING_HarvestList":{
-"pepper": 100
-},"READY_Harvestable":true,"READY_StepTime":1.0,"READY_GrowthPerStep":0.01,"READY_HarvestList":{
-"pepper": 100
-})
-,
-"lolipop2": Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Plants/PlantReference/PlantReference.gd" ),"node_name":"tomato","action_icon":null,"SEED_Harvestable":false,"SEED_StepTime":0.1,"SEED_GrowthPerStep":0.01,"SEED_HarvestList":{
-},"GROWING_Harvestable":true,"GROWING_StepTime":0.2,"GROWING_GrowthPerStep":0.01,"GROWING_HarvestList":{
-"tomato": 100
-},"READY_Harvestable":true,"READY_StepTime":1.0,"READY_GrowthPerStep":0.01,"READY_HarvestList":{
-"tomato": 100
-})
-,
-"mushroom2": Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Plants/PlantReference/PlantReference.gd" ),"node_name":"lolipop","action_icon":null,"SEED_Harvestable":false,"SEED_StepTime":0.1,"SEED_GrowthPerStep":0.01,"SEED_HarvestList":{
-},"GROWING_Harvestable":true,"GROWING_StepTime":0.2,"GROWING_GrowthPerStep":0.01,"GROWING_HarvestList":{
-"lolipop": 100
-},"READY_Harvestable":true,"READY_StepTime":1.0,"READY_GrowthPerStep":0.01,"READY_HarvestList":{
-"lolipop": 100
-})
-,
-"pepper2": Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Plants/PlantReference/PlantReference.gd" ),"node_name":"mushroom","action_icon":null,"SEED_Harvestable":false,"SEED_StepTime":0.1,"SEED_GrowthPerStep":0.01,"SEED_HarvestList":{
-},"GROWING_Harvestable":true,"GROWING_StepTime":0.2,"GROWING_GrowthPerStep":0.01,"GROWING_HarvestList":{
-"mushroom": 100
-},"READY_Harvestable":true,"READY_StepTime":1.0,"READY_GrowthPerStep":0.01,"READY_HarvestList":{
-"mushroom": 100
-})
-,
-"tomato2": Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Plants/PlantReference/PlantReference.gd" ),"node_name":"egg","action_icon":null,"SEED_Harvestable":false,"SEED_StepTime":0.1,"SEED_GrowthPerStep":0.01,"SEED_HarvestList":{
+"egg": Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Plants/PlantReference/PlantReference.gd" ),"node_name":"egg","action_icon":null,"SEED_Harvestable":false,"SEED_StepTime":0.1,"SEED_GrowthPerStep":0.01,"SEED_HarvestList":{
 },"GROWING_Harvestable":true,"GROWING_StepTime":0.2,"GROWING_GrowthPerStep":0.01,"GROWING_HarvestList":{
 "chicken": 100
 },"READY_Harvestable":true,"READY_StepTime":1.0,"READY_GrowthPerStep":0.01,"READY_HarvestList":{
+})
+,
+"fishseed": Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Plants/PlantReference/PlantReference.gd" ),"node_name":"fishseed","action_icon":null,"SEED_Harvestable":false,"SEED_StepTime":0.1,"SEED_GrowthPerStep":0.01,"SEED_HarvestList":{
+},"GROWING_Harvestable":true,"GROWING_StepTime":0.2,"GROWING_GrowthPerStep":0.01,"GROWING_HarvestList":{
+"fish": 100
+},"READY_Harvestable":true,"READY_StepTime":1.0,"READY_GrowthPerStep":0.01,"READY_HarvestList":{
+"fish": 100
+})
+,
+"lemon": Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Plants/PlantReference/PlantReference.gd" ),"node_name":"lemon","action_icon":null,"SEED_Harvestable":false,"SEED_StepTime":0.1,"SEED_GrowthPerStep":0.01,"SEED_HarvestList":{
+},"GROWING_Harvestable":true,"GROWING_StepTime":0.2,"GROWING_GrowthPerStep":0.01,"GROWING_HarvestList":{
+"lemon": 100
+},"READY_Harvestable":true,"READY_StepTime":1.0,"READY_GrowthPerStep":0.01,"READY_HarvestList":{
+"lemon": 100
+})
+,
+"lolipop": Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Plants/PlantReference/PlantReference.gd" ),"node_name":"lolipop","action_icon":null,"SEED_Harvestable":false,"SEED_StepTime":0.1,"SEED_GrowthPerStep":0.01,"SEED_HarvestList":{
+},"GROWING_Harvestable":true,"GROWING_StepTime":0.2,"GROWING_GrowthPerStep":0.01,"GROWING_HarvestList":{
+"lolipop": 100
+},"READY_Harvestable":true,"READY_StepTime":1.0,"READY_GrowthPerStep":0.01,"READY_HarvestList":{
+"lolipop": 100
+})
+,
+"mushroom": Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Plants/PlantReference/PlantReference.gd" ),"node_name":"mushroom","action_icon":null,"SEED_Harvestable":false,"SEED_StepTime":0.1,"SEED_GrowthPerStep":0.01,"SEED_HarvestList":{
+},"GROWING_Harvestable":true,"GROWING_StepTime":0.2,"GROWING_GrowthPerStep":0.01,"GROWING_HarvestList":{
+"mushroom": 100
+},"READY_Harvestable":true,"READY_StepTime":1.0,"READY_GrowthPerStep":0.01,"READY_HarvestList":{
+"mushroom": 100
+})
+,
+"pepper": Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Plants/PlantReference/PlantReference.gd" ),"node_name":"pepper","action_icon":null,"SEED_Harvestable":false,"SEED_StepTime":0.1,"SEED_GrowthPerStep":0.01,"SEED_HarvestList":{
+},"GROWING_Harvestable":true,"GROWING_StepTime":0.2,"GROWING_GrowthPerStep":0.01,"GROWING_HarvestList":{
+"pepper": 100
+},"READY_Harvestable":true,"READY_StepTime":1.0,"READY_GrowthPerStep":0.01,"READY_HarvestList":{
+"pepper": 100
+})
+,
+"tomato": Object(Node2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 0, 0 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":Resource( "res://Core/Plants/PlantReference/PlantReference.gd" ),"node_name":"tomato","action_icon":null,"SEED_Harvestable":false,"SEED_StepTime":0.1,"SEED_GrowthPerStep":0.01,"SEED_HarvestList":{
+},"GROWING_Harvestable":true,"GROWING_StepTime":0.2,"GROWING_GrowthPerStep":0.01,"GROWING_HarvestList":{
+"tomato": 100
+},"READY_Harvestable":true,"READY_StepTime":1.0,"READY_GrowthPerStep":0.01,"READY_HarvestList":{
+"tomato": 100
 })
 
 }
@@ -140,7 +147,7 @@ READY_StepTime = 1.0
 [node name="Beefseed" parent="." instance=ExtResource( 2 )]
 node_name = "beefseed"
 SEED_Harvestable = false
-GROWING_StepTime = 0.2
+GROWING_StepTime = 0.5
 GROWING_HarvestList = {
 "beef": 100
 }

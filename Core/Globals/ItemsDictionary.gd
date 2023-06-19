@@ -29,7 +29,9 @@ static func get_item(ingredient_key):
 			or property["name"] == "global_position"\
 			or property["name"] == "global_rotation"\
 			or property["name"] == "global_rotation_degrees"\
-			or property["name"] == "global_scale":
+			or property["name"] == "global_scale"\
+			or property["name"] == "owner"\
+			:
 			continue
 		copy.set(property["name"],  ItemsDictionary.Dict[ingredient_key].get(property["name"]))
 	return copy
