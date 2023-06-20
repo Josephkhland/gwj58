@@ -77,12 +77,28 @@ func _on_score_change(value):
 		Globals.Variables.is_movement_locked = true
 
 func update_water_level_indicator(new_water_level):
-	$WaterLevelIndicator/HBoxContainer/WaterLevel.value = new_water_level
+	$WaterLevelIndicator/HBoxContainer/Panel/WaterLevel.value = new_water_level
 
-func _process(_delta):
+var timer = 0
+func _process(delta):
 	$BreakStoneProgressBar.value = Globals.Core.player_power_ups.break_stone_count
 	$RemoveWaterProgressBar.value = Globals.Core.player_power_ups.remove_water_count
 	$SummonCloudProgressBar.value = Globals.Core.player_power_ups.summon_cloud_count
+	timer += delta
+	if timer > 0.02:
+		timer = 0
+		var ratio  = float($WaterLevelIndicator/HBoxContainer/Panel/WaterLevel.value) /  float($WaterLevelIndicator/HBoxContainer/Panel/WaterLevel.max_value)
+		var param_value = $WaterLevelIndicator/HBoxContainer/Panel/WaterLevel.material.get_shader_param("radius")
+		var new_value = fmod(param_value +0.01,ratio+0.3)
+		if (new_value < param_value):
+			var old_center = $WaterLevelIndicator/HBoxContainer/Panel/WaterLevel.material.get_shader_param("center")
+			var new_center = ratio*Vector2(1,0) - old_center
+			$WaterLevelIndicator/HBoxContainer/Panel/WaterLevel.material.set_shader_param("center", new_center)
+			#$WaterLevelIndicator/HBoxContainer/Panel/WaterLevel.material.set_shader_param("aberration", Globals.Core.rng.randf_range(0.1,0.3))
+			#$WaterLevelIndicator/HBoxContainer/Panel/WaterLevel.material.set_shader_param("width", Globals.Core.rng.randf_range(0.01,0.3))
+			#$WaterLevelIndicator/HBoxContainer/Panel/WaterLevel.material.set_shader_param("feather", Globals.Core.rng.randf_range(0.01,0.3))
+			#$WaterLevelIndicator/HBoxContainer/Panel/WaterLevel.material.set_shader_param("strength", Globals.Core.rng.randf_range(0.01,0.1))
+		$WaterLevelIndicator/HBoxContainer/Panel/WaterLevel.material.set_shader_param("radius", new_value)
 
 func _gui_input(event):
 	if event is InputEventMouseButton:

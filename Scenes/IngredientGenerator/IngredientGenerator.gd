@@ -1,23 +1,11 @@
-tool
 extends Node2D
 
 const time_to_generate: int = 5
 
-export (String) var ingredient_key setget debug_print
+export (String) var ingredient_key
 
 var ingredient: TributeItemClass = null
 var inventory: InventoryClass = null
-
-func debug_print(value):
-	if Engine.editor_hint:
-		if Globals.Core.database.Items.has(value.to_lower()):
-			ingredient_key = value
-			print("ITEM: OK")
-		else:
-			ingredient_key = value
-			print("ITEM: BAD - item_key doesn't exist in ItemsDictionary.")
-	else:
-		ingredient_key = value
 
 func _ready():
 	add_to_group(str(Globals.Enums.Groups.ITEM_GENERATOR))

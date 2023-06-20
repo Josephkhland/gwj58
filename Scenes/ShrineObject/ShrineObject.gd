@@ -45,8 +45,9 @@ signal score_changed(value)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	add_to_group(str(Globals.Enums.Groups.SHRINE))
-	$OrderGeneratorTimer.start()
+	if !Engine.editor_hint:
+		add_to_group(str(Globals.Enums.Groups.SHRINE))
+		$OrderGeneratorTimer.start()
 	pass # Replace with function body.
 
 func _init():
@@ -137,5 +138,6 @@ func _on_OrderGeneratorTimer_timeout():
 func _on_ShrineObject_generate_order():
 	yield(get_tree().create_timer(0.1), "timeout")
 	#$Cloud/God.texture = god_image
-	$Cloud/Ingredient.texture = Globals.Core.database.Items[order.ingredient.to_lower()].item_icon
-	$Cloud/Ingredient.scale = Vector2(1,1)*2
+	if order != null:
+		$Cloud/Ingredient.texture = Globals.Core.database.Items[order.ingredient.to_lower()].item_icon
+		$Cloud/Ingredient.scale = Vector2(1,1)*2

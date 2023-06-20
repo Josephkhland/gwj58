@@ -35,6 +35,8 @@ func get_at(index):
 			continue
 		copy.set(property["name"], inventory[index].get(property["name"]))
 	copy.set_ingredient_history(original.ingredients_history)
+	copy.set_flavor_chart(original.flavor_chart.get_flavours_as_dictionary())
+	#print(JSON.print(original.flavor_chart.get_flavours_as_dictionary(), "\t"))
 	return copy
 
 func remove_item(index):
