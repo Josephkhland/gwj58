@@ -30,7 +30,8 @@ func get_at(index):
 			or property["name"] == "global_position"\
 			or property["name"] == "global_rotation"\
 			or property["name"] == "global_rotation_degrees"\
-			or property["name"] == "global_scale":
+			or property["name"] == "global_scale"\
+			or property["name"] == "owner":
 			continue
 		copy.set(property["name"], inventory[index].get(property["name"]))
 	copy.set_ingredient_history(original.ingredients_history)
