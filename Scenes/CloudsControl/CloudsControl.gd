@@ -90,7 +90,7 @@ func get_generation_points_along_x(poly : Polygon2D):
 	var first_point_x = get_minimum_x(poly.polygon)
 	var last_point_x = get_maximum_x(poly.polygon)
 	var point_y = (get_minimum_y(poly.polygon) + get_maximum_y(poly.polygon))/2
-	var step = GlobalVariables.tile_size*4
+	var step = Globals.Variables.tile_size*4
 	var array_of_points = []
 	for point_x in range(first_point_x,last_point_x, step):
 		array_of_points.append(Vector2(point_x,point_y))
@@ -100,7 +100,7 @@ func get_generation_points_along_y(poly : Polygon2D):
 	var first_point_y = get_minimum_y(poly.polygon)
 	var last_point_y = get_maximum_y(poly.polygon)
 	var point_x = (get_minimum_x(poly.polygon) + get_maximum_x(poly.polygon))/2
-	var step = GlobalVariables.tile_size*2
+	var step = Globals.Variables.tile_size*2
 	var array_of_points = []
 	for point_y in range(first_point_y,last_point_y, step):
 		array_of_points.append(Vector2(point_x,point_y))
@@ -139,9 +139,9 @@ func change_wind():
 	print("WIND DIRECTION:", current_wind_direction, current_wind_strength)
 
 func init_array_of_waves():
-	for wave_count in range(0, turn_duration):
+	for _wave_count in range(0, turn_duration):
 			var wave :Array = []
-			for i in range(0,generator[CardinalsToSpawnDirection[current_wind_direction]].size()):
+			for _i in range(0,generator[CardinalsToSpawnDirection[current_wind_direction]].size()):
 				wave.append(0)
 			array_of_waves.append(wave)
 
@@ -154,10 +154,10 @@ func change_day():
 	change_wind()
 	if current_wind_direction != Vector2.ZERO:
 		#Pick how many clouds to generate today
-		for wave_count in range(0, turn_duration):
+		for _wave_count in range(0, turn_duration):
 			var wave :Array = []
 			var max_turn_density = min(max_clouds,generator[CardinalsToSpawnDirection[current_wind_direction]].size()/2)
-			clouds_to_generate_this_wave = GlobalVariables.rng.randi_range(0, max_turn_density)
+			clouds_to_generate_this_wave = Globals.Core.rng.randi_range(0, max_turn_density)
 			total_clouds_of_turn += clouds_to_generate_this_wave
 			var gen_slots : Array = []
 			for i in range(0,generator[CardinalsToSpawnDirection[current_wind_direction]].size()):
@@ -215,12 +215,12 @@ func add_cloud_to_point(point):
 	new_cloud.position = point
 
 func erase_clouds_out_of_bounds():
-	for node in get_tree().get_nodes_in_group(GlobalVariables.groups_dict[GlobalVariables.Groups.Clouds]):
+	for node in get_tree().get_nodes_in_group(str(Globals.Enums.Groups.CLOUDS)):
 		if !ValidRect.has_point(node.position):
 			node.queue_free()
 
 func update_clouds_direction():
-	for node in get_tree().get_nodes_in_group(GlobalVariables.groups_dict[GlobalVariables.Groups.Clouds]):
+	for node in get_tree().get_nodes_in_group(str(Globals.Enums.Groups.CLOUDS)):
 		node.set_direction(current_wind_direction)
 		node.travel_speed = current_wind_strength
 

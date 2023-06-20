@@ -66,11 +66,11 @@ onready var plantObject_scene = preload("res://Scenes/PlantObject/PlantObject.ts
 func generate_plant():
 	var harvest_changes : Dictionary = {}
 	var seed_change = make_harvest_change(SEED_Harvestable, SEED_StepTime, SEED_GrowthPerStep, SEED_HarvestList)
-	harvest_changes[GlobalVariables.PlantGrowthLevel.Seed] = seed_change
+	harvest_changes[Globals.Enums.PlantGrowthLevel.SEED] = seed_change
 	var growing_change = make_harvest_change(GROWING_Harvestable, GROWING_StepTime, GROWING_GrowthPerStep, GROWING_HarvestList)
-	harvest_changes[GlobalVariables.PlantGrowthLevel.Growing] = growing_change
+	harvest_changes[Globals.Enums.PlantGrowthLevel.GROWING] = growing_change
 	var ready_change = make_harvest_change(READY_Harvestable, READY_StepTime, READY_GrowthPerStep, READY_HarvestList)
-	harvest_changes[GlobalVariables.PlantGrowthLevel.Ready] = ready_change
+	harvest_changes[Globals.Enums.PlantGrowthLevel.READY] = ready_change
 	
 	var plant_object = plantObject_scene.instance()
 	plant_object.harvest_changes = harvest_changes.duplicate(true)
@@ -97,3 +97,52 @@ func get_at(index, dict):
 			continue
 		copy.set(property["name"], dict[index].get(property["name"]))
 	return copy
+
+func get_export_dictionary():
+	var export_dict : Dictionary = {
+			"node_name": node_name,
+			"seed_harvestable" : SEED_Harvestable,
+			"seed_step_time" : SEED_StepTime,
+			"seed_growth_per_step": SEED_GrowthPerStep,
+			"seed_harvest_list": SEED_HarvestList,
+			"growing_harvestable":GROWING_Harvestable,
+			"growing_step_time": GROWING_StepTime,
+			"growing_growth_per_step":GROWING_GrowthPerStep,
+			"growing_harvest_list": GROWING_HarvestList,
+			"ready_harvestable" : READY_Harvestable,
+			"ready_step_time" : READY_StepTime,
+			"ready_growth_per_step": READY_GrowthPerStep,
+			"ready_harvest_list": READY_HarvestList,
+		}
+	return export_dict
+
+func set_from_export_dictionary(export_dictionary : Dictionary):
+	if export_dictionary.has("node_name"):
+		node_name = export_dictionary["node_name"]
+	
+	if export_dictionary.has("seed_harvestable"):
+		SEED_Harvestable = export_dictionary["seed_harvestable"]
+	if export_dictionary.has("seed_step_time"):
+		SEED_StepTime = export_dictionary["seed_step_time"]
+	if export_dictionary.has("seed_growth_per_step"):
+		SEED_GrowthPerStep = export_dictionary["seed_growth_per_step"]
+	if export_dictionary.has("seed_harvest_list"):
+		SEED_HarvestList = export_dictionary["seed_harvest_list"]
+	
+	if export_dictionary.has("growing_harvestable"):
+		GROWING_Harvestable = export_dictionary["growing_harvestable"]
+	if export_dictionary.has("growing_step_time"):
+		GROWING_StepTime = export_dictionary["growing_step_time"]
+	if export_dictionary.has("growing_growth_per_step"):
+		GROWING_GrowthPerStep = export_dictionary["growing_growth_per_step"]
+	if export_dictionary.has("growing_harvest_list"):
+		GROWING_HarvestList = export_dictionary["growing_harvest_list"]
+	
+	if export_dictionary.has("ready_harvestable"):
+		READY_Harvestable = export_dictionary["ready_harvestable"]
+	if export_dictionary.has("ready_step_time"):
+		READY_StepTime = export_dictionary["ready_step_time"]
+	if export_dictionary.has("ready_growth_per_step"):
+		READY_GrowthPerStep = export_dictionary["ready_growth_per_step"]
+	if export_dictionary.has("ready_harvest_list"):
+		READY_HarvestList = export_dictionary["ready_harvest_list"]

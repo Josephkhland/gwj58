@@ -45,10 +45,8 @@ signal score_changed(value)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	add_to_group(GlobalVariables.groups_dict[GlobalVariables.Groups.Shrine])
+	add_to_group(str(Globals.Enums.Groups.SHRINE))
 	$OrderGeneratorTimer.start()
-	if !self.is_connected("score_changed",GlobalVariables.base_game_ui, "_on_score_change"):
-		self.connect("score_changed", GlobalVariables.base_game_ui, "_on_score_change")
 	pass # Replace with function body.
 
 func _init():
@@ -66,7 +64,9 @@ func place_item(tribute_item):
 	inventory.add_item(tribute_item)
 	
 
-func get_score(order, tribute_item):
+func get_score(tribute_item):
+	if !self.is_connected("score_changed",Globals.Core.game_ui, "_on_score_change"):
+		var _error_code = self.connect("score_changed", Globals.Core.game_ui, "_on_score_change")
 	var score = 0
 	#print(tribute_item.ingredients_history)
 	if order.ingredient in tribute_item.ingredients_history:
@@ -74,7 +74,6 @@ func get_score(order, tribute_item):
 		score += points_gained_for_correct_ingredient
 	else:
 		score -= points_lost_for_incorrect_ingredient
-	var tmp_dictionary = tribute_item.flavor_chart.get_flavours_as_dictionary()
 	if tribute_item.flavor_chart.get_flavours_as_dictionary()[order.flavor] == tribute_item.flavor_chart.get_max():
 		print("CORRECT FLAVOUR")
 		score += points_gained_for_correct_flavor
@@ -84,28 +83,28 @@ func get_score(order, tribute_item):
 	if score > 6:
 		match god_name.to_lower():
 			"thor":
-				GlobalVariables.player_power_ups.break_stone_count += 1
+				Globals.Core.player_power_ups.break_stone_count += 1
 				pass
 			"chizuru":
-				GlobalVariables.player_power_ups.remove_water_count += 1
+				Globals.Core.player_power_ups.remove_water_count += 1
 				pass
 			"ganeesha":
-				GlobalVariables.player_power_ups.break_stone_count += 1
+				Globals.Core.player_power_ups.break_stone_count += 1
 				pass
 			"ra":
-				GlobalVariables.player_power_ups.remove_water_count += 1
+				Globals.Core.player_power_ups.remove_water_count += 1
 				pass
 			"poseidon":
-				GlobalVariables.player_power_ups.remove_water_count += 1
+				Globals.Core.player_power_ups.remove_water_count += 1
 				pass
 			"ryu":
-				GlobalVariables.player_power_ups.summon_cloud_count += 1
+				Globals.Core.player_power_ups.summon_cloud_count += 1
 				pass
 	
 	return score
 	
 
-func _process(delta):
+func _process(_delta):
 	if order != null and inventory.size() > 0:
 		eat_order()
 
@@ -116,7 +115,7 @@ func create_order():
 	emit_signal("generate_order")
 
 func eat_order():
-	var score = get_score(order, inventory.inventory[0])
+	var score = get_score(inventory.inventory[0])
 	#print(score)
 	emit_signal("score_changed",score)
 	order = null
@@ -128,7 +127,7 @@ var chance_to_create_order = 0
 func _on_OrderGeneratorTimer_timeout():
 	if order == null:
 		chance_to_create_order += 1
-		var random_pick = GlobalVariables.rng.randi_range(1,1000)
+		var random_pick = Globals.Core.rng.randi_range(1,1000)
 		if random_pick < chance_to_create_order:
 			if !Engine.editor_hint:
 				create_order()
@@ -138,5 +137,5 @@ func _on_OrderGeneratorTimer_timeout():
 func _on_ShrineObject_generate_order():
 	yield(get_tree().create_timer(0.1), "timeout")
 	#$Cloud/God.texture = god_image
-	$Cloud/Ingredient.texture = ItemsDictionary.Dict[order.ingredient.to_lower()].item_icon
+	$Cloud/Ingredient.texture = Globals.Core.database.Items[order.ingredient.to_lower()].item_icon
 	$Cloud/Ingredient.scale = Vector2(1,1)*2

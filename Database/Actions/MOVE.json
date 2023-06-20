@@ -1,0 +1,5 @@
+{
+	"action_key": 1,
+	"action_string": "MOVE",
+	"action_icon": "res://TResources/ActionIcons/MoveIcon.tres"
+}

@@ -1,0 +1,5 @@
+{
+	"action_key": 8,
+	"action_string": "DROP_ITEM",
+	"action_icon": "res://TResources/ActionIcons/DropItemIcon.tres"
+}

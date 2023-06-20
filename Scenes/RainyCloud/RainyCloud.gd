@@ -25,7 +25,7 @@ func gather_horizontal_points():
 func _ready():
 	gather_vertical_points()
 	gather_horizontal_points()
-	add_to_group(GlobalVariables.groups_dict[GlobalVariables.Groups.Clouds])
+	add_to_group(str(Globals.Enums.Groups.CLOUDS))
 	pass # Replace with function body.
 
 func get_points_coords():
@@ -44,7 +44,7 @@ func _process(delta):
 
 func check_for_random_rotation():
 	chance_to_turn_around += 0.001
-	var number_picked = GlobalVariables.rng.randi_range(1,100)
+	var number_picked = Globals.Core.rng.randi_range(1,100)
 	if number_picked < chance_to_turn_around:
 		set_random_direction()
 		chance_to_turn_around = 0
@@ -67,7 +67,7 @@ func set_direction(new_direction:Vector2 = Vector2.RIGHT):
 		set_vertical()
 
 func set_random_direction():
-	var rand_angle = GlobalVariables.rng.randi_range(0,360)
+	var rand_angle = Globals.Core.rng.randi_range(0,360)
 	var chosen_direction = Vector2.RIGHT
 	chosen_direction = chosen_direction.rotated(deg2rad(rand_angle))
 	set_direction(chosen_direction)

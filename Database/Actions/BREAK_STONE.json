@@ -1,0 +1,5 @@
+{
+	"action_key": 3,
+	"action_string": "BREAK_STONE",
+	"action_icon": "res://TResources/ActionIcons/BreakStoneIcon.tres"
+}

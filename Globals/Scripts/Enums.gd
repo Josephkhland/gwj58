@@ -1,0 +1,56 @@
+extends Node
+
+enum Groups{
+	OBSTACLES,
+	MAP_INTERRACTIBLE,
+	CLOUDS,
+	ITEM_GENERATOR,
+	SHRINE,
+	COOKING_BENCH,
+	PLOT,
+}
+
+enum DetailCellTypes{
+	STONE =0,
+	PUDDLE = 1,
+	COOKING = 2,
+	PLOT = 3,
+	SEED_GEN = 4
+}
+
+enum Flavours{
+	SWEET,
+	SOUR,
+	SPICY,
+	UMAMI,
+	BITTER,
+	SALTY,
+}
+
+enum PlantGrowthLevel {
+	SEED =0,
+	GROWING = 1,
+	READY = 2,
+	ROTTING = 3
+}
+
+enum ActionKeys{
+	NONE = 0,
+	MOVE =1,
+	COOK,
+	BREAK_STONE,
+	REMOVE_WATER,
+	SUMMON_CLOUD,
+	PLANT,
+	HARVEST,
+	DROP_ITEM,
+	PLACE_PROTECTIVE_TOTEM,
+	PICKUP_ITEM,
+	SWITCH_ITEM,
+	PLACE_ITEM_COOKING,
+	FILL_BUCKET,
+	EMPTY_BUCKET,
+	OTHER,
+}
+
+

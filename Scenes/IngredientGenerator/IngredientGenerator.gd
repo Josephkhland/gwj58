@@ -10,7 +10,7 @@ var inventory: InventoryClass = null
 
 func debug_print(value):
 	if Engine.editor_hint:
-		if ItemsDictionary.Dict.has(value.to_lower()):
+		if Globals.Core.database.Items.has(value.to_lower()):
 			ingredient_key = value
 			print("ITEM: OK")
 		else:
@@ -20,11 +20,11 @@ func debug_print(value):
 		ingredient_key = value
 
 func _ready():
-	add_to_group(GlobalVariables.groups_dict[GlobalVariables.Groups.ItemGenerator])
+	add_to_group(str(Globals.Enums.Groups.ITEM_GENERATOR))
 	$GenerateTimer.wait_time= time_to_generate
 	$GenerateTimer.start()
 	if !Engine.editor_hint:
-		ingredient = ItemsDictionary.get_item(ingredient_key)
+		ingredient = Globals.Core.database.get_item(ingredient_key)
 		$IconIndicator.texture=ingredient.item_icon
 		$IconIndicator.hide()
 	pass # Replace with function body.
@@ -53,7 +53,7 @@ func place_item(tribute_item):
 	
 	
 
-func _process(delta):
+func _process(_delta):
 	pass
 
 

@@ -23,7 +23,7 @@ onready var TileFlavours = $TileFlavours
 
 var water_indication_target
 
-func _process(delta):
+func _process(_delta):
 	if $ControlIndicators/ActionIndicator.visible:
 		water_indication_target = $ControlIndicators/ActionIndicator.position- Vector2(16,16)
 	else:
@@ -45,9 +45,9 @@ func get_input():
 		walk_direction += Vector2.LEFT
 	if walk_direction != Vector2.ZERO:
 		if walk_direction.x != 0 and walk_direction.y != 0:
-			move_pc_to_destination_keys_movement(walk_direction*GlobalVariables.tile_size,0.28284271247)
+			move_pc_to_destination_keys_movement(walk_direction*Globals.Variables.tile_size,0.28284271247)
 		else:
-			move_pc_to_destination_keys_movement(walk_direction*GlobalVariables.tile_size)
+			move_pc_to_destination_keys_movement(walk_direction*Globals.Variables.tile_size)
 	else:
 		if PlayerPawn.is_animation_finished():
 			PlayerPawn._idle_animation()
@@ -65,7 +65,7 @@ func generate_tile_contents():
 func add_puddle_to_coords(coords):
 	var puddle = plot_object.instance()
 	ObjectsLayer.add_child(puddle)
-	puddle.position = GlobalVariables.snap_to_grid(coords)
+	puddle.position = Globals.Utilities.snap_to_grid(coords)
 	puddle.turn_to_puddle()
 	tile_contents[coords].plot_object = puddle
 	puddle.tile_content_parent = tile_contents[coords]
@@ -79,30 +79,30 @@ func add_details_to_tile_contents():
 			continue
 		var cell_type = $TileMaps/DetailsTileMap.get_cellv(cell)
 		match cell_type:
-			GlobalVariables.DetailCellTypes.STONE:
+			Globals.Enums.DetailCellTypes.STONE:
 				var stone = stone_object.instance()
 				ObjectsLayer.add_child(stone)
-				stone.position = GlobalVariables.snap_to_grid(world_coords)
-				stone.add_to_group(GlobalVariables.groups_dict[GlobalVariables.Groups.Obstacles])
+				stone.position = Globals.Utilities.snap_to_grid(world_coords)
+				stone.add_to_group(str(Globals.Enums.Groups.OBSTACLES))
 				tile_contents[world_coords].stone_obstacle = stone
 				PathFindingTileMap.add_obstacle(stone)
-			GlobalVariables.DetailCellTypes.PUDDLE:
+			Globals.Enums.DetailCellTypes.PUDDLE:
 				tile_contents[world_coords].set_water_amount(tile_contents[world_coords].max_level)
 				
-			GlobalVariables.DetailCellTypes.PLOT:
+			Globals.Enums.DetailCellTypes.PLOT:
 				var plot = plot_object.instance()
 				ObjectsLayer.add_child(plot)
-				plot.position = GlobalVariables.snap_to_grid(world_coords)
+				plot.position = Globals.Utilities.snap_to_grid(world_coords)
 				plot.tile_content_parent = tile_contents[world_coords]
 				tile_contents[world_coords].plot_object = plot
-			GlobalVariables.DetailCellTypes.COOKING:
+			Globals.Enums.DetailCellTypes.COOKING:
 				var cooking_bench = cooking_bench_combine.instance()
 				ObjectsLayer.add_child(cooking_bench)
-				cooking_bench.position = GlobalVariables.snap_to_grid(world_coords)
+				cooking_bench.position = Globals.Utilities.snap_to_grid(world_coords)
 				tile_contents[world_coords].cooking_bench_object = cooking_bench
-				cooking_bench.add_to_group(GlobalVariables.groups_dict[GlobalVariables.Groups.Obstacles])
+				cooking_bench.add_to_group(str(Globals.Enums.Groups.OBSTACLES))
 				PathFindingTileMap.add_obstacle(cooking_bench)
-			GlobalVariables.DetailCellTypes.SEED_GEN:
+			Globals.Enums.DetailCellTypes.SEED_GEN:
 				pass
 	#ShrineObjects are added to tile_contents through a signal in their _ready,
 	#since each of them is unique and it seems better to just place them manually on the map
@@ -112,68 +112,62 @@ func add_details_to_tile_contents():
 	link_shrine_objects_to_coords_dictionary()	
 	
 func link_item_generators_to_coords_dictionary():
-	for node in get_tree().get_nodes_in_group(GlobalVariables.groups_dict[GlobalVariables.Groups.ItemGenerator]):
+	for node in get_tree().get_nodes_in_group(str(Globals.Enums.Groups.ITEM_GENERATOR)):
 		var coords = _find_nearest_tile(node.global_position)
 		tile_contents[coords].seed_generator_object = node
-		node.add_to_group(GlobalVariables.groups_dict[GlobalVariables.Groups.Obstacles])
+		node.add_to_group(str(Globals.Enums.Groups.OBSTACLES))
 		PathFindingTileMap.add_obstacle(node)
 
 func link_shrine_objects_to_coords_dictionary():
-	for node in get_tree().get_nodes_in_group(GlobalVariables.groups_dict[GlobalVariables.Groups.Shrine]):
+	for node in get_tree().get_nodes_in_group(str(Globals.Enums.Groups.SHRINE)):
 		var coords = _find_nearest_tile(node.global_position)
 		tile_contents[coords].shrine_object = node
-		node.add_to_group(GlobalVariables.groups_dict[GlobalVariables.Groups.Obstacles])
+		node.add_to_group(str(Globals.Enums.Groups.OBSTACLES))
 		PathFindingTileMap.add_obstacle(node)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	GlobalVariables.base_game_world = self
+	Globals.Core.game_world = self
 	$TileMaps/DetailsTileMap.hide()
 	generate_tile_contents()
 	add_details_to_tile_contents()
-	GlobalVariables.player_pawn = PlayerPawn
 	
 	pass # Replace with function body.
 
 func _get_viewport_offset() -> Vector2:
 	return get_viewport().size / 2
-	
-func _input(event):
-	if event is InputEventMouseButton:
-		var relative_position = event.position - _get_viewport_offset()
-		var target_point = PlayerPawn.position + relative_position
 
-		if event.is_action_pressed("travel") and not GlobalVariables.is_movement_locked:
-			target_point = PlayerPawn.position + GlobalVariables.tile_size * relative_position.normalized() * 2
-			target_point = GlobalVariables.snap_to_grid(_find_nearest_tile(target_point))
-			if ((target_point - PlayerPawn.position).length() < relative_position.length()):
-				move_pc_to_destination(target_point - PlayerPawn.position)
-			else:
-				move_pc_to_destination(relative_position)
-			$ControlIndicators/ActionIndicator.hide()
+func _try_input(event):
+	var relative_position = event.position - _get_viewport_offset()
+	var target_point = PlayerPawn.position + relative_position
 
-		elif event.is_action_released("travel") and GlobalVariables.is_actionsUI_open:
-			emit_signal("cancel_ActionsUI")
-			$ControlIndicators/ActionIndicator.hide()
+	if event.is_action_pressed("travel") and not Globals.Variables.is_movement_locked:
+		target_point = PlayerPawn.position + Globals.Variables.tile_size * relative_position.normalized() * 2
+		target_point = Globals.Utilities.snap_to_grid(_find_nearest_tile(target_point))
+		if ((target_point - PlayerPawn.position).length() < relative_position.length()):
+			move_pc_to_destination(target_point - PlayerPawn.position)
+		else:
+			move_pc_to_destination(relative_position)
+		$ControlIndicators/ActionIndicator.hide()
+		return true
 
-		elif event.is_action_pressed("open_actions_menu") and not GlobalVariables.is_movement_locked:	
-			var rect_top_left_corner = _find_nearest_tile(PlayerPawn.global_position) - Vector2(1,1)*GlobalVariables.tile_size
-			var rect_size = GlobalVariables.tile_size*Vector2(3,3)
-			var rectangle = Rect2(rect_top_left_corner, rect_size)
-			#relative position is the Vector2 from the PlayerPawn (Center of Screen) to the click
-			if rectangle.has_point(target_point):
-				target_point = GlobalVariables.snap_to_grid(_find_nearest_tile(target_point))
-			elif !GlobalVariables.is_movement_locked:
-				target_point = PlayerPawn.position + GlobalVariables.tile_size*relative_position.normalized()
-				target_point = GlobalVariables.snap_to_grid(_find_nearest_tile(target_point))
-			operate_action_at_tile(target_point)
+	elif event.is_action_released("travel") and Globals.Variables.is_actionsUI_open:
+		emit_signal("cancel_ActionsUI")
+		$ControlIndicators/ActionIndicator.hide()
+		return true
 
-	elif event is InputEventMouseMotion:
-		pass #Do Stuff with Mouse Motion Event
-	if event is InputEventKey:
-		if event.is_action_pressed("ui_accept"):
-			spawn_object_from_player(2)
-			
+	elif event.is_action_pressed("open_actions_menu") and not Globals.Variables.is_movement_locked:	
+		var rect_top_left_corner = _find_nearest_tile(PlayerPawn.global_position) - Vector2(1,1)*Globals.Variables.tile_size
+		var rect_size = Globals.Variables.tile_size*Vector2(3,3)
+		var rectangle = Rect2(rect_top_left_corner, rect_size)
+		#relative position is the Vector2 from the PlayerPawn (Center of Screen) to the click
+		if rectangle.has_point(target_point):
+			target_point = Globals.Utilities.snap_to_grid(_find_nearest_tile(target_point))
+		elif !Globals.Variables.is_movement_locked:
+			target_point = PlayerPawn.position + Globals.Variables.tile_size*relative_position.normalized()
+			target_point = Globals.Utilities.snap_to_grid(_find_nearest_tile(target_point))
+		operate_action_at_tile(target_point)
+		return true
 
 func _find_nearest_tile(nearby_position : Vector2):
 	return PathFindingTileMap.get_nearest_tile_position(nearby_position)
@@ -193,7 +187,7 @@ func _reach_tile():
 	emit_signal("tile_reached")
 
 func has_obstacle(destination: Vector2) -> bool:
-	for node in get_tree().get_nodes_in_group(GlobalVariables.groups_dict[GlobalVariables.Groups.Obstacles]):
+	for node in get_tree().get_nodes_in_group(str(Globals.Enums.Groups.OBSTACLES)):
 		if _find_nearest_tile(node.position) == _find_nearest_tile(PlayerPawn.position + destination):
 			var dest = _find_nearest_tile(PlayerPawn.position + destination)
 			var player_pos = _find_nearest_tile(PlayerPawn.position)
@@ -229,7 +223,7 @@ func move_pc_to_destination(destination : Vector2, delay : float = move_time):
 	#If destination has an interractible- Don't walk on it? Stop right next to it.
 	while(path_iter < path_points.size()):
 		var path_point = path_points[path_iter]
-		path_point = GlobalVariables.snap_to_grid(path_point)
+		path_point = Globals.Utilities.snap_to_grid(path_point)
 		var dir = Vector2.ZERO
 		if path_point.x > PlayerPawn.position.x :
 			dir += Vector2.RIGHT
@@ -268,7 +262,7 @@ func move_pc_to_destination(destination : Vector2, delay : float = move_time):
 		PlayerPawn._idle_animation()
 
 func has_obstacle_keys_movement(destination: Vector2) -> bool:
-	for node in get_tree().get_nodes_in_group(GlobalVariables.groups_dict[GlobalVariables.Groups.Obstacles]):
+	for node in get_tree().get_nodes_in_group(str(Globals.Enums.Groups.OBSTACLES)):
 		if _find_nearest_tile(node.position) == _find_nearest_tile(PlayerPawn.position + destination):
 			return true
 	return false
@@ -300,7 +294,7 @@ func move_pc_to_destination_keys_movement(destination : Vector2, delay : float =
 	#If destination has an interractible- Don't walk on it? Stop right next to it.
 	while(path_iter < path_points.size()):
 		var path_point = path_points[path_iter]
-		path_point = GlobalVariables.snap_to_grid(path_point)
+		path_point = Globals.Utilities.snap_to_grid(path_point)
 		var dir = Vector2.ZERO
 		if path_point.x > PlayerPawn.position.x :
 			dir += Vector2.RIGHT
@@ -338,17 +332,8 @@ func move_pc_to_destination_keys_movement(destination : Vector2, delay : float =
 	else:
 		PlayerPawn._idle_animation()
 
-func spawn_object_from_player(item_type):
-	var item = item_template.instance()
-	$YSort.add_child(item)
-	item.hide()
-	item.item_owner = PlayerPawn
-	#var offset = PlayerPawn.sprite.offset
-	item.drop_down(_find_nearest_tile(PlayerPawn.position)+ Vector2(16,16), Vector2.UP*16)
-	pass
-
 func flood_tiles_with_water():
-	for cloud in get_tree().get_nodes_in_group(GlobalVariables.groups_dict[GlobalVariables.Groups.Clouds]):
+	for cloud in get_tree().get_nodes_in_group(str(Globals.Enums.Groups.CLOUDS)):
 		for point in cloud.get_points_coords():
 			var tile = _find_nearest_tile(point)
 			if tile_contents.has(tile):
@@ -368,33 +353,33 @@ func do_action(action_ref):
 		return
 	# print("Doing action with ref: ", action_ref)
 	match action_ref:
-		GlobalVariables.ActionKeys.PICKUP_ITEM:
+		Globals.Enums.ActionKeys.PICKUP_ITEM:
 			_on_action_pick_up(trigger_location)
-		GlobalVariables.ActionKeys.DROP_ITEM:
+		Globals.Enums.ActionKeys.DROP_ITEM:
 			_on_action_drop_item(trigger_location)
-		GlobalVariables.ActionKeys.SWITCH_ITEM:
+		Globals.Enums.ActionKeys.SWITCH_ITEM:
 			_on_action_switch_item(trigger_location)
-		GlobalVariables.ActionKeys.BREAK_STONE:
+		Globals.Enums.ActionKeys.BREAK_STONE:
 			_on_action_break_stone(trigger_location)
-		GlobalVariables.ActionKeys.COOK:
+		Globals.Enums.ActionKeys.COOK:
 			_on_action_cook(trigger_location)
-		GlobalVariables.ActionKeys.HARVEST:
+		Globals.Enums.ActionKeys.HARVEST:
 			_on_action_harvest(trigger_location)
-		GlobalVariables.ActionKeys.PLANT:
+		Globals.Enums.ActionKeys.PLANT:
 			_on_action_plant(trigger_location)
-		GlobalVariables.ActionKeys.REMOVE_WATER:
+		Globals.Enums.ActionKeys.REMOVE_WATER:
 			_on_action_remove_water(trigger_location)
-		GlobalVariables.ActionKeys.PLACE_PROTECTIVE_TOTEM:
+		Globals.Enums.ActionKeys.PLACE_PROTECTIVE_TOTEM:
 			_on_action_place_totem(trigger_location)
-		GlobalVariables.ActionKeys.SUMMON_CLOUD:
+		Globals.Enums.ActionKeys.SUMMON_CLOUD:
 			_on_action_summon_cloud(trigger_location)
-		GlobalVariables.ActionKeys.PLACE_ITEM_COOKING:
+		Globals.Enums.ActionKeys.PLACE_ITEM_COOKING:
 			_on_actions_place_item_cooking(trigger_location)
-		GlobalVariables.ActionKeys.FILL_BUCKET:
+		Globals.Enums.ActionKeys.FILL_BUCKET:
 			_on_actions_fill_bucket(trigger_location)
-		GlobalVariables.ActionKeys.EMPTY_BUCKET:
+		Globals.Enums.ActionKeys.EMPTY_BUCKET:
 			_on_actions_empty_bucket(trigger_location)
-	GlobalVariables.is_movement_locked = false
+	Globals.Variables.is_movement_locked = false
 
 
 func _on_action_pick_up(trigger_location):
@@ -410,7 +395,7 @@ func _on_action_switch_item(trigger_location):
 func _on_action_break_stone(trigger_location):
 	if tile_contents[trigger_location].stone_obstacle != null:
 		tile_contents[trigger_location].stone_obstacle.queue_free()
-		GlobalVariables.player_power_ups.break_stone_count -= 1
+		Globals.Core.player_power_ups.break_stone_count -= 1
 	pass
 
 func _on_action_cook(trigger_location):
@@ -429,17 +414,17 @@ func _on_action_plant(trigger_location):
 func _on_action_remove_water(trigger_location):
 	if tile_contents[trigger_location].tile_state > TileContent.TileState.Normal:
 		tile_contents[trigger_location].set_water_amount(0)
-		GlobalVariables.player_power_ups.remove_water_count -= 1
+		Globals.Core.player_power_ups.remove_water_count -= 1
 	pass
 
-func _on_action_place_totem(trigger_location):
+func _on_action_place_totem(_trigger_location):
 	pass
 
 func _on_action_summon_cloud(trigger_location):
 	var cloud_instanse = cloud_horizontal.instance()
 	cloud_instanse.position = tile_contents[trigger_location].coordinates
-	GlobalVariables.base_game_world.add_child(cloud_instanse)
-	GlobalVariables.player_power_ups.summon_cloud_count -= 1
+	Globals.Core.game_world.add_child(cloud_instanse)
+	Globals.Core.player_power_ups.summon_cloud_count -= 1
 	yield(get_tree().create_timer(5), "timeout")
 	cloud_instanse.queue_free()
 	pass
@@ -448,13 +433,13 @@ func _on_actions_place_item_cooking(trigger_location):
 	var cooking_bench_inst = tile_contents[trigger_location].cooking_bench_object
 	if cooking_bench_inst != null:
 		cooking_bench_inst.cooking_bench.place_item(
-			GlobalVariables.player_invetory.get_at(0)
+			Globals.Core.player_inventory.get_at(0)
 		)
 		tile_contents[trigger_location].toss_item_only_animation(
-			GlobalVariables.player_invetory.get_at(0)
+			Globals.Core.player_inventory.get_at(0)
 		)
-		GlobalVariables.player_invetory.remove_item(0)
-		GlobalVariables.base_game_ui._on_item_drop()
+		Globals.Core.player_inventory.remove_item(0)
+		Globals.Core.game_ui._on_item_drop()
 	pass
 	
 func _on_actions_fill_bucket(trigger_location):

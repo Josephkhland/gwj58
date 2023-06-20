@@ -1,0 +1,5 @@
+{
+	"action_key": 9,
+	"action_string": "PLACE_PROTECTIVE_TOTEM",
+	"action_icon": "res://TResources/ActionIcons/PlaceProtectiveTokenIcon.tres"
+}

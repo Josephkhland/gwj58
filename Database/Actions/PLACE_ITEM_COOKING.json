@@ -1,0 +1,5 @@
+{
+	"action_key": 12,
+	"action_string": "PLACE_ITEM_COOKING",
+	"action_icon": "res://TResources/ActionIcons/PlaceItemCooking.tres"
+}

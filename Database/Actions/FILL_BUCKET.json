@@ -1,0 +1,5 @@
+{
+	"action_key": 13,
+	"action_string": "FILL_BUCKET",
+	"action_icon": "res://TResources/ActionIcons/FillBucketIcon.tres"
+}

@@ -1,0 +1,15 @@
+{
+	"item_key": "Fishseed",
+	"item_icon": "res://TResources/TributeItemIcons/FishseedIcon.tres",
+	"flavor_chart": {
+		"sweet": 1,
+		"spicy": 0,
+		"salty": 0,
+		"bitter": 1,
+		"umami": 1,
+		"sour": 0
+	},
+	"is_seed": true,
+	"is_ingredient": true,
+	"is_dish": false
+}

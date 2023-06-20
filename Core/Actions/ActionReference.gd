@@ -57,3 +57,19 @@ func set_action_key(key_index):
 
 func set_action_string(value):
 	action_string = value
+
+func get_export_dictionary():
+	var export_dict : Dictionary = {
+			"action_key": action_key,
+			"action_string" : action_string,
+			"action_icon" : action_icon.resource_path,
+		}
+	return export_dict
+
+func set_from_export_dictionary(export_dictionary : Dictionary):
+	if export_dictionary.has("action_key"):
+		action_key = export_dictionary["action_key"]
+	if export_dictionary.has("action_string"):
+		action_string = export_dictionary["action_string"]
+	if export_dictionary.has("action_icon"):
+		action_icon = load(export_dictionary["action_icon"])

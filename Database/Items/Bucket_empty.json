@@ -1,0 +1,15 @@
+{
+	"item_key": "Bucket_empty",
+	"item_icon": "res://Assets/Original/Sprites/bucket_empty.png",
+	"flavor_chart": {
+		"sweet": 0,
+		"spicy": 0,
+		"salty": 0,
+		"bitter": 0,
+		"umami": 0,
+		"sour": 0
+	},
+	"is_seed": false,
+	"is_ingredient": false,
+	"is_dish": false
+}

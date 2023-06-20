@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scenes/BaseGameUI/BaseGameUI.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Database.gd" type="Script" id=2]
+
+[node name="Main" type="Node"]
+
+[node name="Database" type="Node" parent="."]
+script = ExtResource( 2 )
+
+[node name="LoadedItems" type="Node" parent="Database"]
+
+[node name="LoadedPlants" type="Node" parent="Database"]
+
+[node name="LoadedActions" type="Node" parent="Database"]
+
+[node name="Inventory" type="Node" parent="."]
+
+[node name="Scene" type="Node" parent="."]
+
+[node name="Control" parent="Scene" instance=ExtResource( 1 )]

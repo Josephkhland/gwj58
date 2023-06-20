@@ -1,0 +1,5 @@
+{
+	"action_key": 4,
+	"action_string": "REMOVE_WATER",
+	"action_icon": "res://TResources/ActionIcons/RemoveWaterIcon.tres"
+}

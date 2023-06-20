@@ -87,15 +87,12 @@ _global_script_class_icons={
 [application]
 
 config/name="Gwj 58"
-run/main_scene="res://Scenes/BaseGameUI/BaseGameUI.tscn"
+run/main_scene="res://main.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
-GlobalVariables="*res://Core/Globals/GlobalVariables.gd"
-ItemsDictionary="*res://Core/Globals/ItemsDictionary.tscn"
-ActionsDictionary="*res://Core/Actions/ActionsDictionary.tscn"
-PlantsDictionary="*res://Core/Plants/PlantsDictionary.tscn"
+Globals="*res://Globals/Globals.tscn"
 
 [debug]
 

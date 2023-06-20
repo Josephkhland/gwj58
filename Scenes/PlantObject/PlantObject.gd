@@ -20,10 +20,10 @@ var seed_id : String = ""
 
 
 var harvest_changes : Dictionary = {
-	GlobalVariables.PlantGrowthLevel.Seed : HarvestChange.new(),
-	GlobalVariables.PlantGrowthLevel.Growing : HarvestChange.new(),
-	GlobalVariables.PlantGrowthLevel.Ready : HarvestChange.new(),
-	GlobalVariables.PlantGrowthLevel.Rotting : HarvestChange.new()
+	Globals.Enums.PlantGrowthLevel.SEED : HarvestChange.new(),
+	Globals.Enums.PlantGrowthLevel.GROWING : HarvestChange.new(),
+	Globals.Enums.PlantGrowthLevel.READY : HarvestChange.new(),
+	Globals.Enums.PlantGrowthLevel.ROTTING : HarvestChange.new()
 }
 
 var action_animation_playing = false
@@ -31,27 +31,29 @@ var count_since_last_animation = 0;
 
 func _process(delta):
 	count_since_last_animation += delta
-	if action_animation_playing == false and (growth_level == GlobalVariables.PlantGrowthLevel.Ready or growth_level == GlobalVariables.PlantGrowthLevel.Rotting):
-		if GlobalVariables.rng.randi_range(0,120) < count_since_last_animation:
+	if action_animation_playing == false and \
+	(growth_level == Globals.Enums.PlantGrowthLevel.READY  or
+	 growth_level == Globals.Enums.PlantGrowthLevel.ROTTING):
+		if Globals.Core.rng.randi_range(0,120) < count_since_last_animation:
 			count_since_last_animation = 0
 			action_animation_playing = true
 			match growth_level:
-				GlobalVariables.PlantGrowthLevel.Ready:
+				Globals.Enums.PlantGrowthLevel.READY:
 					$Sprite.play("ready_blown")
-				GlobalVariables.PlantGrowthLevel.Rotting:
+				Globals.Enums.PlantGrowthLevel.ROTTING:
 					$Sprite.play("wilt_action")
 			
 func _ready():
 	$Sprite.animation = "seed_state"
 	step_timer.wait_time = step_time
 	step_timer.start()
-	global_position = GlobalVariables.snap_to_grid(global_position)
+	global_position = Globals.Utilities.snap_to_grid(global_position)
 
 func destroy_plant():
 	hosting_plot.plant_destroyed()
 
 func grow():
-	if (growth_level >= GlobalVariables.PlantGrowthLevel.Rotting): 
+	if (growth_level >= Globals.Enums.PlantGrowthLevel.ROTTING): 
 		destroy_plant()
 		return
 	harvestable = harvest_changes[growth_level].Harvestable
@@ -60,27 +62,27 @@ func grow():
 	harvest_list = harvest_changes[growth_level].NewHarvestList
 	
 	match growth_level:
-		GlobalVariables.PlantGrowthLevel.Seed:
+		Globals.Enums.PlantGrowthLevel.SEED:
 				$Sprite.animation = "growing_state"
-		GlobalVariables.PlantGrowthLevel.Growing:
+		Globals.Enums.PlantGrowthLevel.GROWING:
 			$Sprite.animation = "ready_blown"
 			action_animation_playing = true
 			pick_harvest()
 			place_products_on_image()
-		GlobalVariables.PlantGrowthLevel.Ready:
+		Globals.Enums.PlantGrowthLevel.READY:
 			$Sprite.animation = "wilt_action"
 			action_animation_playing = true
 			
 	growth_level+= 1
 
 func place_products_on_image():
-	var rotation_1 = GlobalVariables.rng.randi_range(0,360)
-	var rotation_2 = GlobalVariables.rng.randi_range(0,360)
-	var rotation_3 = GlobalVariables.rng.randi_range(0,360)
-	if ItemsDictionary.Dict[product].item_icon != null:
-		$HarvestIcons/Icon1.texture = ItemsDictionary.Dict[product].item_icon
-		$HarvestIcons/Icon2.texture = ItemsDictionary.Dict[product].item_icon
-		$HarvestIcons/Icon3.texture = ItemsDictionary.Dict[product].item_icon
+	var rotation_1 = Globals.Core.rng.randi_range(0,360)
+	var rotation_2 = Globals.Core.rng.randi_range(0,360)
+	var rotation_3 = Globals.Core.rng.randi_range(0,360)
+	if Globals.Core.database.Items[product].item_icon != null:
+		$HarvestIcons/Icon1.texture = Globals.Core.database.Items[product].item_icon
+		$HarvestIcons/Icon2.texture = Globals.Core.database.Items[product].item_icon
+		$HarvestIcons/Icon3.texture = Globals.Core.database.Items[product].item_icon
 	$HarvestIcons/Icon1.rotation_degrees = rotation_1
 	$HarvestIcons/Icon2.rotation_degrees = rotation_2
 	$HarvestIcons/Icon3.rotation_degrees = rotation_3
@@ -91,7 +93,8 @@ func place_products_on_image():
 var water_consumption = 1
 func _on_StepTimer_timeout():
 	if hosting_plot != null:
-		if hosting_plot.tile_content_parent.water_amount >= water_consumption and growth_level < GlobalVariables.PlantGrowthLevel.Rotting:
+		if hosting_plot.tile_content_parent.water_amount >= water_consumption and\
+		 growth_level < Globals.Enums.PlantGrowthLevel.ROTTING:
 			$NeedWaterIndicator.hide()
 			hosting_plot.tile_content_parent.add_to_water_level(-water_consumption)
 			growth_progress += growth_per_step
@@ -102,7 +105,7 @@ func _on_StepTimer_timeout():
 				step_timer.wait_time = step_time
 				step_timer.start()
 		else:
-			if growth_level == GlobalVariables.PlantGrowthLevel.Rotting:
+			if growth_level == Globals.Enums.PlantGrowthLevel.ROTTING:
 				growth_progress += growth_per_step
 				$ProgressBar.value = growth_progress*100
 				if growth_progress >= 1:
@@ -124,7 +127,7 @@ func pick_harvest():
 	for kvp in harvest_list.keys():
 		selection_ranges[kvp] = range_start
 		range_start = range_start + harvest_list[kvp]
-	var number_picked = GlobalVariables.rng.randi_range(0,range_start)
+	var number_picked = Globals.Core.rng.randi_range(0,range_start)
 	var item_key_selected = selection_ranges.keys()[0]
 	for kvp in selection_ranges.keys():
 		if number_picked >= selection_ranges[kvp]:
@@ -139,9 +142,9 @@ func harvest() -> bool:
 		print("NOT HARVESTABLE AT THIS GROWTH LEVEL")
 		return false
 	if product != null:
-		var new_item = ItemsDictionary.get_item(product)
-		GlobalVariables.player_invetory.add_item(new_item)
-		GlobalVariables.base_game_ui._on_item_pickup(GlobalVariables.player_invetory.get_at(0))
+		var new_item = Globals.database.get_item(product)
+		Globals.Core.player_inventory.add_item(new_item)
+		Globals.Core.game_ui._on_item_pickup(Globals.Core.player_inventory.get_at(0))
 		destroy_plant()
 		return true
 	

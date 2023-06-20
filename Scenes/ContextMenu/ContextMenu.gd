@@ -15,8 +15,8 @@ func update_view():
 	
 	for i in player_panel_nodes.size():
 		delete_children(player_panel_nodes[i].get_child(0))
-	for i in GlobalVariables.player_invetory.size():
-		player_panel_nodes[i].get_child(0).add_child(GlobalVariables.player_invetory.get_at(i))
+	for i in Globals.Core.player_inventory.size():
+		player_panel_nodes[i].get_child(0).add_child(Globals.Core.player_inventory.get_at(i))
 	
 	for i in entity_panel_nodes.size():
 		delete_children(entity_panel_nodes[i].get_child(0))
@@ -25,28 +25,28 @@ func update_view():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	GlobalVariables.is_movement_locked = true
+	Globals.Variables.is_movement_locked = true
 	update_view()
 
 func move_item_to_player(index):
 	if index < entity_invetory.size():
 		var item = entity_invetory.get_at(index)
 		entity_invetory.remove_item(index)
-		GlobalVariables.player_invetory.add_item(item)
+		Globals.Core.player_inventory.add_item(item)
 	
 func move_item_to_elem(index):
-	if index < GlobalVariables.player_invetory.size():
-		var item = GlobalVariables.player_invetory.get_at(index)
-		GlobalVariables.player_invetory.remove_item(index)
+	if index < Globals.Core.player_inventory.size():
+		var item = Globals.Core.player_inventory.get_at(index)
+		Globals.Core.player_inventory.remove_item(index)
 		entity_invetory.add_item(item)
 
 func _input(event):
-	var player_items = GlobalVariables.player_invetory.get_all()
+	var player_items = Globals.Core.player_inventory.get_all()
 	if (event is InputEventMouseButton) and event.pressed:
 		var evLocal = make_input_local(event)
 		# user pressed outside the menu
 		if !Rect2(Vector2(0,0), $BackgroundPanel.rect_size).has_point(evLocal.position):
-			GlobalVariables.is_movement_locked = false
+			Globals.Variables.is_movement_locked = false
 			queue_free()
 		
 		var offset1 = $PlayerInvetoryPanel.rect_position

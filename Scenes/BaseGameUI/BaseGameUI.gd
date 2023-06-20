@@ -4,9 +4,10 @@ onready var game_world = $ViewportContainer/Viewport/BaseGameWorld
 onready var progressBar = $CenterContainer/VBoxContainer/HBoxContainer/TextureProgress
 
 func _init():
-	GlobalVariables.base_game_ui = self
+	pass
 
 func _ready():
+	Globals.Core.game_ui = self
 	progressBar.value = 10
 	var error_code = game_world.connect("request_ActionsUI",self, "_on_ActionsUI_call_requested")
 	if error_code != 0:
@@ -69,16 +70,20 @@ func _on_score_change(value):
 	if progressBar.value <= 0:
 		$RichTextLabel.text = "You Lose :("
 		$RichTextLabel.show()
-		GlobalVariables.is_movement_locked = true
+		Globals.Variables.is_movement_locked = true
 	if progressBar.value >= 100:
 		$RichTextLabel.text = "You Win :)"
 		$RichTextLabel.show()
-		GlobalVariables.is_movement_locked = true
+		Globals.Variables.is_movement_locked = true
 
 func update_water_level_indicator(new_water_level):
 	$WaterLevelIndicator/HBoxContainer/WaterLevel.value = new_water_level
 
-func _process(delta):
-	$BreakStoneProgressBar.value = GlobalVariables.player_power_ups.break_stone_count
-	$RemoveWaterProgressBar.value = GlobalVariables.player_power_ups.remove_water_count
-	$SummonCloudProgressBar.value = GlobalVariables.player_power_ups.summon_cloud_count
+func _process(_delta):
+	$BreakStoneProgressBar.value = Globals.Core.player_power_ups.break_stone_count
+	$RemoveWaterProgressBar.value = Globals.Core.player_power_ups.remove_water_count
+	$SummonCloudProgressBar.value = Globals.Core.player_power_ups.summon_cloud_count
+
+func _gui_input(event):
+	if event is InputEventMouseButton:
+		game_world._try_input(event)

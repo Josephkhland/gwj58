@@ -26,12 +26,12 @@ func show_actions(available_actions:Array):
 		if error_code != 0:
 			print("ActionsUI: Failed to connect new action box signal action_box_clicked with action_selected() - Error: ", error_code)
 		#Must add Action Image 
-		var new_texture = ActionsDictionary.LUT[action].action_icon
+		var new_texture = Globals.Core.database.Actions[action].action_icon
 		new_action_box.set_icon(new_texture)
 	if current_actions_shown.size() >0:
 		show()
-		GlobalVariables.is_movement_locked = true
-		GlobalVariables.is_actionsUI_open = true
+		Globals.Variables.is_movement_locked = true
+		Globals.Variables.is_actionsUI_open = true
 	else:
 		_on_cancel()
 
@@ -40,16 +40,16 @@ func _on_action_box_clicked(action_ref):
 	emit_signal("action_selected", action_ref)
 	clear_actions()
 	hide()
-	GlobalVariables.is_actionsUI_open = false
+	Globals.Variables.is_actionsUI_open = false
 
 func _on_cancel():
-	if GlobalVariables.is_actionsUI_open:
+	if Globals.Variables.is_actionsUI_open:
 		$VBoxContainer/OffsetFromPlayer/CancelButton.pressed = true
 		yield(get_tree().create_timer(0.1), "timeout")
-		GlobalVariables.is_movement_locked = false
+		Globals.Variables.is_movement_locked = false
 		clear_actions()
 		hide()
-		GlobalVariables.is_actionsUI_open = false
+		Globals.Variables.is_actionsUI_open = false
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass

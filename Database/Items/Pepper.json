@@ -1,0 +1,15 @@
+{
+	"item_key": "Pepper",
+	"item_icon": "res://TResources/TributeItemIcons/PepperIcon.tres",
+	"flavor_chart": {
+		"sweet": 2,
+		"spicy": 5,
+		"salty": 0,
+		"bitter": 3,
+		"umami": 2,
+		"sour": 2
+	},
+	"is_seed": true,
+	"is_ingredient": true,
+	"is_dish": false
+}

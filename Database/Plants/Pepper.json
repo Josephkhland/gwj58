@@ -1,0 +1,21 @@
+{
+	"node_name": "pepper",
+	"seed_harvestable": false,
+	"seed_step_time": 0.1,
+	"seed_growth_per_step": 0.01,
+	"seed_harvest_list": {
+
+	},
+	"growing_harvestable": true,
+	"growing_step_time": 0.2,
+	"growing_growth_per_step": 0.01,
+	"growing_harvest_list": {
+		"pepper": 100
+	},
+	"ready_harvestable": true,
+	"ready_step_time": 1,
+	"ready_growth_per_step": 0.01,
+	"ready_harvest_list": {
+		"pepper": 100
+	}
+}

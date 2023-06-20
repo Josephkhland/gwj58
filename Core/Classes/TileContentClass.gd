@@ -54,19 +54,19 @@ func set_water_amount(value):
 				#Make Muddy
 				tile_state = TileState.Muddy
 				if tile_flavor == null:
-					tile_flavor.position = coordinates + Vector2(1,1)*GlobalVariables.tile_size/2
-					tile_flavor = GlobalVariables.tile_flavour_template.instance()
-				tile_flavor.texture = GlobalVariables.mud_tile_texture
-				GlobalVariables.base_game_world.TileFlavours.add_child(tile_flavor)
+					tile_flavor.position = coordinates + Vector2(1,1)*Globals.Variables.tile_size/2
+					tile_flavor = Globals.PackedScenes.tile_flavour_template.instance()
+				tile_flavor.texture = Globals.PackedScenes.mud_tile_texture
+				Globals.Core.game_world.TileFlavours.add_child(tile_flavor)
 				pass
 			elif water_amount > flood_level_threshold:
 				#Make Flooded
 				tile_state = TileState.Flooded
 				if tile_flavor == null:
-					tile_flavor.position = coordinates + Vector2(1,1)*GlobalVariables.tile_size/2
-					tile_flavor = GlobalVariables.tile_flavour_template.instance()
-				tile_flavor.texture = GlobalVariables.mud_tile_texture
-				GlobalVariables.base_game_world.TileFlavours.add_child(tile_flavor)
+					tile_flavor.position = coordinates + Vector2(1,1)*Globals.Variables.tile_size/2
+					tile_flavor = Globals.PackedScenes.tile_flavour_template.instance()
+				tile_flavor.texture = Globals.PackedScenes.mud_tile_texture
+				Globals.Core.game_world.TileFlavours.add_child(tile_flavor)
 				inventory.clear()
 				withdraw_item_from_ground()
 				if plot_object != null:
@@ -78,24 +78,24 @@ func set_water_amount(value):
 			if water_amount <= dry_warning_threshold:
 				tile_state = TileState.Dry
 				if tile_flavor == null:
-					tile_flavor = GlobalVariables.tile_flavour_template.instance()
-					tile_flavor.position = coordinates + Vector2(1,1)*GlobalVariables.tile_size/2
-				tile_flavor.texture = GlobalVariables.dry_tile_texture
-				GlobalVariables.base_game_world.TileFlavours.add_child(tile_flavor)
+					tile_flavor = Globals.PackedScenes.tile_flavour_template.instance()
+					tile_flavor.position = coordinates + Vector2(1,1)*Globals.Variables.tile_size/2
+				tile_flavor.texture = Globals.PackedScenes.dry_tile_texture
+				Globals.Core.game_world.TileFlavours.add_child(tile_flavor)
 			elif water_amount > mud_level_threshold and water_amount <= flood_level_threshold:
 				tile_state = TileState.Muddy
 				if tile_flavor == null:
-					tile_flavor = GlobalVariables.tile_flavour_template.instance()
-					tile_flavor.position = coordinates + Vector2(1,1)*GlobalVariables.tile_size/2
-				tile_flavor.texture = GlobalVariables.mud_tile_texture
-				GlobalVariables.base_game_world.TileFlavours.add_child(tile_flavor)
+					tile_flavor = Globals.PackedScenes.tile_flavour_template.instance()
+					tile_flavor.position = coordinates + Vector2(1,1)*Globals.Variables.tile_size/2
+				tile_flavor.texture = Globals.PackedScenes.mud_tile_texture
+				Globals.Core.game_world.TileFlavours.add_child(tile_flavor)
 			elif water_amount > flood_level_threshold:
 				tile_state = TileState.Flooded
 				if tile_flavor == null:
-					tile_flavor = GlobalVariables.tile_flavour_template.instance()
-					tile_flavor.position = coordinates + Vector2(1,1)*GlobalVariables.tile_size/2
-				tile_flavor.texture = GlobalVariables.mud_tile_texture
-				GlobalVariables.base_game_world.TileFlavours.add_child(tile_flavor)
+					tile_flavor = Globals.PackedScenes.tile_flavour_template.instance()
+					tile_flavor.position = coordinates + Vector2(1,1)*Globals.Variables.tile_size/2
+				tile_flavor.texture = Globals.PackedScenes.mud_tile_texture
+				Globals.Core.game_world.TileFlavours.add_child(tile_flavor)
 				inventory.clear()
 				withdraw_item_from_ground()
 				if plot_object != null:
@@ -106,7 +106,7 @@ func set_water_amount(value):
 		TileState.Muddy:
 			if water_amount < dry_warning_threshold:
 				tile_state = TileState.Dry
-				tile_flavor.texture = GlobalVariables.dry_tile_texture
+				tile_flavor.texture = Globals.PackedScenes.dry_tile_texture
 			if water_amount < mud_level_threshold and water_amount >= dry_warning_threshold:
 				tile_state = TileState.Normal
 				tile_flavor.queue_free()
@@ -123,7 +123,7 @@ func set_water_amount(value):
 		TileState.Flooded:
 			if water_amount < dry_warning_threshold:
 				tile_state = TileState.Dry
-				tile_flavor.texture = GlobalVariables.dry_tile_texture
+				tile_flavor.texture = Globals.PackedScenes.dry_tile_texture
 				remove_plot()
 			elif water_amount < mud_level_threshold and water_amount >= dry_warning_threshold:
 				tile_state = TileState.Normal
@@ -185,58 +185,58 @@ func can_place_item():
 	return not has_plot() and not has_cooking_bench()
 
 func holds_item():
-	return !GlobalVariables.player_invetory.has_space()
+	return !Globals.Core.player_inventory.has_space()
 	
 func can_drop_item():
-	return !has_item() and !GlobalVariables.player_invetory.has_space() and !has_stone()\
+	return !has_item() and !Globals.Core.player_inventory.has_space() and !has_stone()\
 	and !has_pond() and !has_plot() and !has_cooking_bench()
 
 func update_water_level_ui():
-	GlobalVariables.base_game_ui.update_water_level_indicator(water_amount)
+	Globals.Core.game_ui.update_water_level_indicator(water_amount)
 
 func get_available_actions():
 	var available_actions: Array = []
-	if has_stone() and GlobalVariables.player_power_ups.break_stone_count > 0:
-		available_actions.append(GlobalVariables.ActionKeys.BREAK_STONE)
+	if has_stone() and Globals.Core.player_power_ups.break_stone_count > 0:
+		available_actions.append(Globals.Enums.ActionKeys.BREAK_STONE)
 	if has_item() and !holds_item() and !has_seed_generator():
-		available_actions.append(GlobalVariables.ActionKeys.PICKUP_ITEM)
+		available_actions.append(Globals.Enums.ActionKeys.PICKUP_ITEM)
 	if bench_has_item():
-		available_actions.append(GlobalVariables.ActionKeys.PICKUP_ITEM)
+		available_actions.append(Globals.Enums.ActionKeys.PICKUP_ITEM)
 	if can_drop_item():
-		available_actions.append(GlobalVariables.ActionKeys.DROP_ITEM)
+		available_actions.append(Globals.Enums.ActionKeys.DROP_ITEM)
 	if has_item() and holds_item() and !has_seed_generator():
-		available_actions.append(GlobalVariables.ActionKeys.SWITCH_ITEM)
+		available_actions.append(Globals.Enums.ActionKeys.SWITCH_ITEM)
 	if has_plot():
 		if !holds_item() and plot_object.can_harvest():
-			available_actions.append(GlobalVariables.ActionKeys.HARVEST)
+			available_actions.append(Globals.Enums.ActionKeys.HARVEST)
 		elif !plot_object.is_planted and holds_item():
-			if GlobalVariables.player_invetory.get_at(0).is_seed:
-				available_actions.append(GlobalVariables.ActionKeys.PLANT)
+			if Globals.Core.player_inventory.get_at(0).is_seed:
+				available_actions.append(Globals.Enums.ActionKeys.PLANT)
 	if has_cooking_bench():
-		available_actions.append(GlobalVariables.ActionKeys.COOK)
+		available_actions.append(Globals.Enums.ActionKeys.COOK)
 	if has_cooking_bench() and holds_item():
-		available_actions.append(GlobalVariables.ActionKeys.PLACE_ITEM_COOKING)
+		available_actions.append(Globals.Enums.ActionKeys.PLACE_ITEM_COOKING)
 	if has_seed_generator() and !seed_generator_object.inventory.has_space():
-		if GlobalVariables.player_invetory.has_space():
-			available_actions.append(GlobalVariables.ActionKeys.PICKUP_ITEM)
+		if Globals.Core.player_inventory.has_space():
+			available_actions.append(Globals.Enums.ActionKeys.PICKUP_ITEM)
 		else:
-			available_actions.append(GlobalVariables.ActionKeys.SWITCH_ITEM)
-	if GlobalVariables.player_power_ups.summon_cloud_count > 0:
-		available_actions.append(GlobalVariables.ActionKeys.SUMMON_CLOUD)
-	if has_pond() and GlobalVariables.player_power_ups.remove_water_count > 0:
-		available_actions.append(GlobalVariables.ActionKeys.REMOVE_WATER)
-	if has_pond() and !GlobalVariables.player_invetory.has_space() and GlobalVariables.player_invetory.get_at(0).item_key.to_lower() == "bucket_empty":
-		available_actions.append(GlobalVariables.ActionKeys.FILL_BUCKET)
-	if has_plot() and GlobalVariables.player_invetory.size() > 0 and GlobalVariables.player_invetory.get_at(0).item_key.to_lower() == "bucket_full":
-		available_actions.append(GlobalVariables.ActionKeys.EMPTY_BUCKET)
+			available_actions.append(Globals.Enums.ActionKeys.SWITCH_ITEM)
+	if Globals.Core.player_power_ups.summon_cloud_count > 0:
+		available_actions.append(Globals.Enums.ActionKeys.SUMMON_CLOUD)
+	if has_pond() and Globals.Core.player_power_ups.remove_water_count > 0:
+		available_actions.append(Globals.Enums.ActionKeys.REMOVE_WATER)
+	if has_pond() and !Globals.Core.player_inventory.has_space() and Globals.Core.player_inventory.get_at(0).item_key.to_lower() == "bucket_empty":
+		available_actions.append(Globals.Enums.ActionKeys.FILL_BUCKET)
+	if has_plot() and Globals.Core.player_inventory.size() > 0 and Globals.Core.player_inventory.get_at(0).item_key.to_lower() == "bucket_full":
+		available_actions.append(Globals.Enums.ActionKeys.EMPTY_BUCKET)
 	#Then probably only the power-ups are left to add.
 	return available_actions
 
 
 func pick_up():
 	if has_seed_generator():
-		GlobalVariables.player_invetory.add_item(seed_generator_object.collect())
-		GlobalVariables.base_game_ui._on_item_pickup(GlobalVariables.player_invetory.get_at(0))
+		Globals.Core.player_inventory.add_item(seed_generator_object.collect())
+		Globals.Core.game_ui._on_item_pickup(Globals.Core.player_inventory.get_at(0))
 		return
 	if has_shrine():
 		return
@@ -244,47 +244,47 @@ func pick_up():
 		var bench = cooking_bench_object.cooking_bench
 		var shoud_remove = true
 		if !holds_item():
-			GlobalVariables.player_invetory.add_item(bench.inventory.get_at(0))
-			GlobalVariables.base_game_ui._on_item_pickup(bench.inventory.get_at(0))
+			Globals.Core.player_inventory.add_item(bench.inventory.get_at(0))
+			Globals.Core.game_ui._on_item_pickup(bench.inventory.get_at(0))
 		else:
-			var tile_contents = GlobalVariables.base_game_world.tile_contents
+			var tile_contents = Globals.Core.game_world.tile_contents
 			var cardnals = [Vector2.UP, Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT]
 			for car in cardnals:
 				var tile = tile_contents[coordinates + 32 * car]
 				if !tile.has_item():
 					tile.toss_item_to_ground(bench.inventory.get_at(0), coordinates)
-					GlobalVariables.base_game_ui._on_item_drop(false)
+					Globals.Core.game_ui._on_item_drop(false)
 					break
 				shoud_remove = false
 		if shoud_remove:
 			bench.inventory.remove_item(0)
 		return
-	GlobalVariables.player_invetory.add_item(inventory.get_at(0))
-	GlobalVariables.base_game_ui._on_item_pickup(inventory.get_at(0))
+	Globals.Core.player_inventory.add_item(inventory.get_at(0))
+	Globals.Core.game_ui._on_item_pickup(inventory.get_at(0))
 	inventory.remove_item(0)
 	withdraw_item_from_ground()
 
 func drop_down():
 	if has_seed_generator():
-		if seed_generator_object.place_item(GlobalVariables.player_invetory.get_at(0)):
-			GlobalVariables.player_invetory.remove_item(0)
-			GlobalVariables.base_game_ui._on_item_drop()
+		if seed_generator_object.place_item(Globals.Core.player_inventory.get_at(0)):
+			Globals.Core.player_inventory.remove_item(0)
+			Globals.Core.game_ui._on_item_drop()
 		else: 
 			print("SeedGenerator: Another Item was found on position")
 		return
 	if has_shrine():
-		shrine_object.place_item(GlobalVariables.player_invetory.get_at(0))
-		GlobalVariables.player_invetory.remove_item(0)
-		GlobalVariables.base_game_ui._on_item_drop()
+		shrine_object.place_item(Globals.Core.player_inventory.get_at(0))
+		Globals.Core.player_inventory.remove_item(0)
+		Globals.Core.game_ui._on_item_drop()
 		return
-	toss_item_to_ground(GlobalVariables.player_invetory.get_at(0))
-	GlobalVariables.player_invetory.remove_item(0)
-	GlobalVariables.base_game_ui._on_item_drop()
+	toss_item_to_ground(Globals.Core.player_inventory.get_at(0))
+	Globals.Core.player_inventory.remove_item(0)
+	Globals.Core.game_ui._on_item_drop()
 	
 
 func switch_item():
-	var tmp = GlobalVariables.player_invetory.get_at(0)
-	GlobalVariables.player_invetory.remove_item(0)
+	var tmp = Globals.Core.player_inventory.get_at(0)
+	Globals.Core.player_inventory.remove_item(0)
 	pick_up()
 	#Then Place the item on the spot
 	if has_seed_generator():
@@ -301,17 +301,17 @@ func switch_item():
 
 
 var placed_object
-func toss_item_to_ground(item, source = GlobalVariables.player_pawn.global_position):
+func toss_item_to_ground(item, source = Globals.Core.game_world.PlayerPawn.global_position):
 	inventory.add_item(item)
-	GlobalVariables.base_game_world.ObjectsLayer.add_child(item)
+	Globals.Core.game_world.ObjectsLayer.add_child(item)
 	item.set_icon_real_quick()
 	item.toss_item(source, coordinates + Vector2(16,16), Vector2.UP*32)
 	placed_object = item
 
 func toss_item_only_animation(item):
-	GlobalVariables.base_game_world.ObjectsLayer.add_child(item)
+	Globals.Core.game_world.ObjectsLayer.add_child(item)
 	item.set_icon_real_quick()
-	item.toss_item(GlobalVariables.player_pawn.global_position, coordinates + Vector2(16,16), Vector2.UP*32)
+	item.toss_item(Globals.Core.game_world.PlayerPawn.global_position, coordinates + Vector2(16,16), Vector2.UP*32)
 	yield(item.get_tree().create_timer(0.5), "timeout")
 	item.queue_free()
 
@@ -323,31 +323,31 @@ func withdraw_item_from_ground():
 func replace_with_seed(seed_acquired):
 	plot_object.queue_free()
 	plot_object = null
-	if ItemsDictionary.Dict.has(seed_acquired):
-		var item = ItemsDictionary.get_item(seed_acquired.to_lower())
+	if Globals.Core.database.Items.has(seed_acquired):
+		var item = Globals.Core.database.Items.get_item(seed_acquired.to_lower())
 		toss_item_to_ground(item)
 	else:
 		print("Plot: Seed Item not found (",seed_acquired,")")
 
 func plant_seed():
-	plot_object.plant(GlobalVariables.player_invetory.get_at(0))
-	GlobalVariables.player_invetory.remove_item(0)
-	GlobalVariables.base_game_ui._on_item_drop()
+	plot_object.plant(Globals.Core.player_inventory.get_at(0))
+	Globals.Core.player_inventory.remove_item(0)
+	Globals.Core.game_ui._on_item_drop()
 
 func harvest_plant():
 	plot_object.harvest()
 	
 func fill_bucket():
-	GlobalVariables.player_invetory.remove_item(0)
-	GlobalVariables.player_invetory.add_item(ItemsDictionary.Dict["bucket_full"])
+	Globals.Core.player_inventory.remove_item(0)
+	Globals.Core.player_inventory.add_item(Globals.Core.database.Items["bucket_full"])
 	add_to_water_level(-300)
-	GlobalVariables.base_game_ui._on_item_pickup(GlobalVariables.player_invetory.get_at(0))
+	Globals.Core.game_ui._on_item_pickup(Globals.Core.player_inventory.get_at(0))
 	
 func empty_bucket():
-	GlobalVariables.player_invetory.remove_item(0)
-	GlobalVariables.player_invetory.add_item(ItemsDictionary.Dict["bucket_empty"])
+	Globals.Core.player_inventory.remove_item(0)
+	Globals.Core.player_inventory.add_item(Globals.Core.database.Items["bucket_empty"])
 	add_to_water_level(+300)
-	GlobalVariables.base_game_ui._on_item_pickup(GlobalVariables.player_invetory.get_at(0))
+	Globals.Core.game_ui._on_item_pickup(Globals.Core.player_inventory.get_at(0))
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

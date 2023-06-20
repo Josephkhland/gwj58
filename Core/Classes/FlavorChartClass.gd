@@ -14,12 +14,12 @@ func _init():
 
 func get_flavours_as_dictionary():
 	var output : Dictionary = {
-		GlobalVariables.Flavours.Sweet: Sweet,
-		GlobalVariables.Flavours.Spicy: Spicy,
-		GlobalVariables.Flavours.Umami: Umami,
-		GlobalVariables.Flavours.Bitter: Bitter,
-		GlobalVariables.Flavours.Salty: Salty,
-		GlobalVariables.Flavours.Sour: Sour,
+		Globals.Enums.Flavours.SWEET: Sweet,
+		Globals.Enums.Flavours.SPICY: Spicy,
+		Globals.Enums.Flavours.UMAMI: Umami,
+		Globals.Enums.Flavours.BITTER: Bitter,
+		Globals.Enums.Flavours.SALTY: Salty,
+		Globals.Enums.Flavours.SOUR: Sour,
 		}
 	return output
 

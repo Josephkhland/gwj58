@@ -188,7 +188,7 @@ flags = 4
 atlas = ExtResource( 6 )
 region = Rect2( 57, 149, 32, 5 )
 
-[node name="Control" type="Control"]
+[node name="BaseGameUI" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 3 )
@@ -196,6 +196,7 @@ script = ExtResource( 3 )
 [node name="ViewportContainer" type="ViewportContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 1
 
 [node name="Viewport" type="Viewport" parent="ViewportContainer"]
 size = Vector2( 1024, 600 )
@@ -544,4 +545,5 @@ texture_under = SubResource( 14 )
 texture_progress = SubResource( 15 )
 nine_patch_stretch = true
 
+[connection signal="gui_input" from="." to="." method="_gui_input"]
 [connection signal="action_selected" from="ActionsUI" to="." method="_on_ActionsUI_action_selected"]

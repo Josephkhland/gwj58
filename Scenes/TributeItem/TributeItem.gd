@@ -88,7 +88,7 @@ func set_ingredient_history(history_array : Array):
 	if !ingredients_history.has(item_key.to_lower()):
 		ingredients_history.append(item_key.to_lower())
 
-func pick_up(new_owner):
+func pick_up(_new_owner):
 	if !isHeld:
 		isHeld = true
 	#item_owner = new_owner
@@ -98,7 +98,7 @@ func toss_item(owner_node_pos, target_position: Vector2, offset:Vector2 = Vector
 	
 	#Toss it from the center of the owner that holds it, to the target_position
 	var path = Curve2D.new()
-	var start_point : Vector2 = GlobalVariables.snap_to_grid(owner_node_pos) + offset
+	var start_point : Vector2 = Globals.Utilities.snap_to_grid(owner_node_pos) + offset
 	
 	var mid_x = (start_point.x + target_position.x)/2
 	var mid_y = start_point.y -16
@@ -120,3 +120,47 @@ func toss_item(owner_node_pos, target_position: Vector2, offset:Vector2 = Vector
 		yield(tmp_tween, "finished")
 	
 	pass
+
+func get_export_dictionary():
+	var export_dict : Dictionary = {
+			"item_key": item_key,
+			"item_icon": item_icon.resource_path,
+			"flavor_chart" : {
+				"sweet": flavor_chart.sweet,
+				"spicy": flavor_chart.spicy,
+				"salty": flavor_chart.salty,
+				"bitter": flavor_chart.bitter,
+				"umami": flavor_chart.umami,
+				"sour": flavor_chart.sour,
+			},
+			"is_seed": is_seed,
+			"is_ingredient": is_ingredient,
+			"is_dish": is_dish,
+		}
+	return export_dict
+
+func set_from_export_dictionary(export_dictionary : Dictionary):
+	if export_dictionary.has("item_key"):
+		item_key = export_dictionary["item_key"]
+	if export_dictionary.has("item_icon"):
+		item_icon = load(export_dictionary["item_icon"])
+	if export_dictionary.has("flavor_chart"):
+		if export_dictionary["flavor_chart"].has("sweet"):
+			flavor_chart.Sweet = export_dictionary["flavor_chart"]["sweet"]
+		if export_dictionary["flavor_chart"].has("spicy"):
+			flavor_chart.Spicy = export_dictionary["flavor_chart"]["spicy"]
+		if export_dictionary["flavor_chart"].has("salty"):
+			flavor_chart.Salty = export_dictionary["flavor_chart"]["salty"]
+		if export_dictionary["flavor_chart"].has("bitter"):
+			flavor_chart.Bitter = export_dictionary["flavor_chart"]["bitter"]
+		if export_dictionary["flavor_chart"].has("umami"):
+			flavor_chart.Umami = export_dictionary["flavor_chart"]["umami"]
+		if export_dictionary["flavor_chart"].has("sour"):
+			flavor_chart.Sour = export_dictionary["flavor_chart"]["sour"]
+	if export_dictionary.has("is_seed"):
+		is_seed = export_dictionary["is_seed"]
+	if export_dictionary.has("is_ingredient"):
+		is_ingredient = export_dictionary["is_ingredient"]
+	if export_dictionary.has("is_dish"):
+		is_dish = export_dictionary["is_dish"]
+		

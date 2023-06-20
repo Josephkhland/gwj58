@@ -18,7 +18,7 @@ func _ready() -> void:
 
 func update() -> void:
 	create_pathfinding_points()
-	var obstacleNodes = get_tree().get_nodes_in_group(GlobalVariables.groups_dict[GlobalVariables.Groups.Obstacles])
+	var obstacleNodes = get_tree().get_nodes_in_group(str(Globals.Enums.Groups.OBSTACLES))
 	for obstacleNode in obstacleNodes:
 		add_obstacle(obstacleNode)
 

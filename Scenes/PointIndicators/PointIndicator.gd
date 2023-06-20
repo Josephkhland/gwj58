@@ -26,7 +26,7 @@ func snap_to_grid():
 	global_position = new_position_w_offset
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if Engine.editor_hint:
 		if grid_snap:
 			snap_to_grid()

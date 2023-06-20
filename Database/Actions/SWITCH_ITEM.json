@@ -1,0 +1,5 @@
+{
+	"action_key": 11,
+	"action_string": "SWITCH_ITEM",
+	"action_icon": "res://TResources/ActionIcons/SwitchItemIcon.tres"
+}
