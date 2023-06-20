@@ -179,7 +179,7 @@ func change_day():
 #func _process(delta):
 #	pass
 
-var turn_counter = 0
+var turn_counter = 6
 func _on_WaveTimer_timeout():
 	erase_clouds_out_of_bounds()
 	if turn_counter >= turn_duration:
@@ -200,6 +200,12 @@ func _on_WaveTimer_timeout():
 			index += 1
 		turn_counter+=1
 	
+	if turn_counter == 7:
+		night_to_day()
+	if turn_counter == 16:
+		day_to_evening()
+	if turn_counter == 21:
+		evening_to_night()
 
 func add_cloud_to_point(point):
 	var new_cloud = cloud_template.instance()
@@ -217,3 +223,12 @@ func update_clouds_direction():
 	for node in get_tree().get_nodes_in_group(GlobalVariables.groups_dict[GlobalVariables.Groups.Clouds]):
 		node.set_direction(current_wind_direction)
 		node.travel_speed = current_wind_strength
+
+func day_to_evening():
+	$AnimationPlayer.play("DayToEvening")
+
+func evening_to_night():
+	$AnimationPlayer.play("EveningToNight")
+
+func night_to_day():
+	$AnimationPlayer.play("NightToDay")
