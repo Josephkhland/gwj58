@@ -4,7 +4,7 @@ signal tile_reached
 signal dest_changed
 signal request_ActionsUI(available_actions)
 signal cancel_ActionsUI
-export(float) var move_time : float = 0.7
+export(float) var move_time : float = 0.5
 var destination_reached = true
 var move_aborted = false
 var move_tween
@@ -30,7 +30,28 @@ func _process(delta):
 		water_indication_target = _find_nearest_tile(PlayerPawn.position)
 	if tile_contents.has(water_indication_target):
 		tile_contents[water_indication_target].update_water_level_ui()
+	get_input()
 
+func get_input():
+	#if destination_reached == false: return
+	var walk_direction = Vector2.ZERO
+	if Input.is_action_pressed("move_up"):
+		walk_direction += Vector2.UP
+	elif Input.is_action_pressed("move_down"):
+		walk_direction += Vector2.DOWN
+	if Input.is_action_pressed("move_right"):
+		walk_direction += Vector2.RIGHT
+	elif Input.is_action_pressed("move_left"):
+		walk_direction += Vector2.LEFT
+	if walk_direction != Vector2.ZERO:
+		if walk_direction.x != 0 and walk_direction.y != 0:
+			move_pc_to_destination_keys_movement(walk_direction*GlobalVariables.tile_size,0.28284271247)
+		else:
+			move_pc_to_destination_keys_movement(walk_direction*GlobalVariables.tile_size)
+	else:
+		if PlayerPawn.is_animation_finished():
+			PlayerPawn._idle_animation()
+	
 var tile_contents : Dictionary = {}
 func generate_tile_contents():
 	for coords in PathFindingTileMap.get_used_cell_global_positions():
@@ -190,6 +211,77 @@ func move_pc_to_destination(destination : Vector2, delay : float = move_time):
 			move_aborted = true
 		yield(self,"dest_changed")
 		#return #Prevent it from activating again before action is completed.
+	$ControlIndicators/PointIndicator.reposition(PlayerPawn.position + destination)
+	var start_tile = _find_nearest_tile(PlayerPawn.position)
+	var end_tile = _find_nearest_tile(PlayerPawn.position + destination)
+	if move_tween is SceneTreeTween:
+		move_tween.stop()
+	var path_points = PathFindingTileMap.get_astar_path_avoiding_obstacles(start_tile, end_tile)
+	if path_points.size() < 2:
+		$ControlIndicators/PointIndicator.warn_and_hide()
+		return
+	#update_move_indicator = false
+	destination_reached = false
+	#$PlayerCharacter._enter_walk_animation()
+	#movement_click_sound_player.play()
+	var path_iter = 1
+	var offset_for_Ysort_correction = Vector2.DOWN
+	#If destination has an interractible- Don't walk on it? Stop right next to it.
+	while(path_iter < path_points.size()):
+		var path_point = path_points[path_iter]
+		path_point = GlobalVariables.snap_to_grid(path_point)
+		var dir = Vector2.ZERO
+		if path_point.x > PlayerPawn.position.x :
+			dir += Vector2.RIGHT
+		elif path_point.x < PlayerPawn.position.x:
+			dir += Vector2.LEFT
+		if path_point.y+offset_for_Ysort_correction.y > PlayerPawn.position.y:
+			dir += Vector2.DOWN 
+		elif path_point.y+offset_for_Ysort_correction.y < PlayerPawn.position.y:
+			dir += Vector2.UP 
+		PlayerPawn._walk_animation(dir)
+		move_tween = get_tree().create_tween()
+		
+		move_tween.tween_property(PlayerPawn, "position", path_point +offset_for_Ysort_correction, delay)
+		yield(move_tween, "finished")
+		move_tween = null
+		_reach_tile()
+		#$PathHint._remove_first_point()
+		path_iter += 1
+		if move_aborted:
+			$ControlIndicators/PointIndicator.warn_and_hide()
+			#move_aborted = false
+			#emit_signal("dest_changed")
+			break
+	
+	#Destination Reached
+	#update_move_indicator = true
+	destination_reached = true
+
+	
+	$ControlIndicators/PointIndicator.hide()
+	
+	if move_aborted:
+		move_aborted = false
+		emit_signal("dest_changed")
+	else:
+		PlayerPawn._idle_animation()
+
+func has_obstacle_keys_movement(destination: Vector2) -> bool:
+	for node in get_tree().get_nodes_in_group(GlobalVariables.groups_dict[GlobalVariables.Groups.Obstacles]):
+		if _find_nearest_tile(node.position) == _find_nearest_tile(PlayerPawn.position + destination):
+			return true
+	return false
+
+func move_pc_to_destination_keys_movement(destination : Vector2, delay : float = move_time):
+	if has_obstacle_keys_movement(destination): 
+		PlayerPawn._idle_animation()
+		return
+	if destination_reached == false :
+		if move_aborted == false:
+			move_aborted = true
+		#yield(self,"dest_changed")
+		return #Prevent it from activating again before action is completed.
 	$ControlIndicators/PointIndicator.reposition(PlayerPawn.position + destination)
 	var start_tile = _find_nearest_tile(PlayerPawn.position)
 	var end_tile = _find_nearest_tile(PlayerPawn.position + destination)

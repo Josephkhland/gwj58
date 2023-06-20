@@ -179,7 +179,7 @@ func change_day():
 #func _process(delta):
 #	pass
 
-var turn_counter = 6
+var turn_counter = 8
 func _on_WaveTimer_timeout():
 	erase_clouds_out_of_bounds()
 	if turn_counter >= turn_duration:

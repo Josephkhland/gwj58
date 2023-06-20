@@ -57,6 +57,9 @@ func _walk_sw():
 func _walk_se():
 	$Sprite.animation = "WalkSE"
 
+
+func is_animation_finished():
+	return $Sprite.frame == $Sprite.frames.get_frame_count($Sprite.animation)-1
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
