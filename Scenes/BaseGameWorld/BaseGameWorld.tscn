@@ -279,13 +279,12 @@ visible = false
 position = Vector2( 1648, 1296 )
 
 [node name="ActionIndicator" parent="ControlIndicators" instance=ExtResource( 10 )]
-frame = 1
 
 [node name="YSort" type="YSort" parent="."]
 
 [node name="PlayerCharacter" parent="YSort" instance=ExtResource( 7 )]
 position = Vector2( 2112, 1216 )
-scale = Vector2( 0.5, 0.5 )
+scale = Vector2( 2, 2 )
 
 [node name="ThorShrine" parent="YSort" instance=ExtResource( 11 )]
 position = Vector2( 1647, 849 )

@@ -4,7 +4,7 @@ signal tile_reached
 signal dest_changed
 signal request_ActionsUI(available_actions)
 signal cancel_ActionsUI
-export(float) var move_time : float = 0.5
+export(float) var move_time : float = 0.7
 var destination_reached = true
 var move_aborted = false
 var move_tween
@@ -209,14 +209,16 @@ func move_pc_to_destination(destination : Vector2, delay : float = move_time):
 	while(path_iter < path_points.size()):
 		var path_point = path_points[path_iter]
 		path_point = GlobalVariables.snap_to_grid(path_point)
-		if path_point.x > PlayerPawn.position.x : 
-			PlayerPawn._walk_right()
+		var dir = Vector2.ZERO
+		if path_point.x > PlayerPawn.position.x :
+			dir += Vector2.RIGHT
 		elif path_point.x < PlayerPawn.position.x:
-			PlayerPawn._walk_left()
+			dir += Vector2.LEFT
 		if path_point.y+offset_for_Ysort_correction.y > PlayerPawn.position.y:
-			PlayerPawn._walk_down()
+			dir += Vector2.DOWN 
 		elif path_point.y+offset_for_Ysort_correction.y < PlayerPawn.position.y:
-			PlayerPawn._walk_up()
+			dir += Vector2.UP 
+		PlayerPawn._walk_animation(dir)
 		move_tween = get_tree().create_tween()
 		
 		move_tween.tween_property(PlayerPawn, "position", path_point +offset_for_Ysort_correction, delay)

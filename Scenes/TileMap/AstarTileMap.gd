@@ -2,6 +2,7 @@ extends TileMap
 class_name AstarTileMap
 
 const DIRECTIONS := [Vector2.RIGHT, Vector2.UP, Vector2.LEFT, Vector2.DOWN]
+const DIAGONALS := [Vector2.RIGHT + Vector2.UP, Vector2.RIGHT + Vector2.DOWN, Vector2.UP + Vector2.LEFT, Vector2.LEFT + Vector2.DOWN]
 const CANTOR_LIMIT = int(pow(2, 30))
 
 var astar := AStar2D.new()
@@ -32,7 +33,7 @@ func create_pathfinding_points() -> void:
 
 	for cell_position in used_cell_positions:
 		connect_cardinals(cell_position)
-		#connect_diagonals(cell_position)
+		connect_diagonals(cell_position)
 
 func add_obstacle(obstacle: Object) -> void:
 	obstacles.append(obstacle)
@@ -128,8 +129,8 @@ func connect_cardinals(point_position) -> void:
 
 func connect_diagonals(point_position) -> void:
 	var center := get_point_id(point_position)
-	for direction in DIRECTIONS:
-		direction = direction.rotated(deg2rad(45))
+	for direction in DIAGONALS:
+		#direction = direction.rotated(deg2rad(45))
 		var diagonal_position = point_position + map_to_world(direction)
 		var diagonal_point = get_point_id(diagonal_position)
 		if diagonal_point != center and astar.has_point(diagonal_point):
