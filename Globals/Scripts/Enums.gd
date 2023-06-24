@@ -8,6 +8,7 @@ enum Groups{
 	SHRINE,
 	COOKING_BENCH,
 	PLOT,
+	LIGHTS,
 }
 
 enum DetailCellTypes{

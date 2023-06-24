@@ -226,9 +226,13 @@ func update_clouds_direction():
 
 func day_to_evening():
 	$AnimationPlayer.play("DayToEvening")
+	for node in get_tree().get_nodes_in_group(str(Globals.Enums.Groups.LIGHTS)):
+		node.show()
 
 func evening_to_night():
 	$AnimationPlayer.play("EveningToNight")
 
 func night_to_day():
 	$AnimationPlayer.play("NightToDay")
+	for node in get_tree().get_nodes_in_group(str(Globals.Enums.Groups.LIGHTS)):
+		node.hide()

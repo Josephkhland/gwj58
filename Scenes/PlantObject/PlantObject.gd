@@ -142,7 +142,8 @@ func harvest() -> bool:
 		print("NOT HARVESTABLE AT THIS GROWTH LEVEL")
 		return false
 	if product != null:
-		var new_item = Globals.database.get_item(product)
+		print(product)
+		var new_item = Globals.Core.database.get_item(product)
 		Globals.Core.player_inventory.add_item(new_item)
 		Globals.Core.game_ui._on_item_pickup(Globals.Core.player_inventory.get_at(0))
 		destroy_plant()

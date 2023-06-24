@@ -33,7 +33,7 @@ func _process(_delta):
 	get_input()
 
 func get_input():
-	#if destination_reached == false: return
+	if Globals.Variables.is_movement_locked: return
 	var walk_direction = Vector2.ZERO
 	if Input.is_action_pressed("move_up"):
 		walk_direction += Vector2.UP
@@ -44,6 +44,7 @@ func get_input():
 	elif Input.is_action_pressed("move_left"):
 		walk_direction += Vector2.LEFT
 	if walk_direction != Vector2.ZERO:
+		$ControlIndicators/ActionIndicator.hide()
 		if walk_direction.x != 0 and walk_direction.y != 0:
 			move_pc_to_destination_keys_movement(walk_direction*Globals.Variables.tile_size,0.28284271247)
 		else:
@@ -448,7 +449,7 @@ func _on_actions_fill_bucket(trigger_location):
 func _on_actions_empty_bucket(trigger_location):
 	tile_contents[trigger_location].empty_bucket()
 
-var water_level_reduction_per_dryness_step = 5
+var water_level_reduction_per_dryness_step = 1
 func _on_DrynessUpdate_timeout():
 	for key in tile_contents.keys():
 		tile_contents[key].add_to_water_level(-water_level_reduction_per_dryness_step)

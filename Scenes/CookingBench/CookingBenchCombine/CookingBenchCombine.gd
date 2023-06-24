@@ -10,7 +10,7 @@ func _init():
 	cooking_bench = CookingBenchCombineClass.new()
 
 func _ready():
-	pass
+	$Light2D.add_to_group(str(Globals.Enums.Groups.LIGHTS))
 	
 func interact():
 	if cooking_bench.required_items_sufficient():
