@@ -1,6 +1,9 @@
 extends Node
 
 #Scenes
+onready var main_menu = preload("res://Scenes/MainMenu/MainMenu.tscn")
+onready var base_game_ui = preload("res://Scenes/BaseGameUI/BaseGameUI.tscn")
+
 onready var item_template = preload("res://Scenes/TributeItem/TributeItem.tscn")
 onready var plant_template = preload("res://Scenes/PlantObject/PlantObject.tscn")
 onready var tile_flavour_template = preload("res://Scenes/TileFlavours/TileFlavour.tscn")
